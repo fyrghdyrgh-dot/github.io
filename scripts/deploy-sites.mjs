@@ -52,6 +52,7 @@ for (const site of sites) {
   clearCloneDir(cloneDir);
   cpSync(site.outputDir, cloneDir, { recursive: true });
   run("git", ["checkout", "-B", config.github.defaultBranch || "main"], cloneDir);
+  configureGitIdentity(cloneDir);
   run("git", ["add", "."], cloneDir);
 
   const status = run("git", ["status", "--short"], cloneDir, true).trim();
@@ -153,6 +154,15 @@ function configurePages(repoId) {
   }
 
   return "manual-pages-check";
+}
+
+function configureGitIdentity(cloneDir) {
+  const gitUserName = process.env.GIT_AUTHOR_NAME || "github-actions[bot]";
+  const gitUserEmail =
+    process.env.GIT_AUTHOR_EMAIL || "41898282+github-actions[bot]@users.noreply.github.com";
+
+  run("git", ["config", "user.name", gitUserName], cloneDir);
+  run("git", ["config", "user.email", gitUserEmail], cloneDir);
 }
 
 function exitWithManualSteps(reason) {
