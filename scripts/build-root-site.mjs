@@ -7,6 +7,7 @@ import config from "../root-site.config.mjs";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const rootDir = path.resolve(__dirname, "..");
 const outputDir = path.join(rootDir, "root-home-site");
+const buildDate = new Date().toISOString().slice(0, 10);
 
 const categoryMap = new Map(config.categories.map((category) => [category.slug, category]));
 const pagesByCategory = new Map(
@@ -104,18 +105,61 @@ function renderMeta({ title, description, canonical, cssFiles, ogType = "website
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>${escapeHtml(title)}</title>
   <meta name="description" content="${escapeHtml(description)}">
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
+  <meta name="googlebot" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
+  <meta name="baiduspider" content="index,follow">
   <meta name="theme-color" content="#6a5cff">
   <link rel="canonical" href="${canonical}">
+  <meta property="og:site_name" content="${escapeHtml(config.site.title)}">
+  <meta property="og:locale" content="zh_CN">
   <meta property="og:type" content="${ogType}">
   <meta property="og:title" content="${escapeHtml(title)}">
   <meta property="og:description" content="${escapeHtml(description)}">
   <meta property="og:url" content="${canonical}">
   <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="${escapeHtml(title)}">
+  <meta name="twitter:description" content="${escapeHtml(description)}">
 ${cssLinks}${jsonLd ? `\n${jsonLd}` : ""}`;
 }
 
 function renderJsonLd(data) {
   return `  <script type="application/ld+json">${JSON.stringify(data)}</script>`;
+}
+
+function renderJsonLdList(items) {
+  return items.filter(Boolean).map((item) => renderJsonLd(item)).join("\n");
+}
+
+function breadcrumbJsonLd(items) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: items.map((item, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: item.name,
+      item: item.url
+    }))
+  };
+}
+
+function faqJsonLd(page) {
+  if (!(page.faq || []).length) {
+    return null;
+  }
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: page.faq.map(([question, answer]) => ({
+      "@type": "Question",
+      name: question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: answer
+      }
+    }))
+  };
 }
 
 function categoryIcon(slug) {
@@ -223,18 +267,33 @@ function renderSearchPanel(placeholder) {
 }
 
 function renderHomePage() {
-  const jsonLd = renderJsonLd({
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    name: config.site.title,
-    url: config.site.baseUrl,
-    description: config.site.description,
-    hasPart: config.categories.map((category) => ({
-      "@type": "CollectionPage",
-      name: category.name,
-      url: absoluteUrl(`${category.slug}/`)
-    }))
-  });
+  const jsonLd = renderJsonLdList([
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      name: config.site.title,
+      url: config.site.baseUrl,
+      description: config.site.description,
+      inLanguage: "zh-CN",
+      dateModified: buildDate,
+      hasPart: config.categories.map((category) => ({
+        "@type": "CollectionPage",
+        name: category.name,
+        url: absoluteUrl(`${category.slug}/`)
+      }))
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      name: "fybot 网站导航热门推荐",
+      itemListElement: featuredPages.slice(0, 6).map((page, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        url: absoluteUrl(`${page.slug}/`),
+        name: page.title
+      }))
+    }
+  ]);
 
   return `<!doctype html>
 <html lang="zh-CN">
@@ -274,6 +333,17 @@ ${renderMeta({
       </div>
       <div class="quick-grid">
         ${featuredPages.slice(0, 6).map((page) => renderMiniCard(page)).join("")}
+      </div>
+    </section>
+
+    <section class="crawl-strip">
+      <div class="crawl-head">
+        <p class="section-kicker">TOPIC INDEX</p>
+        <h2>专题索引与收录入口</h2>
+        <p>首页提供分类入口、分类页提供专题列表、详情页补充常见问题和相关推荐，这样 Google 与百度更容易理解整站结构。</p>
+      </div>
+      <div class="crawl-grid">
+        ${config.categories.map((category) => renderCategoryIndexCard(category)).join("")}
       </div>
     </section>
 
@@ -326,22 +396,52 @@ function renderCategorySection(category, index) {
   </section>`;
 }
 
+function renderCategoryIndexCard(category) {
+  const pages = pagesByCategory.get(category.slug) || [];
+  return `<article class="index-card" style="${bodyVars(category.theme)}">
+    <h3><a href="/${category.slug}/">${escapeHtml(category.name)}</a></h3>
+    <p>${escapeHtml(category.intro)}</p>
+    <div class="index-links">
+      ${pages.slice(0, 3).map((page) => `<a href="/${page.slug}/">${escapeHtml(page.title)}</a>`).join("")}
+    </div>
+  </article>`;
+}
+
 function renderCategoryPage(category) {
   const pages = pagesByCategory.get(category.slug) || [];
   const typeGroups = groupedPageTypes(pages);
   const canonical = absoluteUrl(`${category.slug}/`);
-  const jsonLd = renderJsonLd({
-    "@context": "https://schema.org",
-    "@type": "CollectionPage",
-    name: category.name,
-    url: canonical,
-    description: category.summary,
-    hasPart: pages.map((page) => ({
-      "@type": "WebPage",
-      name: page.title,
-      url: absoluteUrl(`${page.slug}/`)
-    }))
-  });
+  const jsonLd = renderJsonLdList([
+    {
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      name: category.name,
+      url: canonical,
+      description: category.summary,
+      inLanguage: "zh-CN",
+      dateModified: buildDate,
+      hasPart: pages.map((page) => ({
+        "@type": "WebPage",
+        name: page.title,
+        url: absoluteUrl(`${page.slug}/`)
+      }))
+    },
+    breadcrumbJsonLd([
+      { name: "首页", url: config.site.baseUrl },
+      { name: category.name, url: canonical }
+    ]),
+    {
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      name: `${category.name}内容列表`,
+      itemListElement: pages.map((page, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        url: absoluteUrl(`${page.slug}/`),
+        name: page.title
+      }))
+    }
+  ]);
 
   return `<!doctype html>
 <html lang="zh-CN">
@@ -393,6 +493,10 @@ ${renderMeta({
             <span>${escapeHtml(sectionCountSummary(pages))}</span>
             <span>支持站内搜索筛选</span>
           </div>
+          <div class="hub-copy">
+            <p>${escapeHtml(category.summary)}</p>
+            <p>本分类页会持续补充专题内容、工具页和文章页，并通过相关推荐和侧栏导航建立更密集的内链结构，方便搜索引擎抓取和理解页面主题。</p>
+          </div>
         </section>
 
         ${typeGroups.map(({ type, pages: typePages }) => renderCategoryTypeSection(category, type, typePages)).join("")}
@@ -411,13 +515,28 @@ function renderContentPage(page) {
   const category = categoryMap.get(page.category);
   const categoryPages = pagesByCategory.get(category.slug) || [];
   const canonical = absoluteUrl(`${page.slug}/`);
-  const jsonLd = renderJsonLd({
-    "@context": "https://schema.org",
-    "@type": "WebPage",
-    name: page.title,
-    url: canonical,
-    description: page.description
-  });
+  const jsonLd = renderJsonLdList([
+    {
+      "@context": "https://schema.org",
+      "@type": page.type === "article" ? "Article" : "WebPage",
+      name: page.title,
+      url: canonical,
+      description: page.description,
+      inLanguage: "zh-CN",
+      dateModified: buildDate,
+      isPartOf: {
+        "@type": "CollectionPage",
+        name: category.name,
+        url: absoluteUrl(`${category.slug}/`)
+      }
+    },
+    breadcrumbJsonLd([
+      { name: "首页", url: config.site.baseUrl },
+      { name: category.name, url: absoluteUrl(`${category.slug}/`) },
+      { name: page.title, url: canonical }
+    ]),
+    faqJsonLd(page)
+  ]);
 
   return `<!doctype html>
 <html lang="zh-CN">
@@ -709,6 +828,7 @@ function renderSitemap() {
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${urls.map((url, index) => `  <url>
     <loc>${url}</loc>
+    <lastmod>${buildDate}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>${index === 0 ? "1.0" : "0.8"}</priority>
   </url>`).join("\n")}
@@ -717,6 +837,12 @@ ${urls.map((url, index) => `  <url>
 
 function renderRobotsTxt() {
   return `User-agent: *
+Allow: /
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: Baiduspider
 Allow: /
 
 Sitemap: ${absoluteUrl("sitemap.xml")}`;
@@ -981,6 +1107,49 @@ textarea::placeholder {
 .site-footer {
   padding: 20px 0 36px;
 }
+.crawl-strip {
+  padding: 22px;
+  margin-bottom: 18px;
+  border: 1px solid rgba(100, 116, 139, 0.12);
+  border-radius: var(--radius);
+  background: white;
+  box-shadow: var(--shadow);
+}
+.crawl-head p:last-child {
+  margin-top: 10px;
+  color: #6b7280;
+  font-size: 14px;
+}
+.crawl-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 16px;
+}
+.index-card {
+  padding: 18px;
+  border-radius: 18px;
+  background: color-mix(in srgb, var(--accent-soft) 16%, white);
+  border: 1px solid color-mix(in srgb, var(--accent) 12%, #d9dde8);
+}
+.index-card h3 {
+  font-size: 18px;
+}
+.index-card p {
+  margin-top: 10px;
+  color: var(--muted);
+  font-size: 14px;
+}
+.index-links {
+  display: grid;
+  gap: 8px;
+  margin-top: 14px;
+}
+.index-links a {
+  color: var(--accent);
+  font-size: 14px;
+  font-weight: 700;
+}
 .footer-grid {
   display: grid;
   grid-template-columns: 1fr auto;
@@ -1230,6 +1399,9 @@ textarea::placeholder {
   .top-nav {
     justify-content: flex-start;
   }
+  .crawl-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
   .footer-grid {
     grid-template-columns: 1fr;
   }
@@ -1440,6 +1612,15 @@ function renderHubCss() {
 }
 .hub-meta {
   margin-top: 16px;
+}
+.hub-copy {
+  display: grid;
+  gap: 10px;
+  margin-top: 16px;
+}
+.hub-copy p {
+  color: var(--muted);
+  font-size: 14px;
 }
 .hub-section {
   padding: 22px;

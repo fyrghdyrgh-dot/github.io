@@ -51,3 +51,6 @@
 - 根站模板文档：`ROOT-SITE-TEMPLATE.md`
 - 本地路径：file:///workspace/ROOT-SITE-TEMPLATE.md
 - 当前模板状态：已完成，可继续按分类批量扩展到更多页面
+- 模板源码仓库：https://github.com/fyrghdyrgh-dot/github.io
+- 根站发布仓库：https://github.com/fyrghdyrgh-dot/fyrghdyrgh-dot.github.io
+- 根站访问地址：https://fyrghdyrgh-dot.github.io/

@@ -22,6 +22,20 @@
 - 生成脚本：`scripts/build-root-site.mjs`
 - 输出目录：`root-home-site/`
 
+## 仓库与链接
+
+- 模板源码仓库：`https://github.com/fyrghdyrgh-dot/github.io`
+- 当前本地工作区：`/workspace`
+- 根站发布仓库：`https://github.com/fyrghdyrgh-dot/fyrghdyrgh-dot.github.io`
+- 根站访问地址：`https://fyrghdyrgh-dot.github.io/`
+
+后续如果继续按模板生成：
+
+1. 先在模板源码仓库里维护 `root-site.config.mjs` 和 `scripts/build-root-site.mjs`
+2. 在本地运行 `npm run build:root-site`
+3. 把生成后的 `root-home-site/` 发布到根站发布仓库
+4. 最终外网访问地址仍然是 `https://fyrghdyrgh-dot.github.io/`
+
 ## 分类层
 
 当前模板内置这些主分类：
@@ -89,14 +103,28 @@
 生成器会自动输出：
 
 - `canonical`
+- `robots` / `googlebot` / `baiduspider`
 - `og:title`
 - `og:description`
 - `twitter:card`
+- `twitter:title`
+- `twitter:description`
 - 首页和分类页的 `CollectionPage` 结构化数据
-- 子页的 `WebPage` 结构化数据
+- 分类页与详情页的 `BreadcrumbList`
+- 分类页的 `ItemList`
+- 子页的 `WebPage` 或 `Article` 结构化数据
+- FAQ 页的 `FAQPage`
 - `robots.txt`
 - `sitemap.xml`
 - `site-manifest.json`
+- `sitemap.xml` 中的 `lastmod`
+
+这些优化能把站点做到“更容易被 Google 和百度抓取与理解”的程度，但是否实际收录仍取决于：
+
+- 页面上线后的抓取周期
+- 是否持续新增内容
+- 是否有稳定内链和外链
+- 是否在 Google Search Console / 百度搜索资源平台中提交站点
 
 ## 服务器外链规则
 
@@ -126,6 +154,7 @@ npm run build:root-site
 - 模板已做完，当前模板源文件就是 `root-site.config.mjs` + `scripts/build-root-site.mjs`
 - 这套模板已经支持批量扩分类、扩页面数量、统一生成首页/分类页/详情页
 - 后续如果要再批量做几十页，优先在配置里继续追加页面，不要手改 `root-home-site/`
+- 后续真正该改的是模板源码仓库，不是直接手改发布仓库里的 HTML
 
 ## 推荐扩展方向
 
