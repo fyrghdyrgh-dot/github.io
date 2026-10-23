@@ -6,6 +6,7 @@
 
 - 配置驱动的批量站点定义：`sites.config.json`
 - 本地静态站生成器：`scripts/generate-sites.mjs`
+- 根域名导航站导出器：`scripts/export-root-site.mjs`
 - GitHub 仓库创建与批量发布脚本：`scripts/deploy-sites.mjs`
 - 本地产物校验脚本：`scripts/verify-sites.mjs`
 - 每 10 分钟运行一次的批量发布工作流：`.github/workflows/publish-sites.yml`
@@ -17,6 +18,7 @@
   - `server-lead`：服务器引流站，会在相关场景自然加入 `https://1bgp.com/`
   - `traffic`：普通流量站，默认不加入推广链接
 - 输出完整静态站结构，包括：
+  - 根域名导航首页：`/index.html`
   - `index.html`
   - `404.html`
   - `robots.txt`

@@ -16,6 +16,16 @@
     "analyticsPlaceholder": true,
     "adPlaceholder": true
   },
+  "portal": {
+    "name": "FYR 网站导航",
+    "tagline": "中文工具、服务器与开发资源，一站直达。",
+    "description": "围绕服务器部署、运营效率和开发调试整理中文站点目录，在首页按分类浏览，再进入对应子目录使用具体工具。",
+    "featuredGroups": [
+      "服务器与部署",
+      "运营与增长",
+      "开发与效率"
+    ]
+  },
   "sites": [
     {
       "slug": "vps-launch-checklist",
@@ -39,6 +49,7 @@
         "surfaceSoft": "#111827"
       },
       "referenceStyle": "教程型工具站",
+      "directoryGroup": "服务器与部署",
       "promoteTarget": true,
       "feature": {
         "kind": "deploymentChecklist",
@@ -74,6 +85,7 @@
         "surfaceSoft": "#101826"
       },
       "referenceStyle": "决策型工具页",
+      "directoryGroup": "服务器与部署",
       "promoteTarget": true,
       "feature": {
         "kind": "serverSelector",
@@ -113,6 +125,7 @@
         "surfaceSoft": "#172033"
       },
       "referenceStyle": "移动端小工具站",
+      "directoryGroup": "开发与效率",
       "promoteTarget": false,
       "feature": {
         "kind": "ratioCalculator",
@@ -157,6 +170,7 @@
         "surfaceSoft": "#132238"
       },
       "referenceStyle": "运营工具站",
+      "directoryGroup": "运营与增长",
       "promoteTarget": false,
       "feature": {
         "kind": "utmBuilder"
@@ -184,6 +198,7 @@
         "surfaceSoft": "#14213a"
       },
       "referenceStyle": "开发工具站",
+      "directoryGroup": "开发与效率",
       "promoteTarget": false,
       "feature": {
         "kind": "jsonFormatter"
