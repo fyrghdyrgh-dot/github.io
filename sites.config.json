@@ -1,0 +1,139 @@
+{
+  "github": {
+    "owner": "fyrghdyrgh-dot",
+    "defaultBranch": "main",
+    "orchestratorRepo": "github.io"
+  },
+  "deployment": {
+    "preferredMode": "actions",
+    "fallbackMode": "branch",
+    "scheduleCron": "*/10 * * * *",
+    "public": true
+  },
+  "defaults": {
+    "lang": "zh-CN",
+    "targetLink": "https://1bgp.com/",
+    "analyticsPlaceholder": true,
+    "adPlaceholder": true
+  },
+  "sites": [
+    {
+      "slug": "vps-launch-checklist",
+      "repo": "vps-launch-checklist",
+      "name": "VPS 上线清单",
+      "tagline": "把服务器建站、部署、备份、监控一次梳理清楚。",
+      "description": "面向 VPS 和云服务器用户的上线清单站，提供部署步骤、风险排查和资源建议。",
+      "keywords": [
+        "VPS 教程",
+        "服务器建站",
+        "云服务器清单",
+        "Linux 部署",
+        "GitHub Pages"
+      ],
+      "category": "server-lead",
+      "topic": "服务器部署与建站",
+      "theme": {
+        "accent": "#6d5efc",
+        "accentSoft": "#edeaff",
+        "surface": "#0f172a",
+        "surfaceSoft": "#111827"
+      },
+      "referenceStyle": "教程型工具站",
+      "promoteTarget": true,
+      "feature": {
+        "kind": "deploymentChecklist",
+        "items": [
+          "确认域名解析与 SSL 方案",
+          "初始化系统用户与 SSH Key",
+          "部署 Nginx 或 Caddy 反向代理",
+          "配置应用环境变量与备份策略",
+          "启用监控、告警与日志轮转",
+          "准备上线后的回滚方案"
+        ]
+      }
+    },
+    {
+      "slug": "server-location-advisor",
+      "repo": "server-location-advisor",
+      "name": "服务器节点建议器",
+      "tagline": "根据业务场景、目标地区与预算，快速筛选更合适的服务器节点。",
+      "description": "一个轻量的服务器选址工具站，帮助用户依据业务类型和访问地区匹配服务器部署方向。",
+      "keywords": [
+        "服务器推荐",
+        "VPS 节点",
+        "云服务器地区",
+        "海外服务器",
+        "站点部署"
+      ],
+      "category": "server-lead",
+      "topic": "服务器选型与节点推荐",
+      "theme": {
+        "accent": "#06b6d4",
+        "accentSoft": "#dffaff",
+        "surface": "#0b1220",
+        "surfaceSoft": "#101826"
+      },
+      "referenceStyle": "决策型工具页",
+      "promoteTarget": true,
+      "feature": {
+        "kind": "serverSelector",
+        "workloads": [
+          "个人博客",
+          "下载分发",
+          "跨境电商",
+          "API 服务"
+        ],
+        "regions": [
+          "中国香港",
+          "新加坡",
+          "日本东京",
+          "美国西海岸"
+        ]
+      }
+    },
+    {
+      "slug": "ratio-kit-mobile",
+      "repo": "ratio-kit-mobile",
+      "name": "比例计算小工具",
+      "tagline": "快速换算图片比例、画布尺寸和移动端常见适配尺寸。",
+      "description": "一个适合手机端使用的比例换算站，提供宽高比计算、等比缩放和常见画布参考。",
+      "keywords": [
+        "比例计算器",
+        "图片尺寸换算",
+        "移动端适配",
+        "画布比例",
+        "宽高计算"
+      ],
+      "category": "traffic",
+      "topic": "图片比例与尺寸工具",
+      "theme": {
+        "accent": "#f97316",
+        "accentSoft": "#fff0e5",
+        "surface": "#111827",
+        "surfaceSoft": "#172033"
+      },
+      "referenceStyle": "移动端小工具站",
+      "promoteTarget": false,
+      "feature": {
+        "kind": "ratioCalculator",
+        "presets": [
+          {
+            "name": "短视频封面",
+            "width": 1080,
+            "height": 1920
+          },
+          {
+            "name": "横版博客头图",
+            "width": 1440,
+            "height": 810
+          },
+          {
+            "name": "正方形社媒图",
+            "width": 1080,
+            "height": 1080
+          }
+        ]
+      }
+    }
+  ]
+}
