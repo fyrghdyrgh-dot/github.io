@@ -13,13 +13,19 @@ permissions:
 
 jobs:
   publish:
-    if: ${{ secrets.GH_TOKEN != '' }}
     runs-on: ubuntu-latest
     env:
       GH_TOKEN: ${{ secrets.GH_TOKEN }}
     steps:
       - name: Checkout orchestrator repo
         uses: actions/checkout@v4
+
+      - name: Validate GH_TOKEN
+        run: |
+          if [ -z "${GH_TOKEN}" ]; then
+            echo "Missing GH_TOKEN secret"
+            exit 1
+          fi
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
