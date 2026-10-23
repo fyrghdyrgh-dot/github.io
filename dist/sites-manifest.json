@@ -1,0 +1,26 @@
+[
+  {
+    "slug": "vps-launch-checklist",
+    "repo": "vps-launch-checklist",
+    "name": "VPS 上线清单",
+    "category": "server-lead",
+    "siteUrl": "https://fyrghdyrgh-dot.github.io/vps-launch-checklist/",
+    "outputDir": "/workspace/dist/vps-launch-checklist"
+  },
+  {
+    "slug": "server-location-advisor",
+    "repo": "server-location-advisor",
+    "name": "服务器节点建议器",
+    "category": "server-lead",
+    "siteUrl": "https://fyrghdyrgh-dot.github.io/server-location-advisor/",
+    "outputDir": "/workspace/dist/server-location-advisor"
+  },
+  {
+    "slug": "ratio-kit-mobile",
+    "repo": "ratio-kit-mobile",
+    "name": "比例计算小工具",
+    "category": "traffic",
+    "siteUrl": "https://fyrghdyrgh-dot.github.io/ratio-kit-mobile/",
+    "outputDir": "/workspace/dist/ratio-kit-mobile"
+  }
+]

@@ -1,0 +1,36 @@
+name: Batch Publish Sites
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+  schedule:
+    - cron: "*/10 * * * *"
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    if: ${{ secrets.GH_TOKEN != '' }}
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ secrets.GH_TOKEN }}
+    steps:
+      - name: Checkout orchestrator repo
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Show config target count
+        run: node -e "const fs=require('fs');const c=JSON.parse(fs.readFileSync('sites.config.json','utf8'));console.log('sites:', c.sites.length)"
+
+      - name: Generate site packages
+        run: npm run generate
+
+      - name: Deploy all sites
+        run: npm run deploy

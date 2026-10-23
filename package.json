@@ -1,0 +1,16 @@
+{
+  "name": "github-pages-batch-builder",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Batch site generator and publisher for GitHub Pages repositories.",
+  "scripts": {
+    "generate": "node scripts/generate-sites.mjs",
+    "deploy": "node scripts/deploy-sites.mjs",
+    "verify": "node scripts/verify-sites.mjs",
+    "build": "npm run generate && npm run verify"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

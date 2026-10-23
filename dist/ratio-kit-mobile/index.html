@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>比例计算小工具 - 快速换算图片比例、画布尺寸和移动端常见适配尺寸。</title>
+  <meta name="description" content="一个适合手机端使用的比例换算站，提供宽高比计算、等比缩放和常见画布参考。">
+  <meta name="keywords" content="比例计算器, 图片尺寸换算, 移动端适配, 画布比例, 宽高计算">
+  <meta name="theme-color" content="#f97316">
+  <link rel="canonical" href="https://fyrghdyrgh-dot.github.io/ratio-kit-mobile/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="比例计算小工具">
+  <meta property="og:description" content="一个适合手机端使用的比例换算站，提供宽高比计算、等比缩放和常见画布参考。">
+  <meta property="og:url" content="https://fyrghdyrgh-dot.github.io/ratio-kit-mobile/">
+  <meta property="og:locale" content="zh_CN">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="./assets/site.css">
+</head>
+<body>
+  <header class="site-shell hero">
+    <nav class="nav">
+      <a class="brand" href="./">比例计算小工具</a>
+      <div class="nav-meta">
+        <span class="pill">普通流量站</span>
+        <span class="pill pill-soft">移动端小工具站</span>
+      </div>
+    </nav>
+    <div class="hero-grid">
+      <section>
+        <p class="eyebrow">图片比例与尺寸工具</p>
+        <h1>比例计算小工具</h1>
+        <p class="lead">快速换算图片比例、画布尺寸和移动端常见适配尺寸。</p>
+        <p class="sublead">为移动端和轻量静态站场景设计，打开即用，适合快速获取自然流量。</p>
+        <div class="cta-row">
+          <a class="button" href="#feature">立即使用</a>
+          <a class="button button-ghost" href="#faq">查看常见问题</a>
+        </div>
+      </section>
+      <aside class="hero-panel">
+        <h2>站点摘要</h2>
+        <ul class="summary-list">
+          <li><strong>主题</strong><span>图片比例与尺寸工具</span></li>
+          <li><strong>发布方式</strong><span>GitHub Pages 静态托管</span></li>
+          <li><strong>更新形态</strong><span>配置驱动 + 自动部署</span></li>
+          <li><strong>SEO 基础</strong><span>Canonical / robots / sitemap 已生成</span></li>
+        </ul>
+      </aside>
+    </div>
+  </header>
+
+  <main class="site-shell">
+    <section class="section section-grid">
+      <article class="card"><h2>轻量可用</h2><p>首页即具备可实际使用的小工具或有效内容，适合移动端直接访问。</p></article><article class="card"><h2>变现预留</h2><p>保留广告位、统计代码位和联盟位，但默认不接入外部账号服务。</p></article><article class="card"><h2>低维护成本</h2><p>纯静态站结构，更新快，适合批量生成和长期托管。</p></article>
+    </section>
+
+    <section class="section split">
+      <div>
+        <p class="eyebrow">站点定位</p>
+        <h2>不是简单换标题，而是按主题组织结构</h2>
+        <p>一个适合手机端使用的比例换算站，提供宽高比计算、等比缩放和常见画布参考。</p>
+      </div>
+      <div class="card-stack">
+        <article class="card"><h3>适合主题</h3><p>工具站、查询页、导航页、教程页、手机端小工具、轻量资源页。</p></article><article class="card"><h3>页面策略</h3><p>减少复杂依赖，保留核心交互，让页面快开、好用、容易继续扩展。</p></article><article class="card"><h3>后续演化</h3><p>可继续追加专题文章、站内搜索、广告位、赞助位和自定义域名。</p></article>
+      </div>
+    </section>
+
+    <section class="section feature-wrap" id="feature">
+      <div class="section-head">
+        <p class="eyebrow">核心功能</p>
+        <h2>比例与尺寸换算工具</h2>
+        <p>输入原始尺寸与目标宽度，快速换算等比高度，并查看常见比例预设。</p>
+      </div>
+      <div class="feature-grid">
+      <article class="tool-card">
+        <h3>输入尺寸</h3>
+        <div class="meta-row">
+          <div>
+            <label for="originWidth">原始宽度</label>
+            <input id="originWidth" type="number" min="1" placeholder="例如 1080">
+          </div>
+          <div>
+            <label for="originHeight">原始高度</label>
+            <input id="originHeight" type="number" min="1" placeholder="例如 1920">
+          </div>
+        </div>
+        <label for="targetWidth">目标宽度</label>
+        <input id="targetWidth" type="number" min="1" placeholder="例如 750">
+        <button class="button" id="ratioButton" type="button">计算等比高度</button>
+      </article>
+      <article class="tool-card">
+        <h3>结果与预设</h3>
+        <div class="result-panel" id="ratioResult">输入尺寸后查看结果。</div>
+        <div class="checklist">
+          <button class="button button-ghost preset-button" type="button" data-preset-width="1080" data-preset-height="1920">短视频封面 1080 x 1920</button><button class="button button-ghost preset-button" type="button" data-preset-width="1440" data-preset-height="810">横版博客头图 1440 x 810</button><button class="button button-ghost preset-button" type="button" data-preset-width="1080" data-preset-height="1080">正方形社媒图 1080 x 1080</button>
+        </div>
+      </article>
+    </div>
+    </section>
+
+    
+
+    <section class="section utility-grid">
+      <article class="card">
+        <h2>规范链接</h2>
+        <p>当前页面已输出 canonical、robots.txt 与 sitemap.xml，适配 GitHub Pages 项目路径。</p>
+      </article>
+      <article class="card">
+        <h2>统计预留</h2>
+        <p>已预留统计代码位置，后续可接入你自己的分析方案。</p>
+        <pre class="placeholder">&lt;!-- analytics slot --&gt;</pre>
+      </article>
+      <article class="card">
+        <h2>广告位预留</h2>
+        <p>已预留内容位与广告位插槽，但默认不接入第三方广告账号。</p>
+        <pre class="placeholder">&lt;!-- ad slot --&gt;</pre>
+      </article>
+    </section>
+
+    <section class="section" id="faq">
+      <div class="section-head">
+        <p class="eyebrow">常见问题</p>
+        <h2>后续扩展时重点关注这些点</h2>
+      </div>
+      <div class="faq-list">
+        <details class="faq-item"><summary>为什么默认不插入推广链接？</summary><p>普通流量站先保证内容和工具本身可用，只有主题真正相关时才加入推广。</p></details><details class="faq-item"><summary>这个模板支持扩展更多工具吗？</summary><p>支持，可继续新增 feature 类型并在配置中批量声明。</p></details><details class="faq-item"><summary>是否适合手机端？</summary><p>模板默认以移动端优先设计，按钮、卡片和输入区都做了窄屏优化。</p></details>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-shell footer">
+    <p>比例计算小工具 · 图片比例与尺寸工具</p>
+    <p>当前地址：<a href="https://fyrghdyrgh-dot.github.io/ratio-kit-mobile/">https://fyrghdyrgh-dot.github.io/ratio-kit-mobile/</a></p>
+  </footer>
+
+  <script>window.__SITE_DATA__ = {"owner":"fyrghdyrgh-dot","siteUrl":"https://fyrghdyrgh-dot.github.io/ratio-kit-mobile/","repo":"ratio-kit-mobile","slug":"ratio-kit-mobile","name":"比例计算小工具","tagline":"快速换算图片比例、画布尺寸和移动端常见适配尺寸。","description":"一个适合手机端使用的比例换算站，提供宽高比计算、等比缩放和常见画布参考。","topic":"图片比例与尺寸工具","category":"traffic","keywords":["比例计算器","图片尺寸换算","移动端适配","画布比例","宽高计算"],"lang":"zh-CN","colors":{"accent":"#f97316","accentSoft":"#fff0e5","surface":"#111827","surfaceSoft":"#172033"},"promoteTarget":false,"targetLink":"https://1bgp.com/","analyticsPlaceholder":true,"adPlaceholder":true,"feature":{"kind":"ratioCalculator","presets":[{"name":"短视频封面","width":1080,"height":1920},{"name":"横版博客头图","width":1440,"height":810},{"name":"正方形社媒图","width":1080,"height":1080}]},"referenceStyle":"移动端小工具站","sections":{"highlights":[{"title":"轻量可用","text":"首页即具备可实际使用的小工具或有效内容，适合移动端直接访问。"},{"title":"变现预留","text":"保留广告位、统计代码位和联盟位，但默认不接入外部账号服务。"},{"title":"低维护成本","text":"纯静态站结构，更新快，适合批量生成和长期托管。"}],"contentCards":[{"title":"适合主题","text":"工具站、查询页、导航页、教程页、手机端小工具、轻量资源页。"},{"title":"页面策略","text":"减少复杂依赖，保留核心交互，让页面快开、好用、容易继续扩展。"},{"title":"后续演化","text":"可继续追加专题文章、站内搜索、广告位、赞助位和自定义域名。"}],"faq":[{"q":"为什么默认不插入推广链接？","a":"普通流量站先保证内容和工具本身可用，只有主题真正相关时才加入推广。"},{"q":"这个模板支持扩展更多工具吗？","a":"支持，可继续新增 feature 类型并在配置中批量声明。"},{"q":"是否适合手机端？","a":"模板默认以移动端优先设计，按钮、卡片和输入区都做了窄屏优化。"}]}};</script>
+  <script type="module" src="./assets/site.js"></script>
+</body>
+</html>
