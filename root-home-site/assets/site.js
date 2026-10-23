@@ -2,7 +2,7 @@ const searchInput = document.getElementById("siteSearch");
 const grid = document.getElementById("siteGrid");
 const emptyTip = document.getElementById("emptyTip");
 const filterButtons = [...document.querySelectorAll("[data-filter]")];
-const cards = grid ? [...grid.querySelectorAll(".site-card")] : [];
+const cards = [...document.querySelectorAll(".entry-card")];
 
 let activeFilter = "all";
 
@@ -13,7 +13,7 @@ if (searchInput) {
 filterButtons.forEach((button) => {
   button.addEventListener("click", () => {
     activeFilter = button.dataset.filter || "all";
-    filterButtons.forEach((item) => item.classList.toggle("active", item === button));
+    filterButtons.forEach((item) => item.classList.toggle("is-active", item === button));
     updateCards();
   });
 });
@@ -42,6 +42,12 @@ function updateCards() {
   if (emptyTip) {
     emptyTip.classList.toggle("hidden", visibleCount > 0);
   }
+
+  document.querySelectorAll("[data-group]").forEach((section) => {
+    const sectionCards = [...section.querySelectorAll(".entry-card")];
+    const anyVisible = sectionCards.some((card) => !card.classList.contains("hidden"));
+    section.classList.toggle("hidden", !anyVisible);
+  });
 }
 
 updateCards();
