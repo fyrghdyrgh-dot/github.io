@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>UTM 链接生成器 - 把推广来源、媒介和活动参数整理成规范链接，便于投放和复盘。</title>
+  <meta name="description" content="面向运营、投放和内容团队的 UTM 参数工具，支持快速拼接活动链接并即时查看最终结果。">
+  <meta name="keywords" content="UTM 生成器, 推广链接参数, 活动链接制作, 投放追踪, 运营工具">
+  <meta name="theme-color" content="#10b981">
+  <link rel="canonical" href="https://fyrghdyrgh-dot.github.io/utm-link-builder/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="UTM 链接生成器">
+  <meta property="og:description" content="面向运营、投放和内容团队的 UTM 参数工具，支持快速拼接活动链接并即时查看最终结果。">
+  <meta property="og:url" content="https://fyrghdyrgh-dot.github.io/utm-link-builder/">
+  <meta property="og:locale" content="zh_CN">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="./assets/site.css">
+</head>
+<body>
+  <header class="site-shell hero">
+    <nav class="nav">
+      <a class="brand" href="./">UTM 链接生成器</a>
+      <div class="nav-meta">
+        <span class="pill">普通流量站</span>
+        <span class="pill pill-soft">运营工具站</span>
+      </div>
+    </nav>
+    <div class="hero-grid">
+      <section>
+        <p class="eyebrow">推广链接与参数管理</p>
+        <h1>UTM 链接生成器</h1>
+        <p class="lead">把推广来源、媒介和活动参数整理成规范链接，便于投放和复盘。</p>
+        <p class="sublead">为移动端和轻量静态站场景设计，打开即用，适合快速获取自然流量。</p>
+        <div class="cta-row">
+          <a class="button" href="#feature">立即使用</a>
+          <a class="button button-ghost" href="#faq">查看常见问题</a>
+        </div>
+      </section>
+      <aside class="hero-panel">
+        <h2>站点摘要</h2>
+        <ul class="summary-list">
+          <li><strong>主题</strong><span>推广链接与参数管理</span></li>
+          <li><strong>发布方式</strong><span>GitHub Pages 静态托管</span></li>
+          <li><strong>更新形态</strong><span>配置驱动 + 自动部署</span></li>
+          <li><strong>SEO 基础</strong><span>Canonical / robots / sitemap 已生成</span></li>
+        </ul>
+      </aside>
+    </div>
+  </header>
+
+  <main class="site-shell">
+    <section class="section section-grid">
+      <article class="card"><h2>轻量可用</h2><p>首页即具备可实际使用的小工具或有效内容，适合移动端直接访问。</p></article><article class="card"><h2>变现预留</h2><p>保留广告位、统计代码位和联盟位，但默认不接入外部账号服务。</p></article><article class="card"><h2>低维护成本</h2><p>纯静态站结构，更新快，适合批量生成和长期托管。</p></article>
+    </section>
+
+    <section class="section split">
+      <div>
+        <p class="eyebrow">站点定位</p>
+        <h2>不是简单换标题，而是按主题组织结构</h2>
+        <p>面向运营、投放和内容团队的 UTM 参数工具，支持快速拼接活动链接并即时查看最终结果。</p>
+      </div>
+      <div class="card-stack">
+        <article class="card"><h3>适合主题</h3><p>工具站、查询页、导航页、教程页、手机端小工具、轻量资源页。</p></article><article class="card"><h3>页面策略</h3><p>减少复杂依赖，保留核心交互，让页面快开、好用、容易继续扩展。</p></article><article class="card"><h3>后续演化</h3><p>可继续追加专题文章、站内搜索、广告位、赞助位和自定义域名。</p></article>
+      </div>
+    </section>
+
+    <section class="section feature-wrap" id="feature">
+      <div class="section-head">
+        <p class="eyebrow">核心功能</p>
+        <h2>UTM 推广链接生成工具</h2>
+        <p>把投放来源、媒介、活动名和内容参数整理成可直接使用的推广链接。</p>
+      </div>
+      <div class="feature-grid">
+      <article class="tool-card">
+        <h3>填写参数</h3>
+        <label for="utmBase">落地页地址</label>
+        <input id="utmBase" type="url" placeholder="例如 https://example.com/pricing">
+        <div class="meta-row">
+          <div>
+            <label for="utmSource">来源 source</label>
+            <input id="utmSource" type="text" placeholder="例如 xiaohongshu">
+          </div>
+          <div>
+            <label for="utmMedium">媒介 medium</label>
+            <input id="utmMedium" type="text" placeholder="例如 social">
+          </div>
+        </div>
+        <div class="meta-row">
+          <div>
+            <label for="utmCampaign">活动 campaign</label>
+            <input id="utmCampaign" type="text" placeholder="例如 summer_launch">
+          </div>
+          <div>
+            <label for="utmContent">内容 content</label>
+            <input id="utmContent" type="text" placeholder="例如 note_a">
+          </div>
+        </div>
+        <label for="utmTerm">关键词 term</label>
+        <input id="utmTerm" type="text" placeholder="例如 server_plan">
+        <div class="button-row">
+          <button class="button" id="utmBuildButton" type="button">生成链接</button>
+          <button class="button button-ghost" id="utmCopyButton" type="button">复制结果</button>
+        </div>
+      </article>
+      <article class="tool-card">
+        <h3>生成结果</h3>
+        <div class="result-panel code-block" id="utmResult">填写参数后查看结果。</div>
+        <div class="checklist">
+          <div class="check-item"><span>适合广告投放、私域分发、内容渠道统计和活动复盘。</span></div>
+          <div class="check-item"><span>建议统一命名规则，避免 source、medium 和 campaign 写法混乱。</span></div>
+        </div>
+      </article>
+    </div>
+    </section>
+
+    
+
+    <section class="section utility-grid">
+      <article class="card">
+        <h2>规范链接</h2>
+        <p>当前页面已输出 canonical、robots.txt 与 sitemap.xml，适配 GitHub Pages 项目路径。</p>
+      </article>
+      <article class="card">
+        <h2>统计预留</h2>
+        <p>已预留统计代码位置，后续可接入你自己的分析方案。</p>
+        <pre class="placeholder">&lt;!-- analytics slot --&gt;</pre>
+      </article>
+      <article class="card">
+        <h2>广告位预留</h2>
+        <p>已预留内容位与广告位插槽，但默认不接入第三方广告账号。</p>
+        <pre class="placeholder">&lt;!-- ad slot --&gt;</pre>
+      </article>
+    </section>
+
+    <section class="section" id="faq">
+      <div class="section-head">
+        <p class="eyebrow">常见问题</p>
+        <h2>后续扩展时重点关注这些点</h2>
+      </div>
+      <div class="faq-list">
+        <details class="faq-item"><summary>为什么默认不插入推广链接？</summary><p>普通流量站先保证内容和工具本身可用，只有主题真正相关时才加入推广。</p></details><details class="faq-item"><summary>这个模板支持扩展更多工具吗？</summary><p>支持，可继续新增 feature 类型并在配置中批量声明。</p></details><details class="faq-item"><summary>是否适合手机端？</summary><p>模板默认以移动端优先设计，按钮、卡片和输入区都做了窄屏优化。</p></details>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-shell footer">
+    <p>UTM 链接生成器 · 推广链接与参数管理</p>
+    <p>当前地址：<a href="https://fyrghdyrgh-dot.github.io/utm-link-builder/">https://fyrghdyrgh-dot.github.io/utm-link-builder/</a></p>
+  </footer>
+
+  <script>window.__SITE_DATA__ = {"owner":"fyrghdyrgh-dot","siteUrl":"https://fyrghdyrgh-dot.github.io/utm-link-builder/","repo":"utm-link-builder","slug":"utm-link-builder","name":"UTM 链接生成器","tagline":"把推广来源、媒介和活动参数整理成规范链接，便于投放和复盘。","description":"面向运营、投放和内容团队的 UTM 参数工具，支持快速拼接活动链接并即时查看最终结果。","topic":"推广链接与参数管理","category":"traffic","keywords":["UTM 生成器","推广链接参数","活动链接制作","投放追踪","运营工具"],"lang":"zh-CN","colors":{"accent":"#10b981","accentSoft":"#dcfff1","surface":"#0f172a","surfaceSoft":"#132238"},"promoteTarget":false,"targetLink":"https://1bgp.com/","analyticsPlaceholder":true,"adPlaceholder":true,"feature":{"kind":"utmBuilder"},"referenceStyle":"运营工具站","sections":{"highlights":[{"title":"轻量可用","text":"首页即具备可实际使用的小工具或有效内容，适合移动端直接访问。"},{"title":"变现预留","text":"保留广告位、统计代码位和联盟位，但默认不接入外部账号服务。"},{"title":"低维护成本","text":"纯静态站结构，更新快，适合批量生成和长期托管。"}],"contentCards":[{"title":"适合主题","text":"工具站、查询页、导航页、教程页、手机端小工具、轻量资源页。"},{"title":"页面策略","text":"减少复杂依赖，保留核心交互，让页面快开、好用、容易继续扩展。"},{"title":"后续演化","text":"可继续追加专题文章、站内搜索、广告位、赞助位和自定义域名。"}],"faq":[{"q":"为什么默认不插入推广链接？","a":"普通流量站先保证内容和工具本身可用，只有主题真正相关时才加入推广。"},{"q":"这个模板支持扩展更多工具吗？","a":"支持，可继续新增 feature 类型并在配置中批量声明。"},{"q":"是否适合手机端？","a":"模板默认以移动端优先设计，按钮、卡片和输入区都做了窄屏优化。"}]}};</script>
+  <script type="module" src="./assets/site.js"></script>
+</body>
+</html>

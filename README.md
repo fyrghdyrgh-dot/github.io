@@ -32,6 +32,8 @@
 - `vps-launch-checklist`
 - `server-location-advisor`
 - `ratio-kit-mobile`
+- `utm-link-builder`
+- `json-format-workbench`
 
 这些示例不是简单换标题，而是包含不同的页面结构和不同的核心功能。
 

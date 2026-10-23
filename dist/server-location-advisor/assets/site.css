@@ -252,6 +252,23 @@ textarea::placeholder {
   gap: 12px;
 }
 
+.button-row {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+
+.tool-textarea {
+  min-height: 220px;
+  resize: vertical;
+}
+
+.code-block {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  overflow: auto;
+}
+
 .progress {
   height: 12px;
   border-radius: 999px;

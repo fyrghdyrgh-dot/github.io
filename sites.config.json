@@ -134,6 +134,60 @@
           }
         ]
       }
+    },
+    {
+      "slug": "utm-link-builder",
+      "repo": "utm-link-builder",
+      "name": "UTM 链接生成器",
+      "tagline": "把推广来源、媒介和活动参数整理成规范链接，便于投放和复盘。",
+      "description": "面向运营、投放和内容团队的 UTM 参数工具，支持快速拼接活动链接并即时查看最终结果。",
+      "keywords": [
+        "UTM 生成器",
+        "推广链接参数",
+        "活动链接制作",
+        "投放追踪",
+        "运营工具"
+      ],
+      "category": "traffic",
+      "topic": "推广链接与参数管理",
+      "theme": {
+        "accent": "#10b981",
+        "accentSoft": "#dcfff1",
+        "surface": "#0f172a",
+        "surfaceSoft": "#132238"
+      },
+      "referenceStyle": "运营工具站",
+      "promoteTarget": false,
+      "feature": {
+        "kind": "utmBuilder"
+      }
+    },
+    {
+      "slug": "json-format-workbench",
+      "repo": "json-format-workbench",
+      "name": "JSON 格式化工具",
+      "tagline": "粘贴 JSON 文本后快速格式化、压缩，并检查常见结构错误。",
+      "description": "一个面向开发、接口联调和数据排查场景的 JSON 处理工具，支持格式化、美化和压缩输出。",
+      "keywords": [
+        "JSON 格式化",
+        "JSON 校验",
+        "JSON 压缩",
+        "接口调试工具",
+        "开发工具"
+      ],
+      "category": "traffic",
+      "topic": "开发调试与数据处理",
+      "theme": {
+        "accent": "#3b82f6",
+        "accentSoft": "#e4f0ff",
+        "surface": "#0b1220",
+        "surfaceSoft": "#14213a"
+      },
+      "referenceStyle": "开发工具站",
+      "promoteTarget": false,
+      "feature": {
+        "kind": "jsonFormatter"
+      }
     }
   ]
 }

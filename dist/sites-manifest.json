@@ -22,5 +22,21 @@
     "category": "traffic",
     "siteUrl": "https://fyrghdyrgh-dot.github.io/ratio-kit-mobile/",
     "outputDir": "/workspace/dist/ratio-kit-mobile"
+  },
+  {
+    "slug": "utm-link-builder",
+    "repo": "utm-link-builder",
+    "name": "UTM 链接生成器",
+    "category": "traffic",
+    "siteUrl": "https://fyrghdyrgh-dot.github.io/utm-link-builder/",
+    "outputDir": "/workspace/dist/utm-link-builder"
+  },
+  {
+    "slug": "json-format-workbench",
+    "repo": "json-format-workbench",
+    "name": "JSON 格式化工具",
+    "category": "traffic",
+    "siteUrl": "https://fyrghdyrgh-dot.github.io/json-format-workbench/",
+    "outputDir": "/workspace/dist/json-format-workbench"
   }
 ]

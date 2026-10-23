@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>JSON 格式化工具 - 粘贴 JSON 文本后快速格式化、压缩，并检查常见结构错误。</title>
+  <meta name="description" content="一个面向开发、接口联调和数据排查场景的 JSON 处理工具，支持格式化、美化和压缩输出。">
+  <meta name="keywords" content="JSON 格式化, JSON 校验, JSON 压缩, 接口调试工具, 开发工具">
+  <meta name="theme-color" content="#3b82f6">
+  <link rel="canonical" href="https://fyrghdyrgh-dot.github.io/json-format-workbench/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="JSON 格式化工具">
+  <meta property="og:description" content="一个面向开发、接口联调和数据排查场景的 JSON 处理工具，支持格式化、美化和压缩输出。">
+  <meta property="og:url" content="https://fyrghdyrgh-dot.github.io/json-format-workbench/">
+  <meta property="og:locale" content="zh_CN">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="./assets/site.css">
+</head>
+<body>
+  <header class="site-shell hero">
+    <nav class="nav">
+      <a class="brand" href="./">JSON 格式化工具</a>
+      <div class="nav-meta">
+        <span class="pill">普通流量站</span>
+        <span class="pill pill-soft">开发工具站</span>
+      </div>
+    </nav>
+    <div class="hero-grid">
+      <section>
+        <p class="eyebrow">开发调试与数据处理</p>
+        <h1>JSON 格式化工具</h1>
+        <p class="lead">粘贴 JSON 文本后快速格式化、压缩，并检查常见结构错误。</p>
+        <p class="sublead">为移动端和轻量静态站场景设计，打开即用，适合快速获取自然流量。</p>
+        <div class="cta-row">
+          <a class="button" href="#feature">立即使用</a>
+          <a class="button button-ghost" href="#faq">查看常见问题</a>
+        </div>
+      </section>
+      <aside class="hero-panel">
+        <h2>站点摘要</h2>
+        <ul class="summary-list">
+          <li><strong>主题</strong><span>开发调试与数据处理</span></li>
+          <li><strong>发布方式</strong><span>GitHub Pages 静态托管</span></li>
+          <li><strong>更新形态</strong><span>配置驱动 + 自动部署</span></li>
+          <li><strong>SEO 基础</strong><span>Canonical / robots / sitemap 已生成</span></li>
+        </ul>
+      </aside>
+    </div>
+  </header>
+
+  <main class="site-shell">
+    <section class="section section-grid">
+      <article class="card"><h2>轻量可用</h2><p>首页即具备可实际使用的小工具或有效内容，适合移动端直接访问。</p></article><article class="card"><h2>变现预留</h2><p>保留广告位、统计代码位和联盟位，但默认不接入外部账号服务。</p></article><article class="card"><h2>低维护成本</h2><p>纯静态站结构，更新快，适合批量生成和长期托管。</p></article>
+    </section>
+
+    <section class="section split">
+      <div>
+        <p class="eyebrow">站点定位</p>
+        <h2>不是简单换标题，而是按主题组织结构</h2>
+        <p>一个面向开发、接口联调和数据排查场景的 JSON 处理工具，支持格式化、美化和压缩输出。</p>
+      </div>
+      <div class="card-stack">
+        <article class="card"><h3>适合主题</h3><p>工具站、查询页、导航页、教程页、手机端小工具、轻量资源页。</p></article><article class="card"><h3>页面策略</h3><p>减少复杂依赖，保留核心交互，让页面快开、好用、容易继续扩展。</p></article><article class="card"><h3>后续演化</h3><p>可继续追加专题文章、站内搜索、广告位、赞助位和自定义域名。</p></article>
+      </div>
+    </section>
+
+    <section class="section feature-wrap" id="feature">
+      <div class="section-head">
+        <p class="eyebrow">核心功能</p>
+        <h2>JSON 格式化与压缩工具</h2>
+        <p>对 JSON 文本进行格式化、压缩和基础校验，方便接口联调与排错。</p>
+      </div>
+      <div class="feature-grid">
+      <article class="tool-card">
+        <h3>粘贴 JSON</h3>
+        <label for="jsonInput">原始内容</label>
+        <textarea id="jsonInput" class="tool-textarea" placeholder='例如 {"name":"demo","enabled":true}'></textarea>
+        <div class="button-row">
+          <button class="button" id="jsonFormatButton" type="button">格式化</button>
+          <button class="button button-ghost" id="jsonMinifyButton" type="button">压缩</button>
+          <button class="button button-ghost" id="jsonClearButton" type="button">清空</button>
+        </div>
+      </article>
+      <article class="tool-card">
+        <h3>处理结果</h3>
+        <div class="result-panel code-block" id="jsonResult">输入 JSON 后查看结果。</div>
+        <div class="result-panel" id="jsonSummary">可用于接口联调、日志排查、Webhook 数据查看和配置文件整理。</div>
+      </article>
+    </div>
+    </section>
+
+    
+
+    <section class="section utility-grid">
+      <article class="card">
+        <h2>规范链接</h2>
+        <p>当前页面已输出 canonical、robots.txt 与 sitemap.xml，适配 GitHub Pages 项目路径。</p>
+      </article>
+      <article class="card">
+        <h2>统计预留</h2>
+        <p>已预留统计代码位置，后续可接入你自己的分析方案。</p>
+        <pre class="placeholder">&lt;!-- analytics slot --&gt;</pre>
+      </article>
+      <article class="card">
+        <h2>广告位预留</h2>
+        <p>已预留内容位与广告位插槽，但默认不接入第三方广告账号。</p>
+        <pre class="placeholder">&lt;!-- ad slot --&gt;</pre>
+      </article>
+    </section>
+
+    <section class="section" id="faq">
+      <div class="section-head">
+        <p class="eyebrow">常见问题</p>
+        <h2>后续扩展时重点关注这些点</h2>
+      </div>
+      <div class="faq-list">
+        <details class="faq-item"><summary>为什么默认不插入推广链接？</summary><p>普通流量站先保证内容和工具本身可用，只有主题真正相关时才加入推广。</p></details><details class="faq-item"><summary>这个模板支持扩展更多工具吗？</summary><p>支持，可继续新增 feature 类型并在配置中批量声明。</p></details><details class="faq-item"><summary>是否适合手机端？</summary><p>模板默认以移动端优先设计，按钮、卡片和输入区都做了窄屏优化。</p></details>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-shell footer">
+    <p>JSON 格式化工具 · 开发调试与数据处理</p>
+    <p>当前地址：<a href="https://fyrghdyrgh-dot.github.io/json-format-workbench/">https://fyrghdyrgh-dot.github.io/json-format-workbench/</a></p>
+  </footer>
+
+  <script>window.__SITE_DATA__ = {"owner":"fyrghdyrgh-dot","siteUrl":"https://fyrghdyrgh-dot.github.io/json-format-workbench/","repo":"json-format-workbench","slug":"json-format-workbench","name":"JSON 格式化工具","tagline":"粘贴 JSON 文本后快速格式化、压缩，并检查常见结构错误。","description":"一个面向开发、接口联调和数据排查场景的 JSON 处理工具，支持格式化、美化和压缩输出。","topic":"开发调试与数据处理","category":"traffic","keywords":["JSON 格式化","JSON 校验","JSON 压缩","接口调试工具","开发工具"],"lang":"zh-CN","colors":{"accent":"#3b82f6","accentSoft":"#e4f0ff","surface":"#0b1220","surfaceSoft":"#14213a"},"promoteTarget":false,"targetLink":"https://1bgp.com/","analyticsPlaceholder":true,"adPlaceholder":true,"feature":{"kind":"jsonFormatter"},"referenceStyle":"开发工具站","sections":{"highlights":[{"title":"轻量可用","text":"首页即具备可实际使用的小工具或有效内容，适合移动端直接访问。"},{"title":"变现预留","text":"保留广告位、统计代码位和联盟位，但默认不接入外部账号服务。"},{"title":"低维护成本","text":"纯静态站结构，更新快，适合批量生成和长期托管。"}],"contentCards":[{"title":"适合主题","text":"工具站、查询页、导航页、教程页、手机端小工具、轻量资源页。"},{"title":"页面策略","text":"减少复杂依赖，保留核心交互，让页面快开、好用、容易继续扩展。"},{"title":"后续演化","text":"可继续追加专题文章、站内搜索、广告位、赞助位和自定义域名。"}],"faq":[{"q":"为什么默认不插入推广链接？","a":"普通流量站先保证内容和工具本身可用，只有主题真正相关时才加入推广。"},{"q":"这个模板支持扩展更多工具吗？","a":"支持，可继续新增 feature 类型并在配置中批量声明。"},{"q":"是否适合手机端？","a":"模板默认以移动端优先设计，按钮、卡片和输入区都做了窄屏优化。"}]}};</script>
+  <script type="module" src="./assets/site.js"></script>
+</body>
+</html>

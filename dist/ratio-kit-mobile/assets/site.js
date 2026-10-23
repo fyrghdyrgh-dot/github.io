@@ -14,6 +14,14 @@ if (featureKind === "ratioCalculator") {
   initRatioCalculator();
 }
 
+if (featureKind === "utmBuilder") {
+  initUtmBuilder();
+}
+
+if (featureKind === "jsonFormatter") {
+  initJsonFormatter();
+}
+
 function initChecklist() {
   const storageKey = "deploy-checklist-" + site.slug;
   const items = [...document.querySelectorAll("[data-check-item]")];
@@ -121,4 +129,120 @@ function initRatioCalculator() {
       "等比系数：" + (targetWidth / width).toFixed(3)
     ].join("\n\n");
   }
+}
+
+function initUtmBuilder() {
+  const baseInput = document.getElementById("utmBase");
+  const sourceInput = document.getElementById("utmSource");
+  const mediumInput = document.getElementById("utmMedium");
+  const campaignInput = document.getElementById("utmCampaign");
+  const contentInput = document.getElementById("utmContent");
+  const termInput = document.getElementById("utmTerm");
+  const buildButton = document.getElementById("utmBuildButton");
+  const copyButton = document.getElementById("utmCopyButton");
+  const result = document.getElementById("utmResult");
+
+  buildButton.addEventListener("click", build);
+  copyButton.addEventListener("click", async () => {
+    const text = result.dataset.link || "";
+    if (!text) {
+      result.textContent = "请先生成有效链接。";
+      return;
+    }
+    try {
+      await navigator.clipboard.writeText(text);
+      result.textContent = text + "\n\n已复制到剪贴板。";
+    } catch {
+      result.textContent = text + "\n\n当前浏览器未授予复制权限，请手动复制。";
+    }
+  });
+
+  function build() {
+    const baseValue = baseInput.value.trim();
+    if (!baseValue) {
+      result.textContent = "请先输入落地页地址。";
+      delete result.dataset.link;
+      return;
+    }
+
+    const normalizedBase = /^https?:\/\//i.test(baseValue) ? baseValue : "https://" + baseValue;
+
+    try {
+      const url = new URL(normalizedBase);
+      setIfPresent(url, "utm_source", sourceInput.value);
+      setIfPresent(url, "utm_medium", mediumInput.value);
+      setIfPresent(url, "utm_campaign", campaignInput.value);
+      setIfPresent(url, "utm_content", contentInput.value);
+      setIfPresent(url, "utm_term", termInput.value);
+      const finalUrl = url.toString();
+      result.dataset.link = finalUrl;
+      result.textContent = [
+        "最终链接：",
+        finalUrl,
+        "",
+        "参数数量：" + [...url.searchParams.keys()].length
+      ].join("\n");
+    } catch {
+      result.textContent = "请输入有效的网址，例如 https://example.com/page 。";
+      delete result.dataset.link;
+    }
+  }
+}
+
+function setIfPresent(url, key, value) {
+  const normalized = value.trim();
+  if (!normalized) {
+    return;
+  }
+  url.searchParams.set(key, normalized);
+}
+
+function initJsonFormatter() {
+  const input = document.getElementById("jsonInput");
+  const result = document.getElementById("jsonResult");
+  const summary = document.getElementById("jsonSummary");
+  const formatButton = document.getElementById("jsonFormatButton");
+  const minifyButton = document.getElementById("jsonMinifyButton");
+  const clearButton = document.getElementById("jsonClearButton");
+
+  formatButton.addEventListener("click", () => transform(false));
+  minifyButton.addEventListener("click", () => transform(true));
+  clearButton.addEventListener("click", () => {
+    input.value = "";
+    result.textContent = "输入 JSON 后查看结果。";
+    summary.textContent = "可用于接口联调、日志排查、Webhook 数据查看和配置文件整理。";
+  });
+
+  function transform(minify) {
+    const raw = input.value.trim();
+    if (!raw) {
+      result.textContent = "请先输入 JSON 内容。";
+      summary.textContent = "支持对象、数组、布尔值、数字和字符串等标准 JSON。";
+      return;
+    }
+
+    try {
+      const parsed = JSON.parse(raw);
+      const output = minify ? JSON.stringify(parsed) : JSON.stringify(parsed, null, 2);
+      result.textContent = output;
+      summary.textContent = [
+        "顶层类型：" + getJsonKind(parsed),
+        "字符数：" + output.length,
+        "行数：" + output.split("\n").length
+      ].join(" | ");
+    } catch (error) {
+      result.textContent = "解析失败：\n" + error.message;
+      summary.textContent = "请检查逗号、引号、括号和末尾多余字符是否正确。";
+    }
+  }
+}
+
+function getJsonKind(value) {
+  if (Array.isArray(value)) {
+    return "数组";
+  }
+  if (value === null) {
+    return "null";
+  }
+  return typeof value === "object" ? "对象" : typeof value;
 }

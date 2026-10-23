@@ -679,6 +679,23 @@ textarea::placeholder {
   gap: 12px;
 }
 
+.button-row {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+
+.tool-textarea {
+  min-height: 220px;
+  resize: vertical;
+}
+
+.code-block {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  overflow: auto;
+}
+
 .progress {
   height: 12px;
   border-radius: 999px;
@@ -787,7 +804,9 @@ function renderFeatureTitle(kind) {
   const map = {
     deploymentChecklist: "部署检查清单",
     serverSelector: "服务器节点建议器",
-    ratioCalculator: "比例与尺寸换算工具"
+    ratioCalculator: "比例与尺寸换算工具",
+    utmBuilder: "UTM 推广链接生成工具",
+    jsonFormatter: "JSON 格式化与压缩工具"
   };
   return map[kind] || "核心功能";
 }
@@ -796,7 +815,9 @@ function renderFeatureIntro(site) {
   const map = {
     deploymentChecklist: "把上线前后最常漏掉的关键步骤放到一个可勾选、可保存进度的清单里。",
     serverSelector: "根据业务类型、访问地区与预算区间，快速给出更合适的部署方向建议。",
-    ratioCalculator: "输入原始尺寸与目标宽度，快速换算等比高度，并查看常见比例预设。"
+    ratioCalculator: "输入原始尺寸与目标宽度，快速换算等比高度，并查看常见比例预设。",
+    utmBuilder: "把投放来源、媒介、活动名和内容参数整理成可直接使用的推广链接。",
+    jsonFormatter: "对 JSON 文本进行格式化、压缩和基础校验，方便接口联调与排错。"
   };
   return escapeHtml(map[site.feature.kind] || "围绕页面主题提供一个可以直接操作的实用组件。");
 }
@@ -878,6 +899,70 @@ function renderFeatureHtml(site) {
     </div>`;
   }
 
+  if (site.feature.kind === "utmBuilder") {
+    return `<div class="feature-grid">
+      <article class="tool-card">
+        <h3>填写参数</h3>
+        <label for="utmBase">落地页地址</label>
+        <input id="utmBase" type="url" placeholder="例如 https://example.com/pricing">
+        <div class="meta-row">
+          <div>
+            <label for="utmSource">来源 source</label>
+            <input id="utmSource" type="text" placeholder="例如 xiaohongshu">
+          </div>
+          <div>
+            <label for="utmMedium">媒介 medium</label>
+            <input id="utmMedium" type="text" placeholder="例如 social">
+          </div>
+        </div>
+        <div class="meta-row">
+          <div>
+            <label for="utmCampaign">活动 campaign</label>
+            <input id="utmCampaign" type="text" placeholder="例如 summer_launch">
+          </div>
+          <div>
+            <label for="utmContent">内容 content</label>
+            <input id="utmContent" type="text" placeholder="例如 note_a">
+          </div>
+        </div>
+        <label for="utmTerm">关键词 term</label>
+        <input id="utmTerm" type="text" placeholder="例如 server_plan">
+        <div class="button-row">
+          <button class="button" id="utmBuildButton" type="button">生成链接</button>
+          <button class="button button-ghost" id="utmCopyButton" type="button">复制结果</button>
+        </div>
+      </article>
+      <article class="tool-card">
+        <h3>生成结果</h3>
+        <div class="result-panel code-block" id="utmResult">填写参数后查看结果。</div>
+        <div class="checklist">
+          <div class="check-item"><span>适合广告投放、私域分发、内容渠道统计和活动复盘。</span></div>
+          <div class="check-item"><span>建议统一命名规则，避免 source、medium 和 campaign 写法混乱。</span></div>
+        </div>
+      </article>
+    </div>`;
+  }
+
+  if (site.feature.kind === "jsonFormatter") {
+    return `<div class="feature-grid">
+      <article class="tool-card">
+        <h3>粘贴 JSON</h3>
+        <label for="jsonInput">原始内容</label>
+        <textarea id="jsonInput" class="tool-textarea" placeholder='例如 {"name":"demo","enabled":true}'></textarea>
+        <div class="button-row">
+          <button class="button" id="jsonFormatButton" type="button">格式化</button>
+          <button class="button button-ghost" id="jsonMinifyButton" type="button">压缩</button>
+          <button class="button button-ghost" id="jsonClearButton" type="button">清空</button>
+        </div>
+      </article>
+      <article class="tool-card">
+        <h3>处理结果</h3>
+        <div class="result-panel code-block" id="jsonResult">输入 JSON 后查看结果。</div>
+        <div class="result-panel" id="jsonSummary">可用于接口联调、日志排查、Webhook 数据查看和配置文件整理。</div>
+      </article>
+    </div>`;
+  }
+
   return `<article class="tool-card"><p>当前站点未配置核心功能。</p></article>`;
 }
 
@@ -915,6 +1000,14 @@ if (featureKind === "serverSelector") {
 
 if (featureKind === "ratioCalculator") {
   initRatioCalculator();
+}
+
+if (featureKind === "utmBuilder") {
+  initUtmBuilder();
+}
+
+if (featureKind === "jsonFormatter") {
+  initJsonFormatter();
 }
 
 function initChecklist() {
@@ -1024,6 +1117,122 @@ function initRatioCalculator() {
       "等比系数：" + (targetWidth / width).toFixed(3)
     ].join("\\n\\n");
   }
+}
+
+function initUtmBuilder() {
+  const baseInput = document.getElementById("utmBase");
+  const sourceInput = document.getElementById("utmSource");
+  const mediumInput = document.getElementById("utmMedium");
+  const campaignInput = document.getElementById("utmCampaign");
+  const contentInput = document.getElementById("utmContent");
+  const termInput = document.getElementById("utmTerm");
+  const buildButton = document.getElementById("utmBuildButton");
+  const copyButton = document.getElementById("utmCopyButton");
+  const result = document.getElementById("utmResult");
+
+  buildButton.addEventListener("click", build);
+  copyButton.addEventListener("click", async () => {
+    const text = result.dataset.link || "";
+    if (!text) {
+      result.textContent = "请先生成有效链接。";
+      return;
+    }
+    try {
+      await navigator.clipboard.writeText(text);
+      result.textContent = text + "\\n\\n已复制到剪贴板。";
+    } catch {
+      result.textContent = text + "\\n\\n当前浏览器未授予复制权限，请手动复制。";
+    }
+  });
+
+  function build() {
+    const baseValue = baseInput.value.trim();
+    if (!baseValue) {
+      result.textContent = "请先输入落地页地址。";
+      delete result.dataset.link;
+      return;
+    }
+
+    const normalizedBase = /^https?:\\/\\//i.test(baseValue) ? baseValue : "https://" + baseValue;
+
+    try {
+      const url = new URL(normalizedBase);
+      setIfPresent(url, "utm_source", sourceInput.value);
+      setIfPresent(url, "utm_medium", mediumInput.value);
+      setIfPresent(url, "utm_campaign", campaignInput.value);
+      setIfPresent(url, "utm_content", contentInput.value);
+      setIfPresent(url, "utm_term", termInput.value);
+      const finalUrl = url.toString();
+      result.dataset.link = finalUrl;
+      result.textContent = [
+        "最终链接：",
+        finalUrl,
+        "",
+        "参数数量：" + [...url.searchParams.keys()].length
+      ].join("\\n");
+    } catch {
+      result.textContent = "请输入有效的网址，例如 https://example.com/page 。";
+      delete result.dataset.link;
+    }
+  }
+}
+
+function setIfPresent(url, key, value) {
+  const normalized = value.trim();
+  if (!normalized) {
+    return;
+  }
+  url.searchParams.set(key, normalized);
+}
+
+function initJsonFormatter() {
+  const input = document.getElementById("jsonInput");
+  const result = document.getElementById("jsonResult");
+  const summary = document.getElementById("jsonSummary");
+  const formatButton = document.getElementById("jsonFormatButton");
+  const minifyButton = document.getElementById("jsonMinifyButton");
+  const clearButton = document.getElementById("jsonClearButton");
+
+  formatButton.addEventListener("click", () => transform(false));
+  minifyButton.addEventListener("click", () => transform(true));
+  clearButton.addEventListener("click", () => {
+    input.value = "";
+    result.textContent = "输入 JSON 后查看结果。";
+    summary.textContent = "可用于接口联调、日志排查、Webhook 数据查看和配置文件整理。";
+  });
+
+  function transform(minify) {
+    const raw = input.value.trim();
+    if (!raw) {
+      result.textContent = "请先输入 JSON 内容。";
+      summary.textContent = "支持对象、数组、布尔值、数字和字符串等标准 JSON。";
+      return;
+    }
+
+    try {
+      const parsed = JSON.parse(raw);
+      const output = minify ? JSON.stringify(parsed) : JSON.stringify(parsed, null, 2);
+      result.textContent = output;
+      summary.textContent = [
+        "顶层类型：" + getJsonKind(parsed),
+        "字符数：" + output.length,
+        "行数：" + output.split("\\n").length
+      ].join(" | ");
+    } catch (error) {
+      result.textContent = "解析失败：\\n" + error.message;
+      summary.textContent = "请检查逗号、引号、括号和末尾多余字符是否正确。";
+    }
+  }
+}
+
+function getJsonKind(value) {
+  if (Array.isArray(value)) {
+    return "数组";
+  }
+  if (value === null) {
+    return "null";
+  }
+  return typeof value === "object" ? "对象" : typeof value;
 }
 `;
 }
