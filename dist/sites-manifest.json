@@ -30,5 +30,13 @@
     "category": "traffic",
     "siteUrl": "https://fyrghdyrgh-dot.github.io/nova-directory/",
     "outputDir": "/workspace/dist/nova-directory"
+  },
+  {
+    "slug": "ai-prompt-workshop",
+    "repo": "ai-prompt-workshop",
+    "name": "AI 提示词工坊",
+    "category": "traffic",
+    "siteUrl": "https://fyrghdyrgh-dot.github.io/ai-prompt-workshop/",
+    "outputDir": "/workspace/dist/ai-prompt-workshop"
   }
 ]

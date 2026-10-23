@@ -818,7 +818,8 @@ function renderFeatureTitle(kind) {
     deploymentChecklist: "部署检查清单",
     serverSelector: "服务器节点建议器",
     ratioCalculator: "比例与尺寸换算工具",
-    directoryHub: "站点目录"
+    directoryHub: "站点目录",
+    promptComposer: "提示词生成器"
   };
   return map[kind] || "核心功能";
 }
@@ -828,7 +829,8 @@ function renderFeatureIntro(site) {
     deploymentChecklist: "把上线前后最常漏掉的关键步骤放到一个可勾选、可保存进度的清单里。",
     serverSelector: "根据业务类型、访问地区与预算区间，快速给出更合适的部署方向建议。",
     ratioCalculator: "输入原始尺寸与目标宽度，快速换算等比高度，并查看常见比例预设。",
-    directoryHub: "按主题整理工具与资源页，提供可直接访问的子目录入口。"
+    directoryHub: "按主题整理工具与资源页，提供可直接访问的子目录入口。",
+    promptComposer: "输入任务目标与约束条件，自动生成更清晰、更可控的提示词结构。"
   };
   return escapeHtml(map[site.feature.kind] || "围绕页面主题提供一个可以直接操作的实用组件。");
 }
@@ -910,6 +912,63 @@ function renderFeatureHtml(site) {
     </div>`;
   }
 
+  if (site.feature.kind === "promptComposer") {
+    return `<div class="feature-grid">
+      <article class="tool-card">
+        <h3>输入需求</h3>
+        <label for="promptGoal">任务目标</label>
+        <textarea id="promptGoal" rows="4" placeholder="例如：帮我写一份产品方案，包含背景、目标、范围、里程碑、风险与验收标准。"></textarea>
+        <label for="promptContext">背景信息（可选）</label>
+        <textarea id="promptContext" rows="4" placeholder="例如：这是一个面向中小团队的内部工具，读者是研发与产品负责人。"></textarea>
+        <div class="meta-row">
+          <div>
+            <label for="promptAudience">受众</label>
+            <select id="promptAudience">
+              ${(site.feature.audiences || []).map((item) => `<option value="${escapeHtml(item)}">${escapeHtml(item)}</option>`).join("")}
+            </select>
+          </div>
+          <div>
+            <label for="promptTone">表达风格</label>
+            <select id="promptTone">
+              ${(site.feature.tones || []).map((item) => `<option value="${escapeHtml(item)}">${escapeHtml(item)}</option>`).join("")}
+            </select>
+          </div>
+        </div>
+        <div class="meta-row">
+          <div>
+            <label for="promptFormat">输出格式</label>
+            <select id="promptFormat">
+              ${(site.feature.formats || []).map((item) => `<option value="${escapeHtml(item)}">${escapeHtml(item)}</option>`).join("")}
+            </select>
+          </div>
+          <div>
+            <label for="promptLength">输出长度</label>
+            <select id="promptLength">
+              <option value="short">短（要点为主）</option>
+              <option value="medium" selected>中（结构完整）</option>
+              <option value="long">长（细节充分）</option>
+            </select>
+          </div>
+        </div>
+        <label for="promptConstraints">约束/注意事项（可选）</label>
+        <textarea id="promptConstraints" rows="3" placeholder="例如：不要臆测数据；给出可落地的步骤；用中文输出；避免营销腔。"></textarea>
+        <div class="checklist">
+          <label class="check-item"><input id="promptIncludeChecklist" type="checkbox" checked><span>附带检查清单（自检项）</span></label>
+          <label class="check-item"><input id="promptIncludeQuestions" type="checkbox" checked><span>在信息不足时先提出澄清问题</span></label>
+        </div>
+        <button class="button" id="promptBuildButton" type="button">生成 Prompt</button>
+      </article>
+      <article class="tool-card">
+        <h3>生成结果</h3>
+        <div class="result-panel" id="promptResult">填写目标后点击生成。</div>
+        <div class="cta-row">
+          <button class="button button-ghost" id="promptCopyButton" type="button">复制到剪贴板</button>
+          <button class="button button-ghost" id="promptResetButton" type="button">清空输入</button>
+        </div>
+      </article>
+    </div>`;
+  }
+
   return `<article class="tool-card"><p>当前站点未配置核心功能。</p></article>`;
 }
 
@@ -951,6 +1010,10 @@ if (featureKind === "ratioCalculator") {
 
 if (featureKind === "directoryHub") {
   initDirectoryHub();
+}
+
+if (featureKind === "promptComposer") {
+  initPromptComposer();
 }
 
 function initChecklist() {
@@ -1228,6 +1291,131 @@ function initDirectoryHub() {
       (n >>> 8) & 255,
       n & 255
     ].join(".");
+  }
+}
+
+function initPromptComposer() {
+  const goal = document.getElementById("promptGoal");
+  const context = document.getElementById("promptContext");
+  const audience = document.getElementById("promptAudience");
+  const tone = document.getElementById("promptTone");
+  const format = document.getElementById("promptFormat");
+  const length = document.getElementById("promptLength");
+  const constraints = document.getElementById("promptConstraints");
+  const includeChecklist = document.getElementById("promptIncludeChecklist");
+  const includeQuestions = document.getElementById("promptIncludeQuestions");
+  const buildButton = document.getElementById("promptBuildButton");
+  const copyButton = document.getElementById("promptCopyButton");
+  const resetButton = document.getElementById("promptResetButton");
+  const result = document.getElementById("promptResult");
+
+  if (!goal || !buildButton || !result) return;
+
+  buildButton.addEventListener("click", () => {
+    const goalValue = String(goal.value || "").trim();
+    if (!goalValue) {
+      result.textContent = "请先填写任务目标。";
+      return;
+    }
+
+    const data = {
+      goal: goalValue,
+      context: String(context?.value || "").trim(),
+      audience: String(audience?.value || "").trim(),
+      tone: String(tone?.value || "").trim(),
+      format: String(format?.value || "").trim(),
+      length: String(length?.value || "").trim(),
+      constraints: String(constraints?.value || "").trim(),
+      includeChecklist: Boolean(includeChecklist?.checked),
+      includeQuestions: Boolean(includeQuestions?.checked)
+    };
+
+    const prompt = buildPrompt(data);
+    result.textContent = prompt;
+  });
+
+  if (copyButton) {
+    copyButton.addEventListener("click", async () => {
+      const value = String(result.textContent || "");
+      if (!value) return;
+      try {
+        await navigator.clipboard.writeText(value);
+        copyButton.textContent = "已复制";
+        setTimeout(() => {
+          copyButton.textContent = "复制到剪贴板";
+        }, 1400);
+      } catch {
+        copyButton.textContent = "复制失败";
+        setTimeout(() => {
+          copyButton.textContent = "复制到剪贴板";
+        }, 1400);
+      }
+    });
+  }
+
+  if (resetButton) {
+    resetButton.addEventListener("click", () => {
+      goal.value = "";
+      if (context) context.value = "";
+      if (constraints) constraints.value = "";
+      result.textContent = "填写目标后点击生成。";
+    });
+  }
+
+  function buildPrompt(data) {
+    const lengthHint = {
+      short: "输出要点为主，减少赘述。",
+      medium: "输出结构完整，细节适中。",
+      long: "输出细节充分，覆盖边界情况与风险。"
+    };
+
+    const lines = [];
+    lines.push("你是一名经验丰富的 AI 助理，请严格按要求完成任务。");
+    lines.push("");
+    lines.push("【任务目标】");
+    lines.push(data.goal);
+    lines.push("");
+
+    if (data.context) {
+      lines.push("【背景信息】");
+      lines.push(data.context);
+      lines.push("");
+    }
+
+    lines.push("【受众】" + (data.audience || "通用"));
+    lines.push("【风格】" + (data.tone || "专业"));
+    lines.push("【输出格式】" + (data.format || "Markdown"));
+    lines.push("【输出长度】" + (lengthHint[data.length] || "输出结构完整，细节适中。"));
+    lines.push("");
+
+    if (data.constraints) {
+      lines.push("【约束与注意事项】");
+      lines.push(data.constraints);
+      lines.push("");
+    }
+
+    if (data.includeQuestions) {
+      lines.push("【信息不足处理】");
+      lines.push("如关键条件缺失，请先提出最多 5 个澄清问题，然后给出基于当前信息的默认假设版本。");
+      lines.push("");
+    }
+
+    lines.push("【输出要求】");
+    lines.push("1. 不要虚构数据或结论；需要数据时请说明获取方式或用占位符。");
+    lines.push("2. 给出可执行的步骤、建议与边界条件。");
+    lines.push("3. 语言保持一致、条理清晰，避免营销腔。");
+    lines.push("");
+
+    if (data.includeChecklist) {
+      lines.push("【自检清单】");
+      lines.push("- 是否覆盖了目标与背景？");
+      lines.push("- 是否明确输出格式与长度？");
+      lines.push("- 是否避免臆测/虚构？");
+      lines.push("- 是否给出可执行步骤与可验证标准？");
+      lines.push("");
+    }
+
+    return lines.join("\\n");
   }
 }
 `;

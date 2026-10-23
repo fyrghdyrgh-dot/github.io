@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://fyrghdyrgh-dot.github.io/ai-prompt-workshop/sitemap.xml

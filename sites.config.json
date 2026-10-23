@@ -359,6 +359,51 @@
           }
         ]
       }
+    },
+    {
+      "slug": "ai-prompt-workshop",
+      "repo": "ai-prompt-workshop",
+      "name": "AI 提示词工坊",
+      "tagline": "把模糊需求整理成可直接复制的高质量 Prompt。",
+      "description": "一个轻量的提示词生成与改写工具页：输入任务、背景和输出格式，生成更清晰、更可控的 AI 提示词。",
+      "keywords": [
+        "Prompt",
+        "提示词",
+        "AI 工具",
+        "提示词生成器",
+        "写作辅助"
+      ],
+      "category": "traffic",
+      "topic": "AI 提示词与写作工具",
+      "theme": {
+        "accent": "#a855f7",
+        "accentSoft": "#f3e8ff",
+        "surface": "#0b1020",
+        "surfaceSoft": "#111a33"
+      },
+      "referenceStyle": "AI 工具页",
+      "promoteTarget": false,
+      "feature": {
+        "kind": "promptComposer",
+        "audiences": [
+          "普通用户",
+          "产品经理",
+          "开发者",
+          "运营/内容"
+        ],
+        "tones": [
+          "专业",
+          "简洁",
+          "偏教学",
+          "偏严谨"
+        ],
+        "formats": [
+          "Markdown",
+          "表格",
+          "JSON",
+          "步骤清单"
+        ]
+      }
     }
   ]
 }
