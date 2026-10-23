@@ -14,6 +14,10 @@ if (featureKind === "ratioCalculator") {
   initRatioCalculator();
 }
 
+if (featureKind === "directoryHub") {
+  initDirectoryHub();
+}
+
 function initChecklist() {
   const storageKey = "deploy-checklist-" + site.slug;
   const items = [...document.querySelectorAll("[data-check-item]")];
@@ -120,5 +124,174 @@ function initRatioCalculator() {
       "目标尺寸：" + targetWidth + " x " + targetHeight,
       "等比系数：" + (targetWidth / width).toFixed(3)
     ].join("\n\n");
+  }
+}
+
+function initDirectoryHub() {
+  const search = document.getElementById("siteFilterInput");
+  const counter = document.getElementById("siteCounter");
+  const cards = [...document.querySelectorAll("[data-directory-item]")];
+
+  if (search && counter && cards.length) {
+    const applyFilter = () => {
+      const keyword = String(search.value || "").trim().toLowerCase();
+      let visible = 0;
+      cards.forEach((card) => {
+        const text = String(card.dataset.directoryItem || "").toLowerCase();
+        const show = keyword.length === 0 || text.includes(keyword);
+        card.hidden = !show;
+        if (show) visible += 1;
+      });
+      counter.textContent = visible + " / " + cards.length;
+    };
+
+    search.addEventListener("input", applyFilter);
+    applyFilter();
+  }
+
+  const toolRoot = document.querySelector("[data-tool-kind]");
+  if (!toolRoot) return;
+
+  const kind = String(toolRoot.dataset.toolKind || "");
+  if (kind === "urlEncode") {
+    bindOneToOneTool("toolInput", "toolOutput", (value) => encodeURIComponent(value));
+  }
+
+  if (kind === "urlDecode") {
+    bindOneToOneTool("toolInput", "toolOutput", (value) => {
+      try {
+        return decodeURIComponent(value);
+      } catch {
+        return "无法解码：输入可能不是有效的百分号编码。";
+      }
+    });
+  }
+
+  if (kind === "base64Encode") {
+    bindOneToOneTool("toolInput", "toolOutput", (value) => bytesToBase64(new TextEncoder().encode(value)));
+  }
+
+  if (kind === "base64Decode") {
+    bindOneToOneTool("toolInput", "toolOutput", (value) => {
+      try {
+        const bytes = base64ToBytes(value.trim());
+        return new TextDecoder().decode(bytes);
+      } catch {
+        return "无法解码：请确认输入是有效 Base64。";
+      }
+    });
+  }
+
+  if (kind === "ipv4Integer") {
+    const input = document.getElementById("toolInput");
+    const output = document.getElementById("toolOutput");
+    const button = document.getElementById("toolButton");
+    if (!input || !output || !button) return;
+
+    button.addEventListener("click", () => {
+      const raw = String(input.value || "").trim();
+      if (!raw) {
+        output.textContent = "请输入 IPv4 或整数。";
+        return;
+      }
+
+      if (/^\d+$/.test(raw)) {
+        const n = Number(raw);
+        if (!Number.isFinite(n) || n < 0 || n > 4294967295) {
+          output.textContent = "整数范围应在 0 到 4294967295 之间。";
+          return;
+        }
+        output.textContent = integerToIpv4(n >>> 0);
+        return;
+      }
+
+      const parsed = parseIpv4(raw);
+      if (!parsed) {
+        output.textContent = "IPv4 格式不正确。";
+        return;
+      }
+      output.textContent = String(ipv4ToInteger(parsed));
+    });
+  }
+
+  if (kind === "textCount") {
+    const input = document.getElementById("toolInput");
+    const output = document.getElementById("toolOutput");
+    const button = document.getElementById("toolButton");
+    if (!input || !output || !button) return;
+
+    button.addEventListener("click", () => {
+      const value = String(input.value || "");
+      const bytes = new TextEncoder().encode(value).length;
+      const codePoints = [...value].length;
+      const lines = value.length === 0 ? 0 : value.split(/\r\n|\r|\n/).length;
+      const words = (value.match(/[A-Za-z0-9]+(?:'[A-Za-z0-9]+)*/g) || []).length;
+      const han = (value.match(/[\u4e00-\u9fff]/g) || []).length;
+
+      output.textContent = [
+        "代码点：" + codePoints,
+        "字节(UTF-8)：" + bytes,
+        "行数：" + lines,
+        "英文词：" + words,
+        "汉字：" + han
+      ].join("\n");
+    });
+  }
+
+  if (kind === "rot13") {
+    bindOneToOneTool("toolInput", "toolOutput", (value) =>
+      value.replace(/[A-Za-z]/g, (ch) => {
+        const base = ch <= "Z" ? 65 : 97;
+        return String.fromCharCode(((ch.charCodeAt(0) - base + 13) % 26) + base);
+      })
+    );
+  }
+
+  function bindOneToOneTool(inputId, outputId, handler) {
+    const input = document.getElementById(inputId);
+    const output = document.getElementById(outputId);
+    const button = document.getElementById("toolButton");
+    if (!input || !output || !button) return;
+    button.addEventListener("click", () => {
+      output.textContent = handler(String(input.value || ""));
+    });
+  }
+
+  function bytesToBase64(bytes) {
+    let binary = "";
+    bytes.forEach((byte) => {
+      binary += String.fromCharCode(byte);
+    });
+    return btoa(binary);
+  }
+
+  function base64ToBytes(value) {
+    const binary = atob(value);
+    const bytes = new Uint8Array(binary.length);
+    for (let i = 0; i < binary.length; i += 1) {
+      bytes[i] = binary.charCodeAt(i);
+    }
+    return bytes;
+  }
+
+  function parseIpv4(value) {
+    const parts = value.split(".").map((part) => part.trim());
+    if (parts.length !== 4) return null;
+    const nums = parts.map((part) => (part === "" ? NaN : Number(part)));
+    if (nums.some((n) => !Number.isInteger(n) || n < 0 || n > 255)) return null;
+    return nums;
+  }
+
+  function ipv4ToInteger(parts) {
+    return (((parts[0] << 24) >>> 0) + (parts[1] << 16) + (parts[2] << 8) + parts[3]) >>> 0;
+  }
+
+  function integerToIpv4(n) {
+    return [
+      (n >>> 24) & 255,
+      (n >>> 16) & 255,
+      (n >>> 8) & 255,
+      n & 255
+    ].join(".");
   }
 }

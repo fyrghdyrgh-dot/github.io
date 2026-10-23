@@ -24,6 +24,7 @@ for (const site of config.sites) {
     : `https://${config.github.owner}.github.io/${repo}/`;
   const outputDir = path.join(distRoot, site.slug);
   const publicData = buildPublicData(site, siteUrl);
+  const extraPaths = listExtraPaths(publicData);
 
   mkdirSync(path.join(outputDir, "assets"), { recursive: true });
   mkdirSync(path.join(outputDir, ".github", "workflows"), { recursive: true });
@@ -31,7 +32,7 @@ for (const site of config.sites) {
   writeFileSync(path.join(outputDir, "index.html"), renderIndexHtml(publicData), "utf8");
   writeFileSync(path.join(outputDir, "404.html"), render404Html(publicData), "utf8");
   writeFileSync(path.join(outputDir, "robots.txt"), renderRobotsTxt(siteUrl), "utf8");
-  writeFileSync(path.join(outputDir, "sitemap.xml"), renderSitemap(siteUrl), "utf8");
+  writeFileSync(path.join(outputDir, "sitemap.xml"), renderSitemap(siteUrl, extraPaths), "utf8");
   writeFileSync(path.join(outputDir, "assets", "site.css"), renderStyles(publicData), "utf8");
   writeFileSync(path.join(outputDir, "assets", "site.js"), renderScript(publicData), "utf8");
   writeFileSync(path.join(outputDir, "README.md"), renderSiteReadme(publicData, branch), "utf8");
@@ -44,6 +45,8 @@ for (const site of config.sites) {
   if (site.customDomain) {
     writeFileSync(path.join(outputDir, "CNAME"), site.customDomain.trim(), "utf8");
   }
+
+  writeExtraPages(outputDir, publicData);
 
   manifest.push({
     slug: site.slug,
@@ -74,6 +77,22 @@ function validateSite(site) {
 
 function buildPublicData(site, siteUrl) {
   const targetLink = config.defaults.targetLink;
+  const linkedSites = config.sites
+    .filter((entry) => entry.slug !== site.slug)
+    .map((entry) => {
+      const url = entry.customDomain
+        ? `https://${entry.customDomain.replace(/^https?:\/\//, "").replace(/\/+$/, "")}/`
+        : `https://${config.github.owner}.github.io/${entry.repo}/`;
+      return {
+        slug: entry.slug,
+        repo: entry.repo,
+        name: entry.name,
+        topic: entry.topic,
+        category: entry.category,
+        siteUrl: url
+      };
+    });
+
   return {
     owner: config.github.owner,
     siteUrl,
@@ -98,7 +117,8 @@ function buildPublicData(site, siteUrl) {
     adPlaceholder: Boolean(config.defaults.adPlaceholder),
     feature: site.feature,
     referenceStyle: site.referenceStyle || "",
-    sections: buildSections(site)
+    sections: buildSections(site),
+    linkedSites
   };
 }
 
@@ -197,6 +217,10 @@ function buildSections(site) {
 }
 
 function renderIndexHtml(site) {
+  if (site.feature?.kind === "directoryHub") {
+    return renderDirectoryHubIndexHtml(site);
+  }
+
   const title = `${site.name} - ${site.tagline}`;
   const keywords = escapeHtml(site.keywords.join(", "));
   const intro = site.category === "server-lead"
@@ -349,7 +373,12 @@ Sitemap: ${siteUrl}sitemap.xml
 `;
 }
 
-function renderSitemap(siteUrl) {
+function renderSitemap(siteUrl, extraPaths) {
+  const cleaned = (extraPaths || [])
+    .map((entry) => String(entry).replace(/^\/+/, "").trim())
+    .filter((entry) => entry.length > 0)
+    .map((entry) => (entry.endsWith("/") ? entry : `${entry}/`));
+
   return `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
@@ -357,6 +386,7 @@ function renderSitemap(siteUrl) {
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
+  ${cleaned.map((entry) => `<url><loc>${siteUrl}${entry}</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>`).join("\n  ")}
 </urlset>
 `;
 }
@@ -787,7 +817,8 @@ function renderFeatureTitle(kind) {
   const map = {
     deploymentChecklist: "部署检查清单",
     serverSelector: "服务器节点建议器",
-    ratioCalculator: "比例与尺寸换算工具"
+    ratioCalculator: "比例与尺寸换算工具",
+    directoryHub: "站点目录"
   };
   return map[kind] || "核心功能";
 }
@@ -796,7 +827,8 @@ function renderFeatureIntro(site) {
   const map = {
     deploymentChecklist: "把上线前后最常漏掉的关键步骤放到一个可勾选、可保存进度的清单里。",
     serverSelector: "根据业务类型、访问地区与预算区间，快速给出更合适的部署方向建议。",
-    ratioCalculator: "输入原始尺寸与目标宽度，快速换算等比高度，并查看常见比例预设。"
+    ratioCalculator: "输入原始尺寸与目标宽度，快速换算等比高度，并查看常见比例预设。",
+    directoryHub: "按主题整理工具与资源页，提供可直接访问的子目录入口。"
   };
   return escapeHtml(map[site.feature.kind] || "围绕页面主题提供一个可以直接操作的实用组件。");
 }
@@ -917,6 +949,10 @@ if (featureKind === "ratioCalculator") {
   initRatioCalculator();
 }
 
+if (featureKind === "directoryHub") {
+  initDirectoryHub();
+}
+
 function initChecklist() {
   const storageKey = "deploy-checklist-" + site.slug;
   const items = [...document.querySelectorAll("[data-check-item]")];
@@ -1025,6 +1061,175 @@ function initRatioCalculator() {
     ].join("\\n\\n");
   }
 }
+
+function initDirectoryHub() {
+  const search = document.getElementById("siteFilterInput");
+  const counter = document.getElementById("siteCounter");
+  const cards = [...document.querySelectorAll("[data-directory-item]")];
+
+  if (search && counter && cards.length) {
+    const applyFilter = () => {
+      const keyword = String(search.value || "").trim().toLowerCase();
+      let visible = 0;
+      cards.forEach((card) => {
+        const text = String(card.dataset.directoryItem || "").toLowerCase();
+        const show = keyword.length === 0 || text.includes(keyword);
+        card.hidden = !show;
+        if (show) visible += 1;
+      });
+      counter.textContent = visible + " / " + cards.length;
+    };
+
+    search.addEventListener("input", applyFilter);
+    applyFilter();
+  }
+
+  const toolRoot = document.querySelector("[data-tool-kind]");
+  if (!toolRoot) return;
+
+  const kind = String(toolRoot.dataset.toolKind || "");
+  if (kind === "urlEncode") {
+    bindOneToOneTool("toolInput", "toolOutput", (value) => encodeURIComponent(value));
+  }
+
+  if (kind === "urlDecode") {
+    bindOneToOneTool("toolInput", "toolOutput", (value) => {
+      try {
+        return decodeURIComponent(value);
+      } catch {
+        return "无法解码：输入可能不是有效的百分号编码。";
+      }
+    });
+  }
+
+  if (kind === "base64Encode") {
+    bindOneToOneTool("toolInput", "toolOutput", (value) => bytesToBase64(new TextEncoder().encode(value)));
+  }
+
+  if (kind === "base64Decode") {
+    bindOneToOneTool("toolInput", "toolOutput", (value) => {
+      try {
+        const bytes = base64ToBytes(value.trim());
+        return new TextDecoder().decode(bytes);
+      } catch {
+        return "无法解码：请确认输入是有效 Base64。";
+      }
+    });
+  }
+
+  if (kind === "ipv4Integer") {
+    const input = document.getElementById("toolInput");
+    const output = document.getElementById("toolOutput");
+    const button = document.getElementById("toolButton");
+    if (!input || !output || !button) return;
+
+    button.addEventListener("click", () => {
+      const raw = String(input.value || "").trim();
+      if (!raw) {
+        output.textContent = "请输入 IPv4 或整数。";
+        return;
+      }
+
+      if (/^\\d+$/.test(raw)) {
+        const n = Number(raw);
+        if (!Number.isFinite(n) || n < 0 || n > 4294967295) {
+          output.textContent = "整数范围应在 0 到 4294967295 之间。";
+          return;
+        }
+        output.textContent = integerToIpv4(n >>> 0);
+        return;
+      }
+
+      const parsed = parseIpv4(raw);
+      if (!parsed) {
+        output.textContent = "IPv4 格式不正确。";
+        return;
+      }
+      output.textContent = String(ipv4ToInteger(parsed));
+    });
+  }
+
+  if (kind === "textCount") {
+    const input = document.getElementById("toolInput");
+    const output = document.getElementById("toolOutput");
+    const button = document.getElementById("toolButton");
+    if (!input || !output || !button) return;
+
+    button.addEventListener("click", () => {
+      const value = String(input.value || "");
+      const bytes = new TextEncoder().encode(value).length;
+      const codePoints = [...value].length;
+      const lines = value.length === 0 ? 0 : value.split(/\\r\\n|\\r|\\n/).length;
+      const words = (value.match(/[A-Za-z0-9]+(?:'[A-Za-z0-9]+)*/g) || []).length;
+      const han = (value.match(/[\\u4e00-\\u9fff]/g) || []).length;
+
+      output.textContent = [
+        "代码点：" + codePoints,
+        "字节(UTF-8)：" + bytes,
+        "行数：" + lines,
+        "英文词：" + words,
+        "汉字：" + han
+      ].join("\\n");
+    });
+  }
+
+  if (kind === "rot13") {
+    bindOneToOneTool("toolInput", "toolOutput", (value) =>
+      value.replace(/[A-Za-z]/g, (ch) => {
+        const base = ch <= "Z" ? 65 : 97;
+        return String.fromCharCode(((ch.charCodeAt(0) - base + 13) % 26) + base);
+      })
+    );
+  }
+
+  function bindOneToOneTool(inputId, outputId, handler) {
+    const input = document.getElementById(inputId);
+    const output = document.getElementById(outputId);
+    const button = document.getElementById("toolButton");
+    if (!input || !output || !button) return;
+    button.addEventListener("click", () => {
+      output.textContent = handler(String(input.value || ""));
+    });
+  }
+
+  function bytesToBase64(bytes) {
+    let binary = "";
+    bytes.forEach((byte) => {
+      binary += String.fromCharCode(byte);
+    });
+    return btoa(binary);
+  }
+
+  function base64ToBytes(value) {
+    const binary = atob(value);
+    const bytes = new Uint8Array(binary.length);
+    for (let i = 0; i < binary.length; i += 1) {
+      bytes[i] = binary.charCodeAt(i);
+    }
+    return bytes;
+  }
+
+  function parseIpv4(value) {
+    const parts = value.split(".").map((part) => part.trim());
+    if (parts.length !== 4) return null;
+    const nums = parts.map((part) => (part === "" ? NaN : Number(part)));
+    if (nums.some((n) => !Number.isInteger(n) || n < 0 || n > 255)) return null;
+    return nums;
+  }
+
+  function ipv4ToInteger(parts) {
+    return (((parts[0] << 24) >>> 0) + (parts[1] << 16) + (parts[2] << 8) + parts[3]) >>> 0;
+  }
+
+  function integerToIpv4(n) {
+    return [
+      (n >>> 24) & 255,
+      (n >>> 16) & 255,
+      (n >>> 8) & 255,
+      n & 255
+    ].join(".");
+  }
+}
 `;
 }
 
@@ -1035,4 +1240,368 @@ function escapeHtml(value) {
     .replaceAll(">", "&gt;")
     .replaceAll('"', "&quot;")
     .replaceAll("'", "&#39;");
+}
+
+function listExtraPaths(site) {
+  if (site.feature?.kind !== "directoryHub") {
+    return [];
+  }
+
+  const paths = ["directory/"];
+  const groups = Array.isArray(site.feature.groups) ? site.feature.groups : [];
+
+  groups.forEach((group) => {
+    if (group?.id) {
+      paths.push(`${group.id}/`);
+    }
+    (group?.items || []).forEach((item) => {
+      if (item?.slug) {
+        paths.push(`${item.slug}/`);
+      }
+    });
+  });
+
+  return [...new Set(paths)];
+}
+
+function writeExtraPages(outputDir, site) {
+  if (site.feature?.kind !== "directoryHub") {
+    return;
+  }
+
+  const groups = Array.isArray(site.feature.groups) ? site.feature.groups : [];
+  const allItems = groups.flatMap((group) => (group?.items || []).map((item) => ({ ...item, group })));
+
+  mkdirSync(path.join(outputDir, "directory"), { recursive: true });
+  writeFileSync(
+    path.join(outputDir, "directory", "index.html"),
+    renderDirectoryHubDirectoryHtml(site, allItems),
+    "utf8"
+  );
+
+  for (const group of groups) {
+    if (!group?.id) continue;
+    mkdirSync(path.join(outputDir, group.id), { recursive: true });
+    const items = (group.items || []).map((item) => ({ ...item, group }));
+    writeFileSync(
+      path.join(outputDir, group.id, "index.html"),
+      renderDirectoryHubGroupHtml(site, group, items),
+      "utf8"
+    );
+  }
+
+  for (const item of allItems) {
+    if (!item?.slug) continue;
+    mkdirSync(path.join(outputDir, item.slug), { recursive: true });
+    writeFileSync(
+      path.join(outputDir, item.slug, "index.html"),
+      renderDirectoryHubItemHtml(site, item),
+      "utf8"
+    );
+  }
+}
+
+function renderDirectoryHubIndexHtml(site) {
+  const title = `${site.name} - ${site.tagline}`;
+  const keywords = escapeHtml(site.keywords.join(", "));
+  const groups = Array.isArray(site.feature.groups) ? site.feature.groups : [];
+  const allItems = groups.flatMap((group) => group.items || []);
+  const stats = Array.isArray(site.feature.stats) ? site.feature.stats : [];
+
+  return `<!doctype html>
+<html lang="${site.lang}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>${escapeHtml(title)}</title>
+  <meta name="description" content="${escapeHtml(site.description)}">
+  <meta name="keywords" content="${keywords}">
+  <meta name="theme-color" content="${site.colors.accent}">
+  <link rel="canonical" href="${site.siteUrl}">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="${escapeHtml(site.name)}">
+  <meta property="og:description" content="${escapeHtml(site.description)}">
+  <meta property="og:url" content="${site.siteUrl}">
+  <meta property="og:locale" content="zh_CN">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="./assets/site.css">
+</head>
+<body>
+  <header class="site-shell hero">
+    <nav class="nav">
+      <a class="brand" href="./">${escapeHtml(site.name)}</a>
+      <div class="nav-meta">
+        <a class="pill" href="./directory/">网站目录</a>
+        <a class="pill pill-soft" href="#projects">项目站点</a>
+      </div>
+    </nav>
+    <div class="hero-grid">
+      <section>
+        <p class="eyebrow">${escapeHtml(site.topic)}</p>
+        <h1>${escapeHtml(site.name)}</h1>
+        <p class="lead">${escapeHtml(site.tagline)}</p>
+        <p class="sublead">${escapeHtml(site.description)}</p>
+        <div class="cta-row">
+          <a class="button" href="./directory/">浏览全部目录</a>
+          <a class="button button-ghost" href="#tools">按分类查看</a>
+        </div>
+      </section>
+      <aside class="hero-panel">
+        <h2>目录概览</h2>
+        <ul class="summary-list">
+          <li><strong>子页面</strong><span>${allItems.length} 个</span></li>
+          <li><strong>分类</strong><span>${groups.length} 个</span></li>
+          <li><strong>发布方式</strong><span>GitHub Pages</span></li>
+          <li><strong>导航页</strong><span><a href="./directory/">/directory/</a></span></li>
+        </ul>
+      </aside>
+    </div>
+  </header>
+
+  <main class="site-shell">
+    <section class="section utility-grid">
+      ${stats.map((item) => `<article class="card"><h2>${escapeHtml(item.value)}</h2><p>${escapeHtml(item.label)}</p></article>`).join("")}
+    </section>
+
+    <section class="section split" id="tools">
+      <div>
+        <p class="eyebrow">分类浏览</p>
+        <h2>从一个入口，跳到多个子目录</h2>
+        <p>每个子目录都是独立页面：既可当作站点目录，也可以继续扩展为小工具或专题内容。</p>
+      </div>
+      <div class="card-stack">
+        ${groups.map((group) => `<article class="card"><h3><a href="./${escapeHtml(group.id)}/">${escapeHtml(group.title)}</a></h3><p>${escapeHtml(group.subtitle || "")}</p><p>${escapeHtml(group.countLabel || "")}</p></article>`).join("")}
+      </div>
+    </section>
+
+    <section class="section" id="projects">
+      <div class="section-head">
+        <p class="eyebrow">已生成的项目站点</p>
+        <h2>这些站点是独立仓库的项目页</h2>
+        <p>点击可直接访问对应的 GitHub Pages 项目路径。</p>
+      </div>
+      <div class="section-grid">
+        ${site.linkedSites.map((entry) => `<article class="card"><h2>${escapeHtml(entry.name)}</h2><p>${escapeHtml(entry.topic || "")}</p><p><a class="button button-ghost" href="${entry.siteUrl}">打开站点</a></p></article>`).join("")}
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-shell footer">
+    <p>${escapeHtml(site.name)} · ${escapeHtml(site.topic)}</p>
+    <p>当前地址：<a href="${site.siteUrl}">${site.siteUrl}</a></p>
+  </footer>
+
+  <script>window.__SITE_DATA__ = ${JSON.stringify(site)};</script>
+  <script type="module" src="./assets/site.js"></script>
+</body>
+</html>`;
+}
+
+function renderDirectoryHubDirectoryHtml(site, items) {
+  return renderDirectoryHubListingHtml(site, {
+    pageTitle: "全部网站",
+    canonical: `${site.siteUrl}directory/`,
+    homeHref: "../",
+    activeLabel: "全部目录",
+    items
+  });
+}
+
+function renderDirectoryHubGroupHtml(site, group, items) {
+  return renderDirectoryHubListingHtml(site, {
+    pageTitle: group.title,
+    canonical: `${site.siteUrl}${group.id}/`,
+    homeHref: "../",
+    activeLabel: group.title,
+    items
+  });
+}
+
+function renderDirectoryHubListingHtml(site, options) {
+  const title = `${options.pageTitle} - ${site.name}`;
+  const keywords = escapeHtml(site.keywords.join(", "));
+
+  return `<!doctype html>
+<html lang="${site.lang}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>${escapeHtml(title)}</title>
+  <meta name="description" content="${escapeHtml(site.description)}">
+  <meta name="keywords" content="${keywords}">
+  <meta name="theme-color" content="${site.colors.accent}">
+  <link rel="canonical" href="${options.canonical}">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="${escapeHtml(options.pageTitle)}">
+  <meta property="og:description" content="${escapeHtml(site.description)}">
+  <meta property="og:url" content="${options.canonical}">
+  <meta property="og:locale" content="zh_CN">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+  <header class="site-shell hero">
+    <nav class="nav">
+      <a class="brand" href="${options.homeHref}">${escapeHtml(site.name)}</a>
+      <div class="nav-meta">
+        <a class="pill pill-soft" href="../directory/">目录</a>
+        <a class="pill" href="${options.homeHref}#tools">${escapeHtml(options.activeLabel)}</a>
+      </div>
+    </nav>
+    <div class="hero-grid">
+      <section>
+        <p class="eyebrow">Directory</p>
+        <h1>${escapeHtml(options.pageTitle)}</h1>
+        <p class="lead">在这个分类里快速找到对应子目录入口。</p>
+        <div class="cta-row">
+          <a class="button button-ghost" href="${options.homeHref}">返回首页</a>
+        </div>
+      </section>
+      <aside class="hero-panel">
+        <h2>筛选</h2>
+        <label for="siteFilterInput">关键词</label>
+        <input id="siteFilterInput" type="text" placeholder="输入标题或描述关键词">
+        <p class="promo-note">显示 <span id="siteCounter"></span></p>
+      </aside>
+    </div>
+  </header>
+
+  <main class="site-shell">
+    <section class="section section-grid">
+      ${options.items.map((entry) => `<article class="card" data-directory-item="${escapeHtml(entry.title)} ${escapeHtml(entry.description || "")} ${escapeHtml(entry.slug)}"><p class="eyebrow">${escapeHtml(entry.group?.title || "")}</p><h2><a href="../${escapeHtml(entry.slug)}/">${escapeHtml(entry.title)}</a></h2><p>${escapeHtml(entry.description || "")}</p><p><a class="button button-ghost" href="../${escapeHtml(entry.slug)}/">进入子目录</a></p></article>`).join("")}
+    </section>
+  </main>
+
+  <footer class="site-shell footer">
+    <p>${escapeHtml(site.name)} · ${escapeHtml(site.topic)}</p>
+    <p><a href="${options.homeHref}">返回首页</a></p>
+  </footer>
+
+  <script>window.__SITE_DATA__ = ${JSON.stringify(site)};</script>
+  <script type="module" src="../assets/site.js"></script>
+</body>
+</html>`;
+}
+
+function renderDirectoryHubItemHtml(site, item) {
+  const toolKind = resolveDirectoryToolKind(item.slug);
+  const title = `${item.title} - ${site.name}`;
+  const keywords = escapeHtml(site.keywords.join(", "));
+  const canonical = `${site.siteUrl}${item.slug}/`;
+  const content = renderDirectoryHubToolBody(toolKind, item);
+
+  return `<!doctype html>
+<html lang="${site.lang}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>${escapeHtml(title)}</title>
+  <meta name="description" content="${escapeHtml(item.description || site.description)}">
+  <meta name="keywords" content="${keywords}">
+  <meta name="theme-color" content="${site.colors.accent}">
+  <link rel="canonical" href="${canonical}">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="${escapeHtml(item.title)}">
+  <meta property="og:description" content="${escapeHtml(item.description || site.description)}">
+  <meta property="og:url" content="${canonical}">
+  <meta property="og:locale" content="zh_CN">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+  <header class="site-shell hero">
+    <nav class="nav">
+      <a class="brand" href="../">${escapeHtml(site.name)}</a>
+      <div class="nav-meta">
+        <a class="pill" href="../directory/">目录</a>
+        <a class="pill pill-soft" href="../${escapeHtml(item.group?.id || "directory")}/">${escapeHtml(item.group?.title || "分类")}</a>
+      </div>
+    </nav>
+    <div class="hero-grid">
+      <section>
+        <p class="eyebrow">${escapeHtml(item.group?.title || "子目录")}</p>
+        <h1>${escapeHtml(item.title)}</h1>
+        <p class="lead">${escapeHtml(item.description || "")}</p>
+        <div class="cta-row">
+          <a class="button button-ghost" href="../directory/">返回目录</a>
+        </div>
+      </section>
+      <aside class="hero-panel">
+        <h2>提示</h2>
+        <p class="promo-note">页面完全静态，不上传输入内容；所有计算在浏览器本地完成。</p>
+      </aside>
+    </div>
+  </header>
+
+  <main class="site-shell" data-tool-kind="${toolKind}">
+    <section class="section">
+      ${content}
+    </section>
+  </main>
+
+  <footer class="site-shell footer">
+    <p>${escapeHtml(site.name)} · ${escapeHtml(site.topic)}</p>
+    <p><a href="../">返回首页</a></p>
+  </footer>
+
+  <script>window.__SITE_DATA__ = ${JSON.stringify(site)};</script>
+  <script type="module" src="../assets/site.js"></script>
+</body>
+</html>`;
+}
+
+function resolveDirectoryToolKind(slug) {
+  const map = {
+    "tool-url-encode": "urlEncode",
+    "tool-url-decode": "urlDecode",
+    "tool-base64-encode": "base64Encode",
+    "tool-base64-decode": "base64Decode",
+    "tool-ipv4-integer": "ipv4Integer",
+    "tool-text-count": "textCount",
+    "tool-rot13": "rot13"
+  };
+  return map[slug] || "info";
+}
+
+function renderDirectoryHubToolBody(kind, item) {
+  if (kind === "info") {
+    return `<article class="card">
+      <h2>说明</h2>
+      <p>${escapeHtml(item.description || "这是一个轻量子目录页面，可继续扩展为可交互的小工具。")}</p>
+      <p>建议做法：把常用输入/输出固定成表单结构，再用浏览器本地脚本实现计算。</p>
+    </article>`;
+  }
+
+  const placeholders = {
+    urlEncode: "输入要编码的文本，例如：name=张三 & city=上海",
+    urlDecode: "输入要解码的百分号编码字符串，例如：name%3D%E5%BC%A0%E4%B8%89",
+    base64Encode: "输入要编码的文本",
+    base64Decode: "输入 Base64 字符串",
+    ipv4Integer: "输入 IPv4（例如 8.8.8.8）或整数（例如 134744072）",
+    textCount: "粘贴或输入要统计的文本",
+    rot13: "输入要转换的英文文本"
+  };
+
+  const actionLabels = {
+    urlEncode: "编码",
+    urlDecode: "解码",
+    base64Encode: "编码",
+    base64Decode: "解码",
+    ipv4Integer: "转换",
+    textCount: "统计",
+    rot13: "转换"
+  };
+
+  return `<div class="feature-grid">
+    <article class="tool-card">
+      <h3>输入</h3>
+      <label for="toolInput">内容</label>
+      <textarea id="toolInput" rows="6" placeholder="${escapeHtml(placeholders[kind] || "")}"></textarea>
+      <button class="button" id="toolButton" type="button">${escapeHtml(actionLabels[kind] || "执行")}</button>
+    </article>
+    <article class="tool-card">
+      <h3>输出</h3>
+      <div class="result-panel" id="toolOutput">点击按钮后在此显示结果。</div>
+    </article>
+  </div>`;
 }

@@ -22,5 +22,13 @@
     "category": "traffic",
     "siteUrl": "https://fyrghdyrgh-dot.github.io/ratio-kit-mobile/",
     "outputDir": "/workspace/dist/ratio-kit-mobile"
+  },
+  {
+    "slug": "nova-directory",
+    "repo": "nova-directory",
+    "name": "NOVA 网站索引",
+    "category": "traffic",
+    "siteUrl": "https://fyrghdyrgh-dot.github.io/nova-directory/",
+    "outputDir": "/workspace/dist/nova-directory"
   }
 ]
