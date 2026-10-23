@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>常用网站导航</title>
+  <meta name="description" content="收录常用的工具站、服务器主题站和查询页面，按场景快速找到可直接使用的网站。">
+  <meta name="theme-color" content="#2563eb">
+  <link rel="canonical" href="https://fyrghdyrgh-dot.github.io/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="常用网站导航">
+  <meta property="og:description" content="按场景整理我维护的网站，打开就能找到合适的工具或内容页。">
+  <meta property="og:url" content="https://fyrghdyrgh-dot.github.io/">
+  <link rel="stylesheet" href="./assets/site.css">
+</head>
+<body>
+  <header class="hero">
+    <div class="shell">
+      <nav class="topbar">
+        <a class="brand" href="./">站点导航</a>
+        <div class="toplinks">
+          <a href="#sites">全部站点</a>
+          <a href="#topics">分类查看</a>
+          <a href="#about">关于</a>
+        </div>
+      </nav>
+      <div class="hero-grid">
+        <section>
+          <p class="eyebrow">常用站点入口</p>
+          <h1>把常用工具和主题站集中到一个首页</h1>
+          <p class="lead">这里收录我当前维护的网站，按用途分成服务器主题和实用工具两类，方便直接访问。</p>
+          <div class="hero-actions">
+            <a class="button" href="#sites">查看全部站点</a>
+            <a class="button ghost" href="#topics">按分类浏览</a>
+          </div>
+        </section>
+        <aside class="hero-panel">
+          <h2>当前收录</h2>
+          <ul class="stat-list">
+            <li><strong>3</strong><span>已上线站点</span></li>
+            <li><strong>2</strong><span>服务器主题站</span></li>
+            <li><strong>1</strong><span>实用工具站</span></li>
+          </ul>
+          <p class="panel-note">后续新增站点后，这个首页会继续补充入口和分类。</p>
+        </aside>
+      </div>
+    </div>
+  </header>
+
+  <main class="shell">
+    <section class="section search-card" id="sites">
+      <div class="section-head">
+        <p class="eyebrow">全部站点</p>
+        <h2>按名称或关键词快速查找</h2>
+        <p>输入站点名称、主题或功能关键词，可以直接筛选当前已发布的页面。</p>
+      </div>
+      <div class="search-row">
+        <input id="siteSearch" type="search" placeholder="例如：服务器、比例、节点、部署">
+        <div class="filter-group">
+          <button class="chip active" type="button" data-filter="all">全部</button>
+          <button class="chip" type="button" data-filter="server">服务器主题</button>
+          <button class="chip" type="button" data-filter="tool">实用工具</button>
+        </div>
+      </div>
+      <div class="card-grid" id="siteGrid">
+        <article class="site-card" data-type="server" data-keywords="vps 上线 清单 部署 服务器 建站 证书 监控">
+          <div class="card-top">
+            <span class="badge">服务器主题</span>
+            <a class="text-link" href="https://github.com/fyrghdyrgh-dot/vps-launch-checklist">仓库</a>
+          </div>
+          <h3>VPS 上线清单</h3>
+          <p>适合准备上线网站或部署服务时使用，把证书、备份、监控、反向代理和回滚等关键步骤集中整理。</p>
+          <ul class="point-list">
+            <li>适合新站上线前逐项检查</li>
+            <li>支持勾选进度并保存在本地</li>
+            <li>适合博客、API、下载分发等场景</li>
+          </ul>
+          <div class="card-actions">
+            <a class="button small" href="https://fyrghdyrgh-dot.github.io/vps-launch-checklist/">访问网站</a>
+          </div>
+        </article>
+
+        <article class="site-card" data-type="server" data-keywords="服务器 节点 建议 香港 新加坡 东京 美国 选型">
+          <div class="card-top">
+            <span class="badge">服务器主题</span>
+            <a class="text-link" href="https://github.com/fyrghdyrgh-dot/server-location-advisor">仓库</a>
+          </div>
+          <h3>服务器节点建议器</h3>
+          <p>根据业务类型、目标访问地区和预算区间，快速给出更适合的服务器部署方向，适合做节点初筛。</p>
+          <ul class="point-list">
+            <li>支持常见业务类型快速选择</li>
+            <li>覆盖香港、新加坡、东京和美国西海岸</li>
+            <li>适合做节点初步判断和方案比较</li>
+          </ul>
+          <div class="card-actions">
+            <a class="button small" href="https://fyrghdyrgh-dot.github.io/server-location-advisor/">访问网站</a>
+          </div>
+        </article>
+
+        <article class="site-card" data-type="tool" data-keywords="比例 计算 尺寸 换算 图片 画布 宽高 移动端">
+          <div class="card-top">
+            <span class="badge tool-badge">实用工具</span>
+            <a class="text-link" href="https://github.com/fyrghdyrgh-dot/ratio-kit-mobile">仓库</a>
+          </div>
+          <h3>比例计算小工具</h3>
+          <p>适合手机上快速处理图片尺寸和宽高比例，输入原始尺寸与目标宽度后就能得到等比结果。</p>
+          <ul class="point-list">
+            <li>支持输入原始尺寸直接计算</li>
+            <li>内置短视频封面和常见画布预设</li>
+            <li>适合做图片、封面和设计尺寸换算</li>
+          </ul>
+          <div class="card-actions">
+            <a class="button small" href="https://fyrghdyrgh-dot.github.io/ratio-kit-mobile/">访问网站</a>
+          </div>
+        </article>
+      </div>
+      <p class="empty-tip hidden" id="emptyTip">没有找到匹配的站点，请换个关键词试试。</p>
+    </section>
+
+    <section class="section topic-grid" id="topics">
+      <article class="info-card">
+        <p class="eyebrow">服务器主题</p>
+        <h2>适合建站、部署和节点选择</h2>
+        <p>如果你当前在处理网站上线、服务部署、节点筛选或访问速度相关问题，可以优先看这一类站点。</p>
+      </article>
+      <article class="info-card">
+        <p class="eyebrow">实用工具</p>
+        <h2>适合手机端快速完成操作</h2>
+        <p>如果你只是想快速得到结果，例如比例换算、查询或轻量计算，可以优先看这一类工具站。</p>
+      </article>
+    </section>
+
+    <section class="section about-card" id="about">
+      <div class="section-head">
+        <p class="eyebrow">关于</p>
+        <h2>这个首页主要做什么</h2>
+      </div>
+      <div class="about-grid">
+        <article class="info-card">
+          <h3>减少找站点的时间</h3>
+          <p>把常用的网站入口集中放在一个页面里，回访时不需要翻聊天记录或仓库列表。</p>
+        </article>
+        <article class="info-card">
+          <h3>按主题整理</h3>
+          <p>服务器相关页面与普通工具页分开呈现，进入后更容易找到和当前需求匹配的内容。</p>
+        </article>
+        <article class="info-card">
+          <h3>保持简洁</h3>
+          <p>首页只负责导航和分类，不堆太多说明，尽量让访问者在几秒内找到目标页面。</p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="shell footer-inner">
+      <p>站点导航</p>
+      <p><a href="https://github.com/fyrghdyrgh-dot/fyrghdyrgh-dot.github.io">查看根站仓库</a></p>
+    </div>
+  </footer>
+
+  <script type="module" src="./assets/site.js"></script>
+</body>
+</html>

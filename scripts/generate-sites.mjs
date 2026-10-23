@@ -107,36 +107,36 @@ function buildSections(site) {
     return {
       highlights: [
         {
-          title: "选题聚焦",
-          text: "围绕真实服务器使用场景输出内容，避免无意义关键词堆砌。"
+          title: "适合人群",
+          text: "适合准备上线网站、部署应用或挑选服务器节点的用户快速查看。"
         },
         {
-          title: "自然引导",
-          text: "只在服务器采购、节点选择或带宽需求相关位置自然引导到 1bgp.com。"
+          title: "页面重点",
+          text: "把部署步骤、节点选择和常见问题集中整理，方便边看边处理。"
         },
         {
-          title: "可持续扩展",
-          text: "保留专题页、FAQ、广告位和统计位，后续可继续叠加流量玩法。"
+          title: "使用方式",
+          text: "先用页面里的工具判断方向，再根据当前需求继续查看对应内容。"
         }
       ],
       contentCards: [
         {
-          title: "常见场景",
-          text: "博客建站、API 托管、下载分发、出海电商、跨境业务部署。"
+          title: "你会用到",
+          text: "域名与证书、基础环境、监控备份、节点选择以及常见部署细节。"
         },
         {
-          title: "内容方向",
-          text: "配置教程、部署清单、选型指南、排障问答、节点推荐。"
+          title: "为什么值得收藏",
+          text: "新站上线、迁移服务器或补监控时，可以直接按页面给出的顺序逐项处理。"
         },
         {
-          title: "增长方式",
-          text: "通过搜索需求页获取精准流量，再在相关位置放置合适的购买入口。"
+          title: "适合什么时候看",
+          text: "适合在准备上线、切换节点、扩容服务或排查访问速度时使用。"
         }
       ],
       faq: [
         {
           q: "为什么站点里会出现 1bgp.com？",
-          a: "仅在用户已经产生服务器采购或节点筛选需求时，页面会提供一个自然的延伸入口。"
+          a: "当内容涉及服务器购买、节点选择或带宽方案时，页面会提供一个相关入口，方便继续查看。"
         },
         {
           q: "站点适合发布什么内容？",
@@ -144,7 +144,7 @@ function buildSections(site) {
         },
         {
           q: "是否支持后续加专题页？",
-          a: "支持。当前模板是静态结构，可继续扩展更多 HTML 页面或 JSON 数据源。"
+          a: "支持，后续可以继续补充专题内容、案例说明和更细的操作步骤。"
         }
       ]
     };
@@ -153,44 +153,44 @@ function buildSections(site) {
   return {
     highlights: [
       {
-        title: "轻量可用",
-        text: "首页即具备可实际使用的小工具或有效内容，适合移动端直接访问。"
+        title: "打开就能用",
+        text: "首页直接提供核心工具或结果区，不需要注册，也不需要复杂操作。"
       },
       {
-        title: "变现预留",
-        text: "保留广告位、统计代码位和联盟位，但默认不接入外部账号服务。"
+        title: "适合手机访问",
+        text: "按钮、输入区和结果卡片都按窄屏重排，手机上也能顺手使用。"
       },
       {
-        title: "低维护成本",
-        text: "纯静态站结构，更新快，适合批量生成和长期托管。"
+        title: "内容更直接",
+        text: "尽量减少空话，把说明、预设和结果集中在一个页面完成。"
       }
     ],
     contentCards: [
       {
-        title: "适合主题",
-        text: "工具站、查询页、导航页、教程页、手机端小工具、轻量资源页。"
+        title: "适合谁用",
+        text: "适合需要快速得到结果的普通用户、内容编辑和移动端访客。"
       },
       {
-        title: "页面策略",
-        text: "减少复杂依赖，保留核心交互，让页面快开、好用、容易继续扩展。"
+        title: "常见用法",
+        text: "适合查数据、做换算、找入口或快速浏览某个主题的重点内容。"
       },
       {
-        title: "后续演化",
-        text: "可继续追加专题文章、站内搜索、广告位、赞助位和自定义域名。"
+        title: "页面特点",
+        text: "结构轻、打开快、信息集中，适合从搜索结果直接进入使用。"
       }
     ],
     faq: [
       {
-        q: "为什么默认不插入推广链接？",
-        a: "普通流量站先保证内容和工具本身可用，只有主题真正相关时才加入推广。"
+        q: "这个页面适合收藏吗？",
+        a: "如果你会反复用到这个功能，收藏后再次打开会更省时间。"
       },
       {
-        q: "这个模板支持扩展更多工具吗？",
-        a: "支持，可继续新增 feature 类型并在配置中批量声明。"
+        q: "工具结果会上传吗？",
+        a: "当前交互在浏览器本地完成，不需要登录，也不会要求提交账号信息。"
       },
       {
         q: "是否适合手机端？",
-        a: "模板默认以移动端优先设计，按钮、卡片和输入区都做了窄屏优化。"
+        a: "适合，页面按手机端优先布局，按钮、卡片和输入区都做了窄屏优化。"
       }
     ]
   };
@@ -201,7 +201,7 @@ function renderIndexHtml(site) {
   const keywords = escapeHtml(site.keywords.join(", "));
   const intro = site.category === "server-lead"
     ? "围绕服务器建站、节点选择与部署场景，提供真实可用的内容与工具。"
-    : "为移动端和轻量静态站场景设计，打开即用，适合快速获取自然流量。";
+    : "把常用功能和说明集中到一个页面，打开后就能直接开始使用。";
 
   return `<!doctype html>
 <html lang="${site.lang}">
@@ -226,7 +226,7 @@ function renderIndexHtml(site) {
     <nav class="nav">
       <a class="brand" href="./">${escapeHtml(site.name)}</a>
       <div class="nav-meta">
-        <span class="pill">${site.category === "server-lead" ? "服务器引流站" : "普通流量站"}</span>
+        <span class="pill">${site.category === "server-lead" ? "服务器主题站" : "实用工具站"}</span>
         <span class="pill pill-soft">${escapeHtml(site.referenceStyle)}</span>
       </div>
     </nav>
@@ -245,9 +245,9 @@ function renderIndexHtml(site) {
         <h2>站点摘要</h2>
         <ul class="summary-list">
           <li><strong>主题</strong><span>${escapeHtml(site.topic)}</span></li>
-          <li><strong>发布方式</strong><span>GitHub Pages 静态托管</span></li>
-          <li><strong>更新形态</strong><span>配置驱动 + 自动部署</span></li>
-          <li><strong>SEO 基础</strong><span>Canonical / robots / sitemap 已生成</span></li>
+          <li><strong>适合人群</strong><span>${escapeHtml(getAudienceText(site))}</span></li>
+          <li><strong>核心内容</strong><span>${escapeHtml(getCoreContentText(site))}</span></li>
+          <li><strong>页面特点</strong><span>${escapeHtml(getPageToneText(site))}</span></li>
         </ul>
       </aside>
     </div>
@@ -261,7 +261,7 @@ function renderIndexHtml(site) {
     <section class="section split">
       <div>
         <p class="eyebrow">站点定位</p>
-        <h2>不是简单换标题，而是按主题组织结构</h2>
+        <h2>这个页面能帮你更快处理什么</h2>
         <p>${escapeHtml(site.description)}</p>
       </div>
       <div class="card-stack">
@@ -282,18 +282,16 @@ function renderIndexHtml(site) {
 
     <section class="section utility-grid">
       <article class="card">
-        <h2>规范链接</h2>
-        <p>当前页面已输出 canonical、robots.txt 与 sitemap.xml，适配 GitHub Pages 项目路径。</p>
+        <h2>使用提醒</h2>
+        <p>${escapeHtml(getUsageTip(site))}</p>
       </article>
       <article class="card">
-        <h2>统计预留</h2>
-        <p>${site.analyticsPlaceholder ? "已预留统计代码位置，后续可接入你自己的分析方案。" : "当前模板未启用统计代码。"}</p>
-        <pre class="placeholder">&lt;!-- analytics slot --&gt;</pre>
+        <h2>适合场景</h2>
+        <p>${escapeHtml(getScenarioTip(site))}</p>
       </article>
       <article class="card">
-        <h2>广告位预留</h2>
-        <p>${site.adPlaceholder ? "已预留内容位与广告位插槽，但默认不接入第三方广告账号。" : "当前模板未启用广告位。"}</p>
-        <pre class="placeholder">&lt;!-- ad slot --&gt;</pre>
+        <h2>页面说明</h2>
+        <p>${escapeHtml(getPageNote(site))}</p>
       </article>
     </section>
 
@@ -790,6 +788,63 @@ function renderFeatureTitle(kind) {
     ratioCalculator: "比例与尺寸换算工具"
   };
   return map[kind] || "核心功能";
+}
+
+function getAudienceText(site) {
+  if (site.category === "server-lead") {
+    return "准备部署网站、上线服务或筛选服务器节点的用户";
+  }
+
+  return "想快速完成查询、换算或获取结果的普通访客";
+}
+
+function getCoreContentText(site) {
+  const map = {
+    deploymentChecklist: "上线清单、关键步骤和部署提醒",
+    serverSelector: "节点建议、业务场景和预算判断",
+    ratioCalculator: "比例换算、尺寸计算和常用预设"
+  };
+  return map[site.feature.kind] || "围绕主题整理的实用内容与工具";
+}
+
+function getPageToneText(site) {
+  if (site.category === "server-lead") {
+    return "内容集中、步骤明确，适合边看边操作";
+  }
+
+  return "打开即用、说明直接，手机端也方便操作";
+}
+
+function getUsageTip(site) {
+  if (site.feature.kind === "deploymentChecklist") {
+    return "建议按顺序勾选清单，先处理证书、备份和回滚，再继续上线发布。";
+  }
+
+  if (site.feature.kind === "serverSelector") {
+    return "先按真实用户地区和预算选择条件，再结合业务类型看建议结果。";
+  }
+
+  if (site.feature.kind === "ratioCalculator") {
+    return "输入原始尺寸和目标宽度后即可得到等比结果，常用预设也可以直接套用。";
+  }
+
+  return "直接使用页面中的核心功能即可，不需要额外安装或注册。";
+}
+
+function getScenarioTip(site) {
+  if (site.category === "server-lead") {
+    return "适合新站上线、迁移服务器、增加监控、优化访问速度和补充部署流程时查看。";
+  }
+
+  return "适合移动端快速处理、从搜索进入后立即使用，以及保存为常用工具页。";
+}
+
+function getPageNote(site) {
+  if (site.category === "server-lead") {
+    return "页面以教程和工具为主，涉及购买或节点选择时才会补充相关延伸入口。";
+  }
+
+  return "页面重点是把功能做简单、把结果讲清楚，让第一次访问的用户也能快速上手。";
 }
 
 function renderFeatureIntro(site) {
