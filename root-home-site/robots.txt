@@ -1,4 +1,10 @@
 User-agent: *
 Allow: /
 
+User-agent: Googlebot
+Allow: /
+
+User-agent: Baiduspider
+Allow: /
+
 Sitemap: https://fyrghdyrgh-dot.github.io/sitemap.xml

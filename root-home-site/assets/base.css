@@ -208,6 +208,49 @@ textarea::placeholder {
 .site-footer {
   padding: 20px 0 36px;
 }
+.crawl-strip {
+  padding: 22px;
+  margin-bottom: 18px;
+  border: 1px solid rgba(100, 116, 139, 0.12);
+  border-radius: var(--radius);
+  background: white;
+  box-shadow: var(--shadow);
+}
+.crawl-head p:last-child {
+  margin-top: 10px;
+  color: #6b7280;
+  font-size: 14px;
+}
+.crawl-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 16px;
+}
+.index-card {
+  padding: 18px;
+  border-radius: 18px;
+  background: color-mix(in srgb, var(--accent-soft) 16%, white);
+  border: 1px solid color-mix(in srgb, var(--accent) 12%, #d9dde8);
+}
+.index-card h3 {
+  font-size: 18px;
+}
+.index-card p {
+  margin-top: 10px;
+  color: var(--muted);
+  font-size: 14px;
+}
+.index-links {
+  display: grid;
+  gap: 8px;
+  margin-top: 14px;
+}
+.index-links a {
+  color: var(--accent);
+  font-size: 14px;
+  font-weight: 700;
+}
 .footer-grid {
   display: grid;
   grid-template-columns: 1fr auto;
@@ -456,6 +499,9 @@ textarea::placeholder {
   }
   .top-nav {
     justify-content: flex-start;
+  }
+  .crawl-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
   .footer-grid {
     grid-template-columns: 1fr;
