@@ -1,21 +1,45 @@
 const searchInput = document.getElementById("directorySearch");
-const sections = [...document.querySelectorAll("[data-filter-item]")];
+const groups = [...document.querySelectorAll("[data-group]")];
 const emptyState = document.getElementById("emptyState");
 
 if (searchInput) {
-  searchInput.addEventListener("input", () => {
+  const update = () => {
     const keyword = searchInput.value.trim().toLowerCase();
-    let visible = 0;
+    let visibleGroups = 0;
 
-    sections.forEach((section) => {
-      const text = (section.dataset.keywords || "").toLowerCase();
-      const matches = !keyword || text.includes(keyword);
-      section.classList.toggle("hidden", !matches);
-      if (matches) visible += 1;
+    groups.forEach((group) => {
+      const cards = [...group.querySelectorAll("[data-card]")];
+      let visibleCards = 0;
+
+      cards.forEach((card) => {
+        const text = (card.dataset.keywords || "").toLowerCase();
+        const matches = !keyword || text.includes(keyword);
+        card.classList.toggle("hidden", !matches);
+        if (matches) {
+          visibleCards += 1;
+        }
+      });
+
+      if (cards.length > 0) {
+        group.classList.toggle("hidden", visibleCards === 0);
+        if (visibleCards > 0) {
+          visibleGroups += 1;
+        }
+      } else {
+        const text = (group.dataset.keywords || "").toLowerCase();
+        const matches = !keyword || text.includes(keyword);
+        group.classList.toggle("hidden", !matches);
+        if (matches) {
+          visibleGroups += 1;
+        }
+      }
     });
 
     if (emptyState) {
-      emptyState.classList.toggle("hidden", visible > 0);
+      emptyState.classList.toggle("hidden", visibleGroups > 0);
     }
-  });
+  };
+
+  searchInput.addEventListener("input", update);
+  update();
 }

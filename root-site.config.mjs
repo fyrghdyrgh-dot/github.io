@@ -1,8 +1,12 @@
 const site = {
-  title: "关键词导航与专题目录",
-  description: "覆盖网络工具、AI 专题、服务器与 IDC、开发与编程、知识文档、电商内容、翻译语言、数据处理与教育学习的目录站。",
+  title: "fybot 网站导航",
+  description: "fybot 网站导航聚合 AI 工具、网络开发、服务器与 IDC、知识文档、电商内容、翻译语言、数据处理与学习资源，帮助快速找到合适的网站与工具。",
   baseUrl: "https://fyrghdyrgh-dot.github.io/",
-  brand: "关键词目录",
+  brand: "fybot 网站导航",
+  navBrandShort: "fybot",
+  heroTitle: "一键直达，探索优质网站与工具",
+  heroSubtitle: "围绕 AI、开发、服务器、运营、电商、翻译、数据与学习等主题，快速找到真正能用的资源入口。",
+  intro: "这里不是单纯堆链接，而是按真实使用场景整理导航入口。首页先看分类，分类页再找细分方向，进入卡片后可以直接访问目标页或继续查看详情。",
   serverTarget: "https://www.1bgp.com/"
 };
 
