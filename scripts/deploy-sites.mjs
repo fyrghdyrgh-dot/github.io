@@ -44,11 +44,12 @@ const results = [];
 
 for (const site of sites) {
   const repoId = `${config.github.owner}/${site.repo}`;
+  const repoUrl = getRepoUrl(repoId);
   ensureRepo(repoId);
   const tempDir = mkdtempSync(path.join(os.tmpdir(), `${site.slug}-`));
   const cloneDir = path.join(tempDir, site.repo);
 
-  run("git", ["clone", `https://github.com/${repoId}.git`, cloneDir], tempDir);
+  run("git", ["clone", repoUrl, cloneDir], tempDir);
   clearCloneDir(cloneDir);
   cpSync(site.outputDir, cloneDir, { recursive: true });
   run("git", ["checkout", "-B", config.github.defaultBranch || "main"], cloneDir);
@@ -154,6 +155,14 @@ function configurePages(repoId) {
   }
 
   return "manual-pages-check";
+}
+
+function getRepoUrl(repoId) {
+  if (process.env.GH_TOKEN) {
+    return `https://x-access-token:${process.env.GH_TOKEN}@github.com/${repoId}.git`;
+  }
+
+  return `https://github.com/${repoId}.git`;
 }
 
 function configureGitIdentity(cloneDir) {
