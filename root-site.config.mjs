@@ -112,7 +112,7 @@ const categories = [
   }
 ];
 
-const pages = [
+const basePages = [
   {
     slug: "ipv4-subnet-toolkit",
     category: "net-tools",
@@ -1036,6 +1036,1016 @@ const pages = [
     ]
   }
 ];
+
+function makeGuidePage(page) {
+  return {
+    type: "guide",
+    ctaLabel: "查看当前分类",
+    ctaUrl: `/${page.category}/`,
+    secondaryLabel: "返回分类",
+    metrics: [],
+    pillars: [],
+    checklist: [],
+    faq: [],
+    related: [],
+    ...page
+  };
+}
+
+function makeArticlePage(page) {
+  return {
+    type: "article",
+    ctaLabel: "查看当前分类",
+    ctaUrl: `/${page.category}/`,
+    secondaryLabel: "返回分类",
+    metrics: [],
+    sections: [],
+    takeaways: [],
+    faq: [],
+    related: [],
+    ...page
+  };
+}
+
+function makeToolPage(page) {
+  return {
+    type: "tool",
+    ctaLabel: "查看当前分类",
+    ctaUrl: `/${page.category}/`,
+    secondaryLabel: "返回分类",
+    metrics: [],
+    inputLabel: "输入示例",
+    inputExample: "",
+    outputExample: "",
+    steps: [],
+    notes: [],
+    faq: [],
+    related: [],
+    ...page
+  };
+}
+
+const supplementalPages = [
+  makeToolPage({
+    slug: "dns-http-status-check",
+    category: "net-tools",
+    title: "域名解析与 HTTP 状态检查",
+    summary: "适合域名切换、接口联调和站点上线前快速确认解析结果与页面响应状态。",
+    description: "围绕 DNS 解析、HTTP 状态码与基础访问检查的工具型页面。",
+    eyebrow: "DNS & HTTP CHECK",
+    ctaLabel: "查看网络工具分类",
+    metrics: [
+      ["适合场景", "域名切换 / 上线前检查"],
+      ["重点", "解析 / 状态码 / 跳转"],
+      ["页面形式", "核对流程"]
+    ],
+    inputLabel: "待检查目标",
+    inputExample: "example.com\nhttps://example.com/login",
+    outputExample: "A 记录已返回\nHTTP 200\n未发现异常跳转",
+    steps: [
+      { title: "先查解析是否生效", text: "重点看 A 记录、CNAME 或 CDN 返回是否符合预期。" },
+      { title: "再看状态码与跳转", text: "确认首页、登录页和表单页没有意外的 301、302 或 5xx。" },
+      { title: "最后核对地区差异", text: "如果有 CDN 或海外节点，建议再补一轮不同地区访问检查。" }
+    ],
+    notes: [
+      "解析正常不代表页面一定正常，仍要结合状态码和页面内容一起看。",
+      "站点刚切换域名或证书时，缓存和地区传播差异很常见。"
+    ],
+    faq: [
+      ["为什么 DNS 已经生效但页面还是旧的？", "通常和本地缓存、CDN 缓存或浏览器缓存有关。"],
+      ["HTTP 200 就一定没问题吗？", "不一定，还要确认页面内容、跳转链路和关键接口是否正常。"]
+    ],
+    related: [
+      ["IPv4 与 CIDR 常用工具", "/ipv4-subnet-toolkit/"],
+      ["API 联调检查清单", "/api-debug-checklist/"],
+      ["JSON 格式化与结构对比", "/json-format-compare/"]
+    ]
+  }),
+  makeGuidePage({
+    slug: "curl-request-builder",
+    category: "net-tools",
+    title: "curl 请求排查顺序",
+    summary: "把 Header、Method、Body 和响应结果拆成更容易检查的顺序，适合排查接口请求差异。",
+    description: "面向 curl 请求构造、接口排查和联调核对的指南页。",
+    eyebrow: "CURL REQUEST DEBUG",
+    metrics: [
+      ["适合对象", "开发 / 测试 / 运维"],
+      ["关键点", "Header / Method / Body"],
+      ["页面形式", "步骤清单"]
+    ],
+    pillars: [
+      { title: "先确认请求方法", text: "GET、POST、PUT 和 DELETE 的差异会直接影响接口返回，不要默认复制旧命令。" },
+      { title: "再核对请求头", text: "Authorization、Content-Type 和 Cookie 是最常见的差异点。" },
+      { title: "最后保存可复现命令", text: "保留一条最小可复现的 curl 示例，便于前后端快速对齐。" }
+    ],
+    checklist: [
+      "先用最短命令确认域名和状态码可达，再补 header 和 body。",
+      "如果和前端结果不一致，先比对 header、token 和 cookie。",
+      "把失败请求和成功请求各留一条，便于后续对照。"
+    ],
+    faq: [
+      ["为什么 curl 成功但页面请求失败？", "通常是 cookie、跨域、浏览器环境或 header 不同。"],
+      ["curl 命令要不要保留敏感信息？", "不要，建议用占位符替换 token 和私密参数。"]
+    ],
+    related: [
+      ["API 联调检查清单", "/api-debug-checklist/"],
+      ["Python API 开发指南", "/python-api-guide/"],
+      ["JSON 格式化与结构对比", "/json-format-compare/"]
+    ]
+  }),
+  makeGuidePage({
+    slug: "webhook-debug-notes",
+    category: "net-tools",
+    title: "Webhook 调试记录怎么留",
+    summary: "适合支付回调、表单通知和自动化触发场景，重点是把重放、签名和返回结果记录清楚。",
+    description: "面向 webhook 调试、回调排查和触发记录的专题指导页。",
+    eyebrow: "WEBHOOK DEBUG NOTES",
+    metrics: [
+      ["适用场景", "支付 / 表单 / 自动化"],
+      ["重点", "签名 / 重放 / 返回值"],
+      ["适合阶段", "联调 / 上线后排查"]
+    ],
+    pillars: [
+      { title: "先留原始请求", text: "时间、header、body 和签名字段都要保留，避免只截图不留文本。" },
+      { title: "再看返回值", text: "确认回调是否因为状态码、超时或格式错误被判定失败。" },
+      { title: "最后做重放验证", text: "用同一份 payload 重新验证，能更快区分接口逻辑和外部触发问题。" }
+    ],
+    checklist: [
+      "把请求时间、重试次数和回调来源一起记录。",
+      "如果带签名校验，保留签名串和验签逻辑说明。",
+      "上线后遇到偶发失败时，优先看超时和幂等处理。"
+    ],
+    faq: [
+      ["Webhook 最常见的问题是什么？", "签名不一致、状态码返回不正确和幂等处理缺失都很常见。"],
+      ["为什么要保留重放记录？", "这样更容易定位是第三方重复触发，还是你自己的逻辑异常。"]
+    ],
+    related: [
+      ["curl 请求排查顺序", "/curl-request-builder/"],
+      ["API 联调检查清单", "/api-debug-checklist/"],
+      ["CSV 清洗与整理工作流", "/csv-cleanup-workflow/"]
+    ]
+  }),
+  makeGuidePage({
+    slug: "zh-ai-outline-workflow",
+    category: "zh-ai-tools",
+    title: "中文 AI 提纲生成流程",
+    summary: "适合文章、视频脚本和产品说明起稿，重点是先定结构再填内容，减少结果发散。",
+    description: "面向中文 AI 提纲生成与内容结构规划的指导页。",
+    eyebrow: "AI OUTLINE WORKFLOW",
+    metrics: [
+      ["适用内容", "文章 / 脚本 / 方案"],
+      ["关键动作", "先结构后细化"],
+      ["适合人群", "编辑 / 运营 / 产品"]
+    ],
+    pillars: [
+      { title: "先写目标读者", text: "提纲不是给自己看的，先写清楚最终是给谁阅读。" },
+      { title: "再设章节数量", text: "限定层级和段落数量后，模型更容易给出可用结构。" },
+      { title: "最后逐段扩写", text: "不要一开始就要求完整长文，先拿到结构再深入。" }
+    ],
+    checklist: [
+      "提纲阶段先控制在 3 到 6 个主段落。",
+      "如果结果太散，补一句“按先后顺序组织”。",
+      "扩写前先删掉重复和空泛段落。"
+    ],
+    faq: [
+      ["为什么 AI 提纲总是很像？", "因为没有限制目标读者、结构层级和篇幅。"],
+      ["提纲适合直接发给团队吗？", "适合作为初稿，但最好补上你的业务重点。"]
+    ],
+    related: [
+      ["中文 AI 写作助手怎么用更稳", "/zh-ai-writing-assistant/"],
+      ["产品规格文档应该怎么写更好协作", "/product-spec-workflow/"],
+      ["商品详情页文案结构怎么排更顺", "/product-detail-copy/"]
+    ]
+  }),
+  makeGuidePage({
+    slug: "zh-ai-article-rewrite",
+    category: "zh-ai-tools",
+    title: "中文文章改写时怎么减少套话",
+    summary: "围绕旧文翻新、内容重写和多版本输出场景，重点是保留信息、调整表达而不是机械替换。",
+    description: "面向中文文章改写、内容重写与语气优化的专题页。",
+    eyebrow: "ARTICLE REWRITE",
+    metrics: [
+      ["主要用途", "旧文翻新 / 重写"],
+      ["重点", "保留信息 / 降低套话"],
+      ["对象", "编辑 / 内容团队"]
+    ],
+    pillars: [
+      { title: "先锁定不能改的信息", text: "事实、参数、时间和观点立场应先明确列出来。" },
+      { title: "再指定改写方向", text: "是更口语、更专业还是更适合搜索落地页，方向必须清楚。" },
+      { title: "最后逐段人工过一遍", text: "尤其要删掉重复句和无意义总结。 " }
+    ],
+    checklist: [
+      "先抽出原文中的关键事实，再要求重写。",
+      "明确禁止“综上所述”“不难看出”这类空泛句。",
+      "不同渠道版本建议单独改写，不要直接复制。"
+    ],
+    faq: [
+      ["为什么改写后还是很像原文？", "可能只是换词，没有重新组织信息顺序。"],
+      ["减少 AI 味最有效的方法是什么？", "给清晰语气要求，并在第二轮专门清理套话。"]
+    ],
+    related: [
+      ["中文 AI 写作助手怎么用更稳", "/zh-ai-writing-assistant/"],
+      ["中文 AI 提纲生成流程", "/zh-ai-outline-workflow/"],
+      ["落地页结构模板怎么搭更像真实页面", "/landing-page-structure/"]
+    ]
+  }),
+  makeArticlePage({
+    slug: "zh-ai-title-polish",
+    category: "zh-ai-tools",
+    title: "中文标题润色时该保留什么",
+    summary: "适合文章标题、商品标题和活动标题优化，重点是保留搜索意图而不是一味追求花哨。",
+    description: "围绕中文标题润色与搜索意图保留的文章页。",
+    eyebrow: "TITLE POLISH",
+    metrics: [
+      ["适合场景", "文章 / 商品 / 活动"],
+      ["重点", "搜索意图 / 可读性"],
+      ["页面类型", "方法文章"]
+    ],
+    sections: [
+      { title: "先保留核心主题", text: "如果主题词丢了，标题再顺也无法承接搜索流量。" },
+      { title: "再优化可读性", text: "让读者更容易一眼看懂，而不是只堆很多修饰词。" },
+      { title: "最后看渠道差异", text: "搜索页、社媒封面和商品列表的标题写法并不一样。" }
+    ],
+    takeaways: [
+      "标题润色的重点是更清楚，不是更复杂。",
+      "如果页面依赖搜索流量，标题中最关键的词不要轻易删。"
+    ],
+    faq: [
+      ["标题要不要都做成短句？", "不一定，要看承载渠道和关键词要求。"],
+      ["花哨标题会更有效吗？", "很多时候反而会降低搜索匹配和理解速度。"]
+    ],
+    related: [
+      ["中文文章改写时怎么减少套话", "/zh-ai-article-rewrite/"],
+      ["商品详情页文案结构怎么排更顺", "/product-detail-copy/"],
+      ["越南语商品文案怎么用 AI 起草", "/vi-ai-product-copy/"]
+    ]
+  }),
+  makeGuidePage({
+    slug: "vi-ai-customer-chat",
+    category: "vi-ai-tools",
+    title: "越南语客服对话初稿怎么写",
+    summary: "适合售前咨询、售后解释和订单沟通场景，重点是语气自然、边界清楚。",
+    description: "面向越南语客服对话与售前售后沟通的指导页。",
+    eyebrow: "VI CUSTOMER CHAT",
+    metrics: [
+      ["适用场景", "售前 / 售后 / 订单"],
+      ["重点", "语气 / 清晰 / 边界"],
+      ["对象", "跨境客服 / 运营"]
+    ],
+    pillars: [
+      { title: "先明确对话目的", text: "先判断是解释、催付、回复问题还是引导补资料。" },
+      { title: "再限定语气", text: "礼貌、简洁或偏促单的写法差别很大，不能混写。" },
+      { title: "最后核对敏感信息", text: "价格、时效、售后范围和活动条件要人工确认。" }
+    ],
+    checklist: [
+      "同一句中文不要机械逐字翻成越南语客服话术。",
+      "遇到时间和价格变化时，要避免绝对承诺。",
+      "高频问答应整理到 FAQ 页面，便于长期复用。"
+    ],
+    faq: [
+      ["越南语客服最容易出什么问题？", "常见是语气不自然，或者把中文表达生硬直译过去。"],
+      ["适合直接上线使用吗？", "更适合作为初稿，正式使用前仍要校对。"]
+    ],
+    related: [
+      ["越南语商品文案怎么用 AI 起草", "/vi-ai-product-copy/"],
+      ["中文到越南语本地化检查清单", "/zh-vi-localization-checklist/"],
+      ["中文与越南语本地化协作怎么分工", "/zh-vi-localization/"]
+    ]
+  }),
+  makeArticlePage({
+    slug: "vietnamese-ad-copy-checklist",
+    category: "vi-ai-tools",
+    title: "越南语广告文案上线前检查点",
+    summary: "围绕活动页、广告标题和促销卖点整理更适合上线前核对的检查清单。",
+    description: "面向越南语广告文案与活动页面上线检查的文章页。",
+    eyebrow: "VI AD CHECKLIST",
+    metrics: [
+      ["页面类型", "检查清单"],
+      ["重点", "活动 / 时效 / 语气"],
+      ["适合阶段", "上线前复核"]
+    ],
+    sections: [
+      { title: "先确认活动信息", text: "折扣、赠品、时效和使用条件必须先核对清楚。" },
+      { title: "再看表达语气", text: "广告文案要更像本地平台表达，而不是中文营销词直译。" },
+      { title: "最后查按钮和落地页", text: "文案和页面动作要一致，避免广告说法和落地页内容脱节。" }
+    ],
+    takeaways: [
+      "越南语广告文案的重点是自然和可信，而不是翻得完整。",
+      "价格、时间和优惠范围必须放在最后一轮人工检查里。"
+    ],
+    faq: [
+      ["广告文案和商品详情页能共用吗？", "可以参考，但通常不建议原样复用。"],
+      ["为什么要检查按钮文案？", "因为按钮语气和落地页动作会直接影响转化。"]
+    ],
+    related: [
+      ["越南语客服对话初稿怎么写", "/vi-ai-customer-chat/"],
+      ["越南语商品文案怎么用 AI 起草", "/vi-ai-product-copy/"],
+      ["多语文案校对流程与检查点", "/multilingual-copy-review/"]
+    ]
+  }),
+  makeGuidePage({
+    slug: "vi-market-keyword-notes",
+    category: "vi-ai-tools",
+    title: "越南语市场关键词整理方法",
+    summary: "适合商品标题、活动页和搜索词研究场景，重点是按意图分组而不是直接翻译。",
+    description: "围绕越南语市场关键词整理与搜索意图分组的指导页。",
+    eyebrow: "VI KEYWORD NOTES",
+    metrics: [
+      ["适合用途", "标题 / 搜索 / 活动页"],
+      ["重点", "意图分组"],
+      ["对象", "运营 / 内容"]
+    ],
+    pillars: [
+      { title: "先按用户意图分组", text: "购买词、比较词和问题词应分开处理。" },
+      { title: "再做本地表达筛选", text: "同一商品在不同平台上的关键词表达可能差别很大。" },
+      { title: "最后回到页面结构", text: "关键词不是单独存在的，要落到标题、段落和按钮里。" }
+    ],
+    checklist: [
+      "不要把中文关键词直接翻成越南语就拿去用。",
+      "高频词和转化词分开整理，方便页面布局。",
+      "每次上新或做活动前都应补一次关键词核对。"
+    ],
+    faq: [
+      ["关键词整理和翻译有什么不同？", "关键词整理更强调用户意图和页面使用位置。"],
+      ["适合做成表格吗？", "很适合，后续更新会更容易维护。"]
+    ],
+    related: [
+      ["中文到越南语本地化检查清单", "/zh-vi-localization-checklist/"],
+      ["中文与越南语本地化协作怎么分工", "/zh-vi-localization/"],
+      ["越南语广告文案上线前检查点", "/vietnamese-ad-copy-checklist/"]
+    ]
+  }),
+  makeGuidePage({
+    slug: "ai-code-review-checklist",
+    category: "development",
+    title: "代码评审前的 AI 辅助检查清单",
+    summary: "适合提交前自查、功能回归和接口改动复核，重点是先把低级问题在本地扫掉。",
+    description: "面向代码评审、提交前检查和 AI 辅助自查的指南页。",
+    eyebrow: "AI CODE REVIEW",
+    metrics: [
+      ["适合阶段", "提交前 / Review 前"],
+      ["重点", "回归 / 边界 / 命名"],
+      ["对象", "开发团队"]
+    ],
+    pillars: [
+      { title: "先查行为变化", text: "确认改动是否影响旧接口、旧页面和已有流程。" },
+      { title: "再查边界条件", text: "空值、异常分支、权限和失败提示要优先检查。" },
+      { title: "最后整理评审上下文", text: "把改动原因、范围和已验证结果说清楚，评审效率会高很多。" }
+    ],
+    checklist: [
+      "先跑最接近实际使用路径的验证，而不是只看 happy path。",
+      "高风险改动应补充影响范围说明。",
+      "提交前先清理无关日志和临时代码。"
+    ],
+    faq: [
+      ["AI 能替代代码评审吗？", "不能，但很适合先做一轮自查。"],
+      ["最值得先查什么？", "行为回归、边界条件和错误提示通常最值得优先查。"]
+    ],
+    related: [
+      ["Python API 开发指南从接口设计开始", "/python-api-guide/"],
+      ["前端性能检查清单", "/frontend-performance-checklist/"],
+      ["API 联调检查清单", "/api-debug-checklist/"]
+    ]
+  }),
+  makeArticlePage({
+    slug: "release-notes-template",
+    category: "development",
+    title: "版本发布说明模板怎么写",
+    summary: "适合版本上线、内部通知和对外更新公告场景，重点是让读者知道改了什么和影响什么。",
+    description: "围绕发布说明、更新公告和版本变更记录的文章页。",
+    eyebrow: "RELEASE NOTES",
+    metrics: [
+      ["适合场景", "版本上线 / 更新公告"],
+      ["重点", "变更 / 影响 / 回滚"],
+      ["页面类型", "模板文章"]
+    ],
+    sections: [
+      { title: "先写用户能感知的变化", text: "把功能、页面和流程变化放在最前面，而不是先写内部细节。" },
+      { title: "再写影响范围", text: "版本影响到哪些角色、哪些模块、哪些数据要说清楚。" },
+      { title: "最后写风险和回滚", text: "如果有兼容性风险或迁移要求，不要放到最后一行才提。 " }
+    ],
+    takeaways: [
+      "发布说明不是流水账，而是帮助团队和用户快速理解变更的文档。",
+      "如果一份说明不能回答“改了什么、影响谁、要注意什么”，就还不够清楚。"
+    ],
+    faq: [
+      ["发布说明需要很长吗？", "不一定，重点是结构清楚。"],
+      ["内部和外部说明能共用吗？", "可以共用一部分，但细节层级通常不同。"]
+    ],
+    related: [
+      ["产品规格文档应该怎么写更好协作", "/product-spec-workflow/"],
+      ["代码评审前的 AI 辅助检查清单", "/ai-code-review-checklist/"],
+      ["知识文档结构模板怎么搭", "/docs-structure-template/"]
+    ]
+  }),
+  makeGuidePage({
+    slug: "browser-console-debug-guide",
+    category: "development",
+    title: "浏览器控制台排错顺序",
+    summary: "适合前端页面异常、接口报错和脚本失效场景，重点是先定位范围再深挖原因。",
+    description: "面向浏览器控制台排错、前端异常定位和脚本问题处理的指南页。",
+    eyebrow: "CONSOLE DEBUG",
+    metrics: [
+      ["适合页面", "站点 / 工具页 / 后台"],
+      ["重点", "报错 / 网络 / 脚本"],
+      ["对象", "前端 / 测试"]
+    ],
+    pillars: [
+      { title: "先看报错类型", text: "区分是资源加载失败、脚本报错还是接口返回异常。" },
+      { title: "再看 Network 请求", text: "把报错页面和请求结果对应起来，避免只盯控制台文字。" },
+      { title: "最后做最小复现", text: "只保留一条关键路径，能更快看清问题真正位置。" }
+    ],
+    checklist: [
+      "先刷新并保留 console、network 两边的关键记录。",
+      "发现报错时记录浏览器、系统和复现步骤。",
+      "排查跨域或缓存问题时，记得说明环境差异。"
+    ],
+    faq: [
+      ["控制台没报错就说明前端没问题吗？", "不一定，很多问题会出现在 network 或页面逻辑层。"],
+      ["需要把全部日志都发给团队吗？", "建议先提炼关键报错和复现步骤。"]
+    ],
+    related: [
+      ["前端性能检查清单", "/frontend-performance-checklist/"],
+      ["JSON 格式化与结构对比", "/json-format-compare/"],
+      ["curl 请求排查顺序", "/curl-request-builder/"]
+    ]
+  }),
+  makeArticlePage({
+    slug: "ops-runbook-template",
+    category: "knowledge-docs",
+    title: "运维 Runbook 模板怎么写",
+    summary: "适合上线、故障处理和例行维护场景，重点是让任何接手的人都能按步骤执行。",
+    description: "围绕运维 Runbook、故障处理和流程说明的文章页。",
+    eyebrow: "RUNBOOK TEMPLATE",
+    metrics: [
+      ["适合场景", "上线 / 故障 / 维护"],
+      ["重点", "步骤 / 风险 / 回滚"],
+      ["页面类型", "模板文章"]
+    ],
+    sections: [
+      { title: "先写适用范围", text: "明确这个 runbook 是给谁、处理什么问题、何时使用。" },
+      { title: "再写逐步动作", text: "每一步都应该可执行，而不是只写原则。" },
+      { title: "最后补风险与回滚", text: "如果有不可逆操作，回滚方案必须提前写清楚。" }
+    ],
+    takeaways: [
+      "Runbook 的价值在于可交接和可重复，不是写得多专业。",
+      "关键动作、判断条件和回滚路径应始终出现在同一页里。"
+    ],
+    faq: [
+      ["Runbook 和知识库文章有什么区别？", "Runbook 更偏执行步骤和操作约束。"],
+      ["适合只写给资深同事看吗？", "不建议，越能让新人看懂越有价值。"]
+    ],
+    related: [
+      ["知识文档结构模板怎么搭", "/docs-structure-template/"],
+      ["版本发布说明模板怎么写", "/release-notes-template/"],
+      ["新手第一次买 VPS 的判断顺序", "/starter-vps-guide/"]
+    ]
+  }),
+  makeGuidePage({
+    slug: "meeting-summary-template",
+    category: "knowledge-docs",
+    title: "会议纪要模板怎么写更有用",
+    summary: "围绕讨论结论、责任人和下一步安排整理更适合团队复用的会议纪要结构。",
+    description: "面向会议纪要、协作记录和行动项整理的指导页。",
+    eyebrow: "MEETING SUMMARY",
+    metrics: [
+      ["适合对象", "产品 / 运营 / 开发"],
+      ["重点", "结论 / 责任人 / 时间"],
+      ["页面形式", "模板指南"]
+    ],
+    pillars: [
+      { title: "先写结论", text: "不要让读者翻半天才知道最后决定了什么。" },
+      { title: "再写行动项", text: "责任人、截止时间和依赖关系应单独列出。" },
+      { title: "最后补背景", text: "背景和过程可以写，但不要盖过结论本身。" }
+    ],
+    checklist: [
+      "每次会议纪要至少包含结论、行动项和负责人。",
+      "不要只记录讨论过程，真正要沉淀的是下一步动作。",
+      "会后一天内发出纪要，内容会更准确。"
+    ],
+    faq: [
+      ["会议纪要一定要很完整吗？", "不一定，最关键的是让行动项可执行。"],
+      ["纪要适合做成长文吗？", "如果信息很多，可以拆成总结和附件两层。"]
+    ],
+    related: [
+      ["产品规格文档应该怎么写更好协作", "/product-spec-workflow/"],
+      ["知识文档结构模板怎么搭", "/docs-structure-template/"],
+      ["学习笔记方法怎样更容易复用", "/study-notes-method/"]
+    ]
+  }),
+  makeArticlePage({
+    slug: "wiki-directory-planning",
+    category: "knowledge-docs",
+    title: "团队 Wiki 目录该怎么规划",
+    summary: "适合知识库初始化和旧文档重整场景，重点是让目录按照使用场景而不是部门堆叠。",
+    description: "围绕团队 Wiki 目录规划与知识库结构设计的文章页。",
+    eyebrow: "WIKI DIRECTORY",
+    metrics: [
+      ["页面类型", "规划文章"],
+      ["重点", "场景 / 路径 / 查找"],
+      ["适合阶段", "知识库重建"]
+    ],
+    sections: [
+      { title: "先看读者怎么找信息", text: "目录结构应围绕问题、流程和角色，而不是围绕内部组织结构。" },
+      { title: "再决定一级目录", text: "一级目录越少越好，但每个目录要有清晰边界。" },
+      { title: "最后安排迁移顺序", text: "老文档迁移时应先迁高频内容，再清理低价值内容。" }
+    ],
+    takeaways: [
+      "Wiki 目录的目标是更容易找，不是更像组织架构图。",
+      "高频问题、高频流程和高频页面应优先放到最浅层级。"
+    ],
+    faq: [
+      ["Wiki 一开始需要分很细吗？", "通常不需要，先把高频内容组织清楚更重要。"],
+      ["旧目录要不要直接删除？", "建议先迁移和归档，再逐步清理。"]
+    ],
+    related: [
+      ["知识文档结构模板怎么搭", "/docs-structure-template/"],
+      ["私域 FAQ 知识库应该怎么搭", "/private-domain-faq-library/"],
+      ["运维 Runbook 模板怎么写", "/ops-runbook-template/"]
+    ]
+  }),
+  makeGuidePage({
+    slug: "onboarding-message-template",
+    category: "customer-growth",
+    title: "新用户欢迎语怎么写更自然",
+    summary: "适合私域、SaaS 引导和社群欢迎场景，重点是先说明价值，再引导下一步动作。",
+    description: "面向新用户欢迎语、首条消息与 onboarding 引导的指导页。",
+    eyebrow: "ONBOARDING MESSAGE",
+    metrics: [
+      ["适合场景", "私域 / SaaS / 社群"],
+      ["重点", "价值 / 动作 / 节奏"],
+      ["对象", "运营 / 客服"]
+    ],
+    pillars: [
+      { title: "先说明用户能得到什么", text: "欢迎语不该只是问好，要告诉用户接下来能获取什么帮助。" },
+      { title: "再给一个动作", text: "引导查看文档、填写资料或回复关键词都可以，但只给一个主动作。" },
+      { title: "最后控制篇幅", text: "首条欢迎消息越长，用户越容易跳过。" }
+    ],
+    checklist: [
+      "先说价值，再说规则，最后给动作。",
+      "不要在第一条消息里塞入太多链接。",
+      "欢迎语应与后续 FAQ 和 SOP 保持一致。"
+    ],
+    faq: [
+      ["欢迎语需要很热情吗？", "重点是自然和清楚，不一定要很夸张。"],
+      ["第一条消息里适合放优惠吗？", "可以，但不要盖过最主要的引导目标。"]
+    ],
+    related: [
+      ["客服回复 SOP 怎么整理", "/customer-service-reply-playbook/"],
+      ["私域 FAQ 知识库应该怎么搭", "/private-domain-faq-library/"],
+      ["中文 AI 客服回复的写法", "/zh-ai-customer-reply/"]
+    ]
+  }),
+  makeArticlePage({
+    slug: "refund-faq-structure",
+    category: "customer-growth",
+    title: "退款 FAQ 结构怎么写更清楚",
+    summary: "适合售后解释、退款申请和规则说明场景，重点是先把条件和流程说清楚。",
+    description: "围绕退款 FAQ 结构、售后规则说明和用户沟通的文章页。",
+    eyebrow: "REFUND FAQ",
+    metrics: [
+      ["适合场景", "售后 / 退款 / 规则页"],
+      ["重点", "条件 / 流程 / 时效"],
+      ["页面类型", "FAQ 文章"]
+    ],
+    sections: [
+      { title: "先写能不能退", text: "用户最想先知道的是是否符合退款条件，而不是先看条款背景。" },
+      { title: "再写怎么退", text: "申请入口、材料要求和处理流程应明确列出。" },
+      { title: "最后写多久完成", text: "退款周期、到账时间和特殊情况要写清楚。" }
+    ],
+    takeaways: [
+      "退款 FAQ 越具体，客服重复解释成本越低。",
+      "规则页要少空话，多条件和流程。"
+    ],
+    faq: [
+      ["退款 FAQ 和客服回复模板需要分开吗？", "建议分开，一个负责规则，一个负责对话场景。"],
+      ["规则改动后先更新哪里？", "优先更新 FAQ 和对外页面，再同步客服话术。"]
+    ],
+    related: [
+      ["客服回复 SOP 怎么整理", "/customer-service-reply-playbook/"],
+      ["私域 FAQ 知识库应该怎么搭", "/private-domain-faq-library/"],
+      ["新用户欢迎语怎么写更自然", "/onboarding-message-template/"]
+    ]
+  }),
+  makeGuidePage({
+    slug: "lead-qualification-checklist",
+    category: "customer-growth",
+    title: "线索初筛时要先问什么",
+    summary: "适合表单咨询、私信询盘和售前沟通场景，重点是快速判断意向与匹配度。",
+    description: "面向线索初筛、售前问询与客户资格判断的指南页。",
+    eyebrow: "LEAD QUALIFICATION",
+    metrics: [
+      ["适合场景", "询盘 / 售前 / 私信"],
+      ["重点", "需求 / 预算 / 时间"],
+      ["对象", "销售 / 运营 / 客服"]
+    ],
+    pillars: [
+      { title: "先问目标", text: "搞清楚用户想解决什么问题，比先问预算更有效。" },
+      { title: "再问时间和预算", text: "项目周期和预算会直接影响后续沟通深度。" },
+      { title: "最后给下一步动作", text: "如果暂时不匹配，也要给出明确出口。" }
+    ],
+    checklist: [
+      "不要一开始就罗列太多问题，先抓最关键的 3 个。",
+      "把高价值线索和普通咨询区分开处理。",
+      "对不匹配线索也应有统一回复策略。"
+    ],
+    faq: [
+      ["初筛问题可以写成固定模板吗？", "可以，但应按业务类型做微调。"],
+      ["为什么很多线索聊着聊着就断了？", "常见是前面提问太散，或者没有清楚的下一步动作。"]
+    ],
+    related: [
+      ["新用户欢迎语怎么写更自然", "/onboarding-message-template/"],
+      ["中文 AI 客服回复的写法", "/zh-ai-customer-reply/"],
+      ["香港服务器租用与业务匹配", "/hongkong-server/"]
+    ]
+  }),
+  makeArticlePage({
+    slug: "pricing-page-copy-structure",
+    category: "ecommerce-content",
+    title: "价格页文案结构怎么排更清楚",
+    summary: "适合套餐页、订阅页和服务报价页，重点是先讲差异，再讲价格与规则。",
+    description: "围绕价格页文案、套餐说明与购买判断结构的文章页。",
+    eyebrow: "PRICING PAGE COPY",
+    metrics: [
+      ["适合页面", "套餐页 / 订阅页"],
+      ["重点", "差异 / 规则 / CTA"],
+      ["页面类型", "结构文章"]
+    ],
+    sections: [
+      { title: "先写套餐差异", text: "价格不是第一眼唯一要看的内容，用户先想知道差别在哪里。" },
+      { title: "再写收费规则", text: "月付年付、赠送项目和限制条件要明确。" },
+      { title: "最后再放动作", text: "当用户完成比较后，再给购买或咨询入口更自然。" }
+    ],
+    takeaways: [
+      "价格页的重点是帮助判断，而不是只让用户看到数字。",
+      "如果规则说明不清楚，后续客服成本会显著上升。"
+    ],
+    faq: [
+      ["价格页一定要有对比表吗？", "很多场景下有帮助，但不一定必须。"],
+      ["低价套餐要不要藏限制？", "不建议，规则应尽量提前写清楚。"]
+    ],
+    related: [
+      ["商品详情页文案结构怎么排更顺", "/product-detail-copy/"],
+      ["落地页结构模板怎么搭更像真实页面", "/landing-page-structure/"],
+      ["香港服务器租用与业务匹配", "/hongkong-server/"]
+    ]
+  }),
+  makeGuidePage({
+    slug: "sku-selling-points-matrix",
+    category: "ecommerce-content",
+    title: "SKU 卖点矩阵怎么整理",
+    summary: "适合多规格商品、多套餐页面和活动页梳理，重点是让用户更快看懂差异。",
+    description: "面向 SKU 卖点矩阵、规格对比与商品信息整理的指导页。",
+    eyebrow: "SKU MATRIX",
+    metrics: [
+      ["适用场景", "多规格 / 多套餐"],
+      ["重点", "差异 / 卖点 / 展示顺序"],
+      ["对象", "电商运营 / 内容"]
+    ],
+    pillars: [
+      { title: "先拆共同点和差异点", text: "把通用信息和差异信息分开，页面会清楚很多。" },
+      { title: "再按购买优先级排序", text: "用户最关心的维度应排在最前面。" },
+      { title: "最后回到页面模块", text: "矩阵不是表格终点，还要落到标题、卡片和详情模块里。" }
+    ],
+    checklist: [
+      "差异点不要写成一大段，建议拆成列。",
+      "价格、规格和适用场景应保持同一排序逻辑。",
+      "活动期间新增套餐时，先补矩阵再改页面。"
+    ],
+    faq: [
+      ["SKU 多的时候是不是只能做表格？", "表格很有用，但也可以拆成卡片和重点模块。"],
+      ["矩阵适合谁维护？", "最好由内容和商品负责人共同维护。"]
+    ],
+    related: [
+      ["商品详情页文案结构怎么排更顺", "/product-detail-copy/"],
+      ["价格页文案结构怎么排更清楚", "/pricing-page-copy-structure/"],
+      ["越南语商品文案怎么用 AI 起草", "/vi-ai-product-copy/"]
+    ]
+  }),
+  makeGuidePage({
+    slug: "promotion-landing-checklist",
+    category: "ecommerce-content",
+    title: "活动落地页上线前检查清单",
+    summary: "适合大促、报名页和短期活动页面，重点是先查时间、库存、按钮和跳转。",
+    description: "面向活动落地页、促销页面与上线前检查的指南页。",
+    eyebrow: "PROMOTION CHECKLIST",
+    metrics: [
+      ["适合页面", "活动页 / 报名页"],
+      ["重点", "时间 / 按钮 / 跳转"],
+      ["适合阶段", "上线前复查"]
+    ],
+    pillars: [
+      { title: "先核对活动信息", text: "时间、价格、库存和规则文字必须全部一致。" },
+      { title: "再看转化路径", text: "按钮、表单、咨询入口和支付跳转要全链路检查。" },
+      { title: "最后看移动端", text: "很多活动页问题都在移动端按钮、弹窗和加载上。" }
+    ],
+    checklist: [
+      "主标题、副标题和活动规则不能互相冲突。",
+      "至少走一遍完整下单或报名流程。",
+      "活动结束后记得安排下线或替换方案。"
+    ],
+    faq: [
+      ["活动页为什么经常上线后才发现问题？", "通常是没有按完整路径做检查。"],
+      ["活动页要不要单独做移动端复查？", "建议必须做。"]
+    ],
+    related: [
+      ["落地页结构模板怎么搭更像真实页面", "/landing-page-structure/"],
+      ["前端性能检查清单", "/frontend-performance-checklist/"],
+      ["价格页文案结构怎么排更清楚", "/pricing-page-copy-structure/"]
+    ]
+  }),
+  makeArticlePage({
+    slug: "english-chinese-term-base",
+    category: "translation-language",
+    title: "中英术语表怎么建更省事",
+    summary: "适合产品文档、界面文案和跨团队协作场景，重点是统一术语并持续维护。",
+    description: "围绕中英术语表、术语统一与协作文案管理的文章页。",
+    eyebrow: "TERM BASE",
+    metrics: [
+      ["适合场景", "文档 / UI / 协作"],
+      ["重点", "统一 / 维护 / 复用"],
+      ["页面类型", "术语文章"]
+    ],
+    sections: [
+      { title: "先整理高频术语", text: "按钮、功能名、状态名和模块名应优先建立对照。" },
+      { title: "再写使用边界", text: "同一个词在哪些场景用、哪些场景不用要标清楚。" },
+      { title: "最后设更新机制", text: "术语表不是建完就结束，需要跟版本持续更新。" }
+    ],
+    takeaways: [
+      "术语表的最大价值是减少团队内部重复争论。",
+      "如果高频词没有统一，页面、文档和客服文本很快会分裂。"
+    ],
+    faq: [
+      ["术语表适合放在文档里还是表格里？", "都可以，关键是便于查询和更新。"],
+      ["只做一次整理够吗？", "通常不够，产品变化后要继续维护。"]
+    ],
+    related: [
+      ["中文与越南语本地化协作怎么分工", "/zh-vi-localization/"],
+      ["多语文案校对流程与检查点", "/multilingual-copy-review/"],
+      ["产品规格文档应该怎么写更好协作", "/product-spec-workflow/"]
+    ]
+  }),
+  makeGuidePage({
+    slug: "app-ui-copy-localization",
+    category: "translation-language",
+    title: "应用界面文案本地化要先看什么",
+    summary: "适合按钮、弹窗、设置页和引导页本地化，重点是长度、语气和上下文一致性。",
+    description: "面向应用界面文案本地化与 UI copy 协作的指导页。",
+    eyebrow: "UI COPY LOCALIZATION",
+    metrics: [
+      ["适合场景", "按钮 / 弹窗 / 设置页"],
+      ["重点", "长度 / 语气 / 上下文"],
+      ["对象", "产品 / 设计 / 本地化"]
+    ],
+    pillars: [
+      { title: "先看上下文", text: "同一个词在按钮、标题和设置项里的翻译方式可能完全不同。" },
+      { title: "再看长度约束", text: "UI 文案比普通正文更容易因为字数和排版出问题。" },
+      { title: "最后统一语气", text: "确认系统语气、按钮风格和错误提示是否一致。" }
+    ],
+    checklist: [
+      "界面文案不要脱离页面上下文单独翻译。",
+      "重点按钮建议在真机或设计稿里再看一遍长度。",
+      "错误提示和确认弹窗要统一语气。"
+    ],
+    faq: [
+      ["UI 文案能用普通翻译流程处理吗？", "可以参考，但最好单独做一轮界面核对。"],
+      ["按钮越短越好吗？", "通常更好，但不能牺牲清楚度。"]
+    ],
+    related: [
+      ["中英术语表怎么建更省事", "/english-chinese-term-base/"],
+      ["多语文案校对流程与检查点", "/multilingual-copy-review/"],
+      ["中文到越南语本地化检查清单", "/zh-vi-localization-checklist/"]
+    ]
+  }),
+  makeToolPage({
+    slug: "subtitle-length-checker",
+    category: "translation-language",
+    title: "字幕长度检查与换行建议",
+    summary: "适合视频字幕、多语标题和短句文案场景，重点是检查长度、换行和阅读节奏。",
+    description: "围绕字幕长度、换行建议和短句文案检查的工具型页面。",
+    eyebrow: "SUBTITLE LENGTH",
+    metrics: [
+      ["适合内容", "字幕 / 标题 / 短句"],
+      ["重点", "长度 / 换行 / 节奏"],
+      ["页面形式", "检查流程"]
+    ],
+    inputLabel: "待检查字幕",
+    inputExample: "欢迎来到 fybot 网站导航，我们帮你更快找到合适工具。",
+    outputExample: "建议分为 2 行\n第 1 行：欢迎来到 fybot 网站导航\n第 2 行：我们帮你更快找到合适工具",
+    steps: [
+      { title: "先看单行长度", text: "不要让每行过长，尤其是移动端和视频字幕场景。" },
+      { title: "再看停顿位置", text: "换行应尽量落在语义停顿点，而不是强行切断词组。" },
+      { title: "最后看阅读节奏", text: "长度合适但节奏不自然时，也会影响理解。" }
+    ],
+    notes: [
+      "字幕类内容除了长度，还要关注自然停顿和上下文连贯。",
+      "多语版本长度差异很大，建议分别检查。"
+    ],
+    faq: [
+      ["字幕长度有统一标准吗？", "没有绝对标准，但应结合场景控制可读性。"],
+      ["只检查字数够吗？", "不够，还要看换行和语义完整度。"]
+    ],
+    related: [
+      ["应用界面文案本地化要先看什么", "/app-ui-copy-localization/"],
+      ["多语文案校对流程与检查点", "/multilingual-copy-review/"],
+      ["中文文章改写时怎么减少套话", "/zh-ai-article-rewrite/"]
+    ]
+  }),
+  makeToolPage({
+    slug: "markdown-table-cleaner",
+    category: "data-processing",
+    title: "Markdown 表格清理步骤",
+    summary: "适合文档整理、知识库迁移和 README 排版场景，重点是统一列数和对齐格式。",
+    description: "面向 Markdown 表格清理、结构对齐与文档整理的工具型页面。",
+    eyebrow: "MARKDOWN TABLE",
+    metrics: [
+      ["适合场景", "文档 / README / Wiki"],
+      ["重点", "列数 / 对齐 / 转换"],
+      ["页面形式", "流程工具"]
+    ],
+    inputLabel: "待清理表格",
+    inputExample: "| name | value |\n| --- | --- |\n| api | ok |\n| web | stable |",
+    outputExample: "列数一致\n建议统一对齐方式\n可继续导出到文档或 Wiki",
+    steps: [
+      { title: "先统一列数", text: "列数不一致会导致后续导入和显示都出问题。" },
+      { title: "再统一对齐方式", text: "左对齐、居中和右对齐要按信息类型做选择。" },
+      { title: "最后做预览检查", text: "在真实 Markdown 渲染环境里再看一遍格式。" }
+    ],
+    notes: [
+      "Markdown 表格常见问题是复制来源太杂，导致列数和空格不统一。",
+      "如果要导入 Wiki 或文档系统，建议先做一次渲染预览。"
+    ],
+    faq: [
+      ["Markdown 表格为什么总是显示错位？", "很多时候是列数不一致或存在隐藏空格。"],
+      ["适合直接从 Excel 粘贴吗？", "可以，但最好先做一次中间清理。"]
+    ],
+    related: [
+      ["CSV 清洗与整理工作流", "/csv-cleanup-workflow/"],
+      ["知识文档结构模板怎么搭", "/docs-structure-template/"],
+      ["列映射模板怎么整理", "/column-mapping-template/"]
+    ]
+  }),
+  makeGuidePage({
+    slug: "text-dedup-checklist",
+    category: "data-processing",
+    title: "文本去重前先确认什么",
+    summary: "适合名单、评论、文案库和知识条目整理，重点是先定义重复规则再开始处理。",
+    description: "围绕文本去重、数据规则和内容整理的步骤型页面。",
+    eyebrow: "TEXT DEDUP",
+    metrics: [
+      ["适合数据", "名单 / 评论 / 文案"],
+      ["重点", "规则 / 归一化 / 备份"],
+      ["对象", "运营 / 内容 / 数据"]
+    ],
+    pillars: [
+      { title: "先定义重复", text: "完全相同、大小写不同或近似相同，去重规则完全不同。" },
+      { title: "再做归一化", text: "空格、标点和大小写经常影响去重结果。" },
+      { title: "最后保留原始数据", text: "去重前一定保留源文件，方便回查。" }
+    ],
+    checklist: [
+      "先给重复规则写一句明确说明。",
+      "涉及客户数据时，先确认误删风险。",
+      "去重后抽样复查几条边界样本。"
+    ],
+    faq: [
+      ["文本去重是不是只靠工具就行？", "很多时候规则比工具更关键。"],
+      ["去重后为什么还有重复？", "可能是归一化步骤没做，或重复规则定义不一致。"]
+    ],
+    related: [
+      ["CSV 清洗与整理工作流", "/csv-cleanup-workflow/"],
+      ["Markdown 表格清理步骤", "/markdown-table-cleaner/"],
+      ["JSON 格式化与结构对比", "/json-format-compare/"]
+    ]
+  }),
+  makeArticlePage({
+    slug: "column-mapping-template",
+    category: "data-processing",
+    title: "列映射模板怎么整理",
+    summary: "适合系统迁移、表格导入和接口字段对应场景，重点是把来源字段和目标字段对齐。",
+    description: "围绕列映射模板、字段对应和迁移整理的文章页。",
+    eyebrow: "COLUMN MAPPING",
+    metrics: [
+      ["适合场景", "导入 / 迁移 / 字段对应"],
+      ["重点", "来源 / 目标 / 规则"],
+      ["页面类型", "模板文章"]
+    ],
+    sections: [
+      { title: "先列来源字段", text: "源系统字段名称、类型和示例值应先完整列出来。" },
+      { title: "再列目标字段", text: "目标系统字段和必填规则要对照写清楚。" },
+      { title: "最后写转换规则", text: "格式转换、单位换算和空值处理要单独注明。" }
+    ],
+    takeaways: [
+      "字段映射最怕口头约定，最好形成稳定模板。",
+      "如果转换规则没写清楚，导入后的问题会非常难查。"
+    ],
+    faq: [
+      ["列映射表适合谁维护？", "最好由业务方和技术方共同维护。"],
+      ["只写字段名够吗？", "不够，示例值和规则说明同样重要。"]
+    ],
+    related: [
+      ["JSON 格式化与结构对比", "/json-format-compare/"],
+      ["CSV 清洗与整理工作流", "/csv-cleanup-workflow/"],
+      ["Python API 开发指南从接口设计开始", "/python-api-guide/"]
+    ]
+  }),
+  makeGuidePage({
+    slug: "exam-revision-checklist",
+    category: "education-learning",
+    title: "考试复习清单怎么排更稳",
+    summary: "适合阶段性复习、冲刺计划和知识点回顾场景，重点是把范围、节奏和检查点排清楚。",
+    description: "面向考试复习清单、冲刺计划和知识点回顾的指导页。",
+    eyebrow: "REVISION CHECKLIST",
+    metrics: [
+      ["适合阶段", "复习 / 冲刺"],
+      ["重点", "范围 / 节奏 / 检查点"],
+      ["对象", "学生 / 自学者"]
+    ],
+    pillars: [
+      { title: "先列复习范围", text: "先把章节、题型和重点范围列清楚，避免边做边补。" },
+      { title: "再排复习节奏", text: "不同内容块安排不同时间，不要平均分配。" },
+      { title: "最后设检查点", text: "用小测、口述或错题回看确认是否真正掌握。" }
+    ],
+    checklist: [
+      "冲刺期优先回看高频错题和重点章节。",
+      "每天安排一个可完成的小闭环。",
+      "不要把所有时间都放在看资料，留出输出时间。"
+    ],
+    faq: [
+      ["复习清单是不是越细越好？", "够执行即可，太细反而容易拖延。"],
+      ["冲刺期适合再学新内容吗？", "一般应优先巩固已有范围。"]
+    ],
+    related: [
+      ["自学路线图应该怎么排更容易坚持", "/self-study-roadmap/"],
+      ["学习笔记方法怎样更容易复用", "/study-notes-method/"],
+      ["每周学习复盘怎么写", "/weekly-learning-review/"]
+    ]
+  }),
+  makeArticlePage({
+    slug: "weekly-learning-review",
+    category: "education-learning",
+    title: "每周学习复盘怎么写",
+    summary: "适合长期学习、项目练习和自学输出场景，重点是记录有效动作而不是流水账。",
+    description: "围绕每周学习复盘、输出总结和自学节奏维护的文章页。",
+    eyebrow: "WEEKLY REVIEW",
+    metrics: [
+      ["页面类型", "复盘文章"],
+      ["重点", "输出 / 问题 / 下周计划"],
+      ["适合对象", "长期自学者"]
+    ],
+    sections: [
+      { title: "先写做了什么", text: "记录本周真正完成的动作和产出，而不是只写学习意图。" },
+      { title: "再写卡在哪里", text: "遇到的问题和阻塞点比空泛总结更有价值。" },
+      { title: "最后排下周计划", text: "下周计划越具体，越容易继续执行。" }
+    ],
+    takeaways: [
+      "复盘的重点是给下周服务，不是写得好看。",
+      "只写“这周学了很多”几乎没有复用价值。"
+    ],
+    faq: [
+      ["复盘适合每天写还是每周写？", "很多人每周一版更容易长期坚持。"],
+      ["需要写得很长吗？", "不需要，关键是有问题和下一步。"]
+    ],
+    related: [
+      ["自学路线图应该怎么排更容易坚持", "/self-study-roadmap/"],
+      ["考试复习清单怎么排更稳", "/exam-revision-checklist/"],
+      ["学习笔记方法怎样更容易复用", "/study-notes-method/"]
+    ]
+  }),
+  makeGuidePage({
+    slug: "flashcard-notes-workflow",
+    category: "education-learning",
+    title: "卡片笔记和长笔记怎么配合",
+    summary: "适合知识整理、课程复盘和长期积累场景，重点是把碎片知识和系统知识分开存放。",
+    description: "面向卡片笔记、长笔记与长期知识整理的指导页。",
+    eyebrow: "FLASHCARD NOTES",
+    metrics: [
+      ["适合场景", "课程 / 项目 / 长期积累"],
+      ["重点", "碎片 / 结构 / 回看"],
+      ["对象", "学生 / 自学者"]
+    ],
+    pillars: [
+      { title: "先区分记录粒度", text: "一句话知识点和完整方法说明不应混在同一层。" },
+      { title: "再安排回看路径", text: "卡片适合快速回顾，长笔记适合系统复盘。" },
+      { title: "最后建立连接", text: "把卡片链接到专题笔记里，长期更容易复用。" }
+    ],
+    checklist: [
+      "新知识先记卡片，再决定是否升级成长笔记。",
+      "长笔记优先记录结构、步骤和案例。",
+      "定期把高频卡片整理回主题文档。"
+    ],
+    faq: [
+      ["卡片笔记会不会太碎？", "如果有回链和整理流程，就不会只剩碎片。"],
+      ["长笔记是不是一定更好？", "不一定，很多知识点更适合先用卡片方式保存。"]
+    ],
+    related: [
+      ["学习笔记方法怎样更容易复用", "/study-notes-method/"],
+      ["每周学习复盘怎么写", "/weekly-learning-review/"],
+      ["知识文档结构模板怎么搭", "/docs-structure-template/"]
+    ]
+  })
+];
+
+const pages = [...basePages, ...supplementalPages];
 
 export default {
   site,

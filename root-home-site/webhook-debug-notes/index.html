@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Webhook 调试记录怎么留 - fybot 网站导航</title>
+  <meta name="description" content="面向 webhook 调试、回调排查和触发记录的专题指导页。">
+  <meta name="theme-color" content="#6a5cff">
+  <link rel="canonical" href="https://fyrghdyrgh-dot.github.io/webhook-debug-notes/">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Webhook 调试记录怎么留 - fybot 网站导航">
+  <meta property="og:description" content="面向 webhook 调试、回调排查和触发记录的专题指导页。">
+  <meta property="og:url" content="https://fyrghdyrgh-dot.github.io/webhook-debug-notes/">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="../assets/base.css">
+  <link rel="stylesheet" href="../assets/detail.css">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Webhook 调试记录怎么留","url":"https://fyrghdyrgh-dot.github.io/webhook-debug-notes/","description":"面向 webhook 调试、回调排查和触发记录的专题指导页。"}</script>
+</head>
+<body class="detail-body" style="--accent:#0f766e;--accent-soft:#d9f4ef;--surface:#f7fffd;--panel:#ffffff;--ink:#13312d;--muted:#5b6f6a;">
+  <header class="site-header">
+    <div class="shell topbar">
+      <div class="brand-wrap">
+        <a class="brand-chip" href="/">fybot</a>
+        <a class="brand-title" href="/">fybot 网站导航</a>
+      </div>
+      <nav class="top-nav">
+        <a class="" href="/">首页</a><a class="" href="/#featured">最新上架</a><a class="is-active" href="/#directory">最受欢迎</a><a class="" href="/knowledge-docs/">免费教程</a><a class="" href="/#submit">收录申请</a><a class="" href="/#contact">联系我们</a>
+      </nav>
+      <div class="top-actions">
+        <a class="ghost-link" href="/#contact">登录</a>
+        <a class="submit-link" href="/#submit">提交工具</a>
+      </div>
+    </div>
+    <div class="shell crumb-bar"><a href="/">首页</a> / <a href="/net-tools/">网络与开发工具</a> / Webhook 调试记录怎么留</div>
+  </header>
+  <main class="shell">
+    <section class="detail-layout">
+      <aside class="detail-sidebar">
+        <div class="sidebar-card">
+          <h2>当前分类</h2>
+          <nav class="sidebar-nav">
+            <a class="is-active" href="/net-tools/"><span class="nav-icon">网</span>网络与开发工具</a><a class="" href="/zh-ai-tools/"><span class="nav-icon">中</span>中文 AI 工具专题</a><a class="" href="/vi-ai-tools/"><span class="nav-icon">越</span>越南语 AI 专题</a><a class="" href="/server-idc/"><span class="nav-icon">服</span>服务器与 IDC</a><a class="" href="/development/"><span class="nav-icon">开</span>开发与编程</a><a class="" href="/knowledge-docs/"><span class="nav-icon">知</span>知识与文档</a><a class="" href="/customer-growth/"><span class="nav-icon">客</span>客服与用户运营</a><a class="" href="/ecommerce-content/"><span class="nav-icon">商</span>电商与产品内容</a><a class="" href="/translation-language/"><span class="nav-icon">译</span>翻译与语言处理</a><a class="" href="/data-processing/"><span class="nav-icon">数</span>数据处理</a><a class="" href="/education-learning/"><span class="nav-icon">学</span>教育与学习</a>
+          </nav>
+        </div>
+        <div class="sidebar-card">
+          <h2>本类页面</h2>
+          <nav class="sidebar-subnav">
+            <a class="" href="/ipv4-subnet-toolkit/">IPv4 与 CIDR 常用工具</a><a class="" href="/api-debug-checklist/">API 联调检查清单</a><a class="" href="/dns-http-status-check/">域名解析与 HTTP 状态检查</a><a class="" href="/curl-request-builder/">curl 请求排查顺序</a><a class="is-current" href="/webhook-debug-notes/">Webhook 调试记录怎么留</a>
+          </nav>
+        </div>
+        <div class="sidebar-card">
+          <h2>页面信息</h2>
+          <div class="detail-side-meta">
+            <span>指南页</span>
+            <span>网络与开发工具</span>
+            <span>实操</span>
+          </div>
+          <a class="sidebar-cta" href="/webhook-debug-notes/">查看当前分类</a>
+        </div>
+      </aside>
+
+      <div class="detail-content">
+        <section class="detail-hero">
+          <div class="detail-hero-top">
+            <div class="detail-mark">W</div>
+            <div>
+              <p class="section-kicker">WEBHOOK DEBUG NOTES</p>
+              <h1>Webhook 调试记录怎么留</h1>
+            </div>
+          </div>
+          <p class="detail-summary">适合支付回调、表单通知和自动化触发场景，重点是把重放、签名和返回结果记录清楚。</p>
+          <div class="detail-metrics">
+            <div class="metric-card"><span>适用场景</span><strong>支付 / 表单 / 自动化</strong></div><div class="metric-card"><span>重点</span><strong>签名 / 重放 / 返回值</strong></div><div class="metric-card"><span>适合阶段</span><strong>联调 / 上线后排查</strong></div>
+          </div>
+          <div class="detail-actions">
+            <a class="button button-primary" href="/webhook-debug-notes/">查看当前分类</a>
+            <a class="button button-secondary" href="/net-tools/">返回分类</a>
+          </div>
+        </section>
+
+        <section class="detail-panel">
+    <div class="detail-columns">
+      <article class="mini-card"><span class="mini-index">01</span><h3>先留原始请求</h3><p>时间、header、body 和签名字段都要保留，避免只截图不留文本。</p></article><article class="mini-card"><span class="mini-index">02</span><h3>再看返回值</h3><p>确认回调是否因为状态码、超时或格式错误被判定失败。</p></article><article class="mini-card"><span class="mini-index">03</span><h3>最后做重放验证</h3><p>用同一份 payload 重新验证，能更快区分接口逻辑和外部触发问题。</p></article>
+    </div>
+    <div class="takeaway-box"><h2>建议核对清单</h2><ul class="bullet-list"><li>把请求时间、重试次数和回调来源一起记录。</li><li>如果带签名校验，保留签名串和验签逻辑说明。</li><li>上线后遇到偶发失败时，优先看超时和幂等处理。</li></ul></div>
+  </section>
+
+        <section class="detail-related">
+          <div class="detail-panel">
+            <h2>常见问题</h2>
+            <div class="faq-list">
+              <article class="faq-item"><h3>Webhook 最常见的问题是什么？</h3><p>签名不一致、状态码返回不正确和幂等处理缺失都很常见。</p></article><article class="faq-item"><h3>为什么要保留重放记录？</h3><p>这样更容易定位是第三方重复触发，还是你自己的逻辑异常。</p></article>
+            </div>
+          </div>
+          <aside class="detail-panel related-panel">
+            <h2>继续查看</h2>
+            <ul class="related-list">
+              <li><a href="/curl-request-builder/">curl 请求排查顺序</a></li><li><a href="/api-debug-checklist/">API 联调检查清单</a></li><li><a href="/csv-cleanup-workflow/">CSV 清洗与整理工作流</a></li>
+            </ul>
+          </aside>
+        </section>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer" id="contact">
+    <div class="shell footer-grid">
+      <div>
+        <p class="footer-title">fybot 网站导航</p>
+        <p class="footer-text">按分类浏览，按卡片进入，服务器相关入口统一导向 1bgp，其它页面优先承接真实搜索意图。</p>
+      </div>
+      <div class="footer-links">
+        <a href="/#directory">网站目录</a>
+        <a href="/zh-ai-tools/">AI 专题</a>
+        <a href="/server-idc/">服务器与 IDC</a>
+        <a href="https://www.1bgp.com/">1bgp</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

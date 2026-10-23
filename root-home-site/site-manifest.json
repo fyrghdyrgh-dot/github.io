@@ -219,5 +219,185 @@
     "title": "学习笔记方法怎样更容易复用",
     "category": "education-learning",
     "url": "https://fyrghdyrgh-dot.github.io/study-notes-method/"
+  },
+  {
+    "type": "tool",
+    "title": "域名解析与 HTTP 状态检查",
+    "category": "net-tools",
+    "url": "https://fyrghdyrgh-dot.github.io/dns-http-status-check/"
+  },
+  {
+    "type": "guide",
+    "title": "curl 请求排查顺序",
+    "category": "net-tools",
+    "url": "https://fyrghdyrgh-dot.github.io/curl-request-builder/"
+  },
+  {
+    "type": "guide",
+    "title": "Webhook 调试记录怎么留",
+    "category": "net-tools",
+    "url": "https://fyrghdyrgh-dot.github.io/webhook-debug-notes/"
+  },
+  {
+    "type": "guide",
+    "title": "中文 AI 提纲生成流程",
+    "category": "zh-ai-tools",
+    "url": "https://fyrghdyrgh-dot.github.io/zh-ai-outline-workflow/"
+  },
+  {
+    "type": "guide",
+    "title": "中文文章改写时怎么减少套话",
+    "category": "zh-ai-tools",
+    "url": "https://fyrghdyrgh-dot.github.io/zh-ai-article-rewrite/"
+  },
+  {
+    "type": "article",
+    "title": "中文标题润色时该保留什么",
+    "category": "zh-ai-tools",
+    "url": "https://fyrghdyrgh-dot.github.io/zh-ai-title-polish/"
+  },
+  {
+    "type": "guide",
+    "title": "越南语客服对话初稿怎么写",
+    "category": "vi-ai-tools",
+    "url": "https://fyrghdyrgh-dot.github.io/vi-ai-customer-chat/"
+  },
+  {
+    "type": "article",
+    "title": "越南语广告文案上线前检查点",
+    "category": "vi-ai-tools",
+    "url": "https://fyrghdyrgh-dot.github.io/vietnamese-ad-copy-checklist/"
+  },
+  {
+    "type": "guide",
+    "title": "越南语市场关键词整理方法",
+    "category": "vi-ai-tools",
+    "url": "https://fyrghdyrgh-dot.github.io/vi-market-keyword-notes/"
+  },
+  {
+    "type": "guide",
+    "title": "代码评审前的 AI 辅助检查清单",
+    "category": "development",
+    "url": "https://fyrghdyrgh-dot.github.io/ai-code-review-checklist/"
+  },
+  {
+    "type": "article",
+    "title": "版本发布说明模板怎么写",
+    "category": "development",
+    "url": "https://fyrghdyrgh-dot.github.io/release-notes-template/"
+  },
+  {
+    "type": "guide",
+    "title": "浏览器控制台排错顺序",
+    "category": "development",
+    "url": "https://fyrghdyrgh-dot.github.io/browser-console-debug-guide/"
+  },
+  {
+    "type": "article",
+    "title": "运维 Runbook 模板怎么写",
+    "category": "knowledge-docs",
+    "url": "https://fyrghdyrgh-dot.github.io/ops-runbook-template/"
+  },
+  {
+    "type": "guide",
+    "title": "会议纪要模板怎么写更有用",
+    "category": "knowledge-docs",
+    "url": "https://fyrghdyrgh-dot.github.io/meeting-summary-template/"
+  },
+  {
+    "type": "article",
+    "title": "团队 Wiki 目录该怎么规划",
+    "category": "knowledge-docs",
+    "url": "https://fyrghdyrgh-dot.github.io/wiki-directory-planning/"
+  },
+  {
+    "type": "guide",
+    "title": "新用户欢迎语怎么写更自然",
+    "category": "customer-growth",
+    "url": "https://fyrghdyrgh-dot.github.io/onboarding-message-template/"
+  },
+  {
+    "type": "article",
+    "title": "退款 FAQ 结构怎么写更清楚",
+    "category": "customer-growth",
+    "url": "https://fyrghdyrgh-dot.github.io/refund-faq-structure/"
+  },
+  {
+    "type": "guide",
+    "title": "线索初筛时要先问什么",
+    "category": "customer-growth",
+    "url": "https://fyrghdyrgh-dot.github.io/lead-qualification-checklist/"
+  },
+  {
+    "type": "article",
+    "title": "价格页文案结构怎么排更清楚",
+    "category": "ecommerce-content",
+    "url": "https://fyrghdyrgh-dot.github.io/pricing-page-copy-structure/"
+  },
+  {
+    "type": "guide",
+    "title": "SKU 卖点矩阵怎么整理",
+    "category": "ecommerce-content",
+    "url": "https://fyrghdyrgh-dot.github.io/sku-selling-points-matrix/"
+  },
+  {
+    "type": "guide",
+    "title": "活动落地页上线前检查清单",
+    "category": "ecommerce-content",
+    "url": "https://fyrghdyrgh-dot.github.io/promotion-landing-checklist/"
+  },
+  {
+    "type": "article",
+    "title": "中英术语表怎么建更省事",
+    "category": "translation-language",
+    "url": "https://fyrghdyrgh-dot.github.io/english-chinese-term-base/"
+  },
+  {
+    "type": "guide",
+    "title": "应用界面文案本地化要先看什么",
+    "category": "translation-language",
+    "url": "https://fyrghdyrgh-dot.github.io/app-ui-copy-localization/"
+  },
+  {
+    "type": "tool",
+    "title": "字幕长度检查与换行建议",
+    "category": "translation-language",
+    "url": "https://fyrghdyrgh-dot.github.io/subtitle-length-checker/"
+  },
+  {
+    "type": "tool",
+    "title": "Markdown 表格清理步骤",
+    "category": "data-processing",
+    "url": "https://fyrghdyrgh-dot.github.io/markdown-table-cleaner/"
+  },
+  {
+    "type": "guide",
+    "title": "文本去重前先确认什么",
+    "category": "data-processing",
+    "url": "https://fyrghdyrgh-dot.github.io/text-dedup-checklist/"
+  },
+  {
+    "type": "article",
+    "title": "列映射模板怎么整理",
+    "category": "data-processing",
+    "url": "https://fyrghdyrgh-dot.github.io/column-mapping-template/"
+  },
+  {
+    "type": "guide",
+    "title": "考试复习清单怎么排更稳",
+    "category": "education-learning",
+    "url": "https://fyrghdyrgh-dot.github.io/exam-revision-checklist/"
+  },
+  {
+    "type": "article",
+    "title": "每周学习复盘怎么写",
+    "category": "education-learning",
+    "url": "https://fyrghdyrgh-dot.github.io/weekly-learning-review/"
+  },
+  {
+    "type": "guide",
+    "title": "卡片笔记和长笔记怎么配合",
+    "category": "education-learning",
+    "url": "https://fyrghdyrgh-dot.github.io/flashcard-notes-workflow/"
   }
 ]

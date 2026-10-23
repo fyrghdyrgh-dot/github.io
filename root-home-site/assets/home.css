@@ -154,4 +154,8 @@
     display: grid;
     grid-template-columns: 1fr;
   }
+  .card-summary,
+  .card-meta {
+    min-height: auto;
+  }
 }

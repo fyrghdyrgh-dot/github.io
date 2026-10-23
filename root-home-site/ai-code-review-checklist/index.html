@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>代码评审前的 AI 辅助检查清单 - fybot 网站导航</title>
+  <meta name="description" content="面向代码评审、提交前检查和 AI 辅助自查的指南页。">
+  <meta name="theme-color" content="#6a5cff">
+  <link rel="canonical" href="https://fyrghdyrgh-dot.github.io/ai-code-review-checklist/">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="代码评审前的 AI 辅助检查清单 - fybot 网站导航">
+  <meta property="og:description" content="面向代码评审、提交前检查和 AI 辅助自查的指南页。">
+  <meta property="og:url" content="https://fyrghdyrgh-dot.github.io/ai-code-review-checklist/">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="../assets/base.css">
+  <link rel="stylesheet" href="../assets/detail.css">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"代码评审前的 AI 辅助检查清单","url":"https://fyrghdyrgh-dot.github.io/ai-code-review-checklist/","description":"面向代码评审、提交前检查和 AI 辅助自查的指南页。"}</script>
+</head>
+<body class="detail-body" style="--accent:#4f46e5;--accent-soft:#e7e5ff;--surface:#fafaff;--panel:#ffffff;--ink:#24204c;--muted:#6b6893;">
+  <header class="site-header">
+    <div class="shell topbar">
+      <div class="brand-wrap">
+        <a class="brand-chip" href="/">fybot</a>
+        <a class="brand-title" href="/">fybot 网站导航</a>
+      </div>
+      <nav class="top-nav">
+        <a class="" href="/">首页</a><a class="" href="/#featured">最新上架</a><a class="is-active" href="/#directory">最受欢迎</a><a class="" href="/knowledge-docs/">免费教程</a><a class="" href="/#submit">收录申请</a><a class="" href="/#contact">联系我们</a>
+      </nav>
+      <div class="top-actions">
+        <a class="ghost-link" href="/#contact">登录</a>
+        <a class="submit-link" href="/#submit">提交工具</a>
+      </div>
+    </div>
+    <div class="shell crumb-bar"><a href="/">首页</a> / <a href="/development/">开发与编程</a> / 代码评审前的 AI 辅助检查清单</div>
+  </header>
+  <main class="shell">
+    <section class="detail-layout">
+      <aside class="detail-sidebar">
+        <div class="sidebar-card">
+          <h2>当前分类</h2>
+          <nav class="sidebar-nav">
+            <a class="" href="/net-tools/"><span class="nav-icon">网</span>网络与开发工具</a><a class="" href="/zh-ai-tools/"><span class="nav-icon">中</span>中文 AI 工具专题</a><a class="" href="/vi-ai-tools/"><span class="nav-icon">越</span>越南语 AI 专题</a><a class="" href="/server-idc/"><span class="nav-icon">服</span>服务器与 IDC</a><a class="is-active" href="/development/"><span class="nav-icon">开</span>开发与编程</a><a class="" href="/knowledge-docs/"><span class="nav-icon">知</span>知识与文档</a><a class="" href="/customer-growth/"><span class="nav-icon">客</span>客服与用户运营</a><a class="" href="/ecommerce-content/"><span class="nav-icon">商</span>电商与产品内容</a><a class="" href="/translation-language/"><span class="nav-icon">译</span>翻译与语言处理</a><a class="" href="/data-processing/"><span class="nav-icon">数</span>数据处理</a><a class="" href="/education-learning/"><span class="nav-icon">学</span>教育与学习</a>
+          </nav>
+        </div>
+        <div class="sidebar-card">
+          <h2>本类页面</h2>
+          <nav class="sidebar-subnav">
+            <a class="" href="/python-api-guide/">Python API 开发指南从接口设计开始</a><a class="" href="/frontend-performance-checklist/">前端性能检查清单</a><a class="is-current" href="/ai-code-review-checklist/">代码评审前的 AI 辅助检查清单</a><a class="" href="/release-notes-template/">版本发布说明模板怎么写</a><a class="" href="/browser-console-debug-guide/">浏览器控制台排错顺序</a>
+          </nav>
+        </div>
+        <div class="sidebar-card">
+          <h2>页面信息</h2>
+          <div class="detail-side-meta">
+            <span>指南页</span>
+            <span>开发与编程</span>
+            <span>实操</span>
+          </div>
+          <a class="sidebar-cta" href="/ai-code-review-checklist/">查看当前分类</a>
+        </div>
+      </aside>
+
+      <div class="detail-content">
+        <section class="detail-hero">
+          <div class="detail-hero-top">
+            <div class="detail-mark">代</div>
+            <div>
+              <p class="section-kicker">AI CODE REVIEW</p>
+              <h1>代码评审前的 AI 辅助检查清单</h1>
+            </div>
+          </div>
+          <p class="detail-summary">适合提交前自查、功能回归和接口改动复核，重点是先把低级问题在本地扫掉。</p>
+          <div class="detail-metrics">
+            <div class="metric-card"><span>适合阶段</span><strong>提交前 / Review 前</strong></div><div class="metric-card"><span>重点</span><strong>回归 / 边界 / 命名</strong></div><div class="metric-card"><span>对象</span><strong>开发团队</strong></div>
+          </div>
+          <div class="detail-actions">
+            <a class="button button-primary" href="/ai-code-review-checklist/">查看当前分类</a>
+            <a class="button button-secondary" href="/development/">返回分类</a>
+          </div>
+        </section>
+
+        <section class="detail-panel">
+    <div class="detail-columns">
+      <article class="mini-card"><span class="mini-index">01</span><h3>先查行为变化</h3><p>确认改动是否影响旧接口、旧页面和已有流程。</p></article><article class="mini-card"><span class="mini-index">02</span><h3>再查边界条件</h3><p>空值、异常分支、权限和失败提示要优先检查。</p></article><article class="mini-card"><span class="mini-index">03</span><h3>最后整理评审上下文</h3><p>把改动原因、范围和已验证结果说清楚，评审效率会高很多。</p></article>
+    </div>
+    <div class="takeaway-box"><h2>建议核对清单</h2><ul class="bullet-list"><li>先跑最接近实际使用路径的验证，而不是只看 happy path。</li><li>高风险改动应补充影响范围说明。</li><li>提交前先清理无关日志和临时代码。</li></ul></div>
+  </section>
+
+        <section class="detail-related">
+          <div class="detail-panel">
+            <h2>常见问题</h2>
+            <div class="faq-list">
+              <article class="faq-item"><h3>AI 能替代代码评审吗？</h3><p>不能，但很适合先做一轮自查。</p></article><article class="faq-item"><h3>最值得先查什么？</h3><p>行为回归、边界条件和错误提示通常最值得优先查。</p></article>
+            </div>
+          </div>
+          <aside class="detail-panel related-panel">
+            <h2>继续查看</h2>
+            <ul class="related-list">
+              <li><a href="/python-api-guide/">Python API 开发指南从接口设计开始</a></li><li><a href="/frontend-performance-checklist/">前端性能检查清单</a></li><li><a href="/api-debug-checklist/">API 联调检查清单</a></li>
+            </ul>
+          </aside>
+        </section>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer" id="contact">
+    <div class="shell footer-grid">
+      <div>
+        <p class="footer-title">fybot 网站导航</p>
+        <p class="footer-text">按分类浏览，按卡片进入，服务器相关入口统一导向 1bgp，其它页面优先承接真实搜索意图。</p>
+      </div>
+      <div class="footer-links">
+        <a href="/#directory">网站目录</a>
+        <a href="/zh-ai-tools/">AI 专题</a>
+        <a href="/server-idc/">服务器与 IDC</a>
+        <a href="https://www.1bgp.com/">1bgp</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

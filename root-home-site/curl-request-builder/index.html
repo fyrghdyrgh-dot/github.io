@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>curl 请求排查顺序 - fybot 网站导航</title>
+  <meta name="description" content="面向 curl 请求构造、接口排查和联调核对的指南页。">
+  <meta name="theme-color" content="#6a5cff">
+  <link rel="canonical" href="https://fyrghdyrgh-dot.github.io/curl-request-builder/">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="curl 请求排查顺序 - fybot 网站导航">
+  <meta property="og:description" content="面向 curl 请求构造、接口排查和联调核对的指南页。">
+  <meta property="og:url" content="https://fyrghdyrgh-dot.github.io/curl-request-builder/">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="../assets/base.css">
+  <link rel="stylesheet" href="../assets/detail.css">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"curl 请求排查顺序","url":"https://fyrghdyrgh-dot.github.io/curl-request-builder/","description":"面向 curl 请求构造、接口排查和联调核对的指南页。"}</script>
+</head>
+<body class="detail-body" style="--accent:#0f766e;--accent-soft:#d9f4ef;--surface:#f7fffd;--panel:#ffffff;--ink:#13312d;--muted:#5b6f6a;">
+  <header class="site-header">
+    <div class="shell topbar">
+      <div class="brand-wrap">
+        <a class="brand-chip" href="/">fybot</a>
+        <a class="brand-title" href="/">fybot 网站导航</a>
+      </div>
+      <nav class="top-nav">
+        <a class="" href="/">首页</a><a class="" href="/#featured">最新上架</a><a class="is-active" href="/#directory">最受欢迎</a><a class="" href="/knowledge-docs/">免费教程</a><a class="" href="/#submit">收录申请</a><a class="" href="/#contact">联系我们</a>
+      </nav>
+      <div class="top-actions">
+        <a class="ghost-link" href="/#contact">登录</a>
+        <a class="submit-link" href="/#submit">提交工具</a>
+      </div>
+    </div>
+    <div class="shell crumb-bar"><a href="/">首页</a> / <a href="/net-tools/">网络与开发工具</a> / curl 请求排查顺序</div>
+  </header>
+  <main class="shell">
+    <section class="detail-layout">
+      <aside class="detail-sidebar">
+        <div class="sidebar-card">
+          <h2>当前分类</h2>
+          <nav class="sidebar-nav">
+            <a class="is-active" href="/net-tools/"><span class="nav-icon">网</span>网络与开发工具</a><a class="" href="/zh-ai-tools/"><span class="nav-icon">中</span>中文 AI 工具专题</a><a class="" href="/vi-ai-tools/"><span class="nav-icon">越</span>越南语 AI 专题</a><a class="" href="/server-idc/"><span class="nav-icon">服</span>服务器与 IDC</a><a class="" href="/development/"><span class="nav-icon">开</span>开发与编程</a><a class="" href="/knowledge-docs/"><span class="nav-icon">知</span>知识与文档</a><a class="" href="/customer-growth/"><span class="nav-icon">客</span>客服与用户运营</a><a class="" href="/ecommerce-content/"><span class="nav-icon">商</span>电商与产品内容</a><a class="" href="/translation-language/"><span class="nav-icon">译</span>翻译与语言处理</a><a class="" href="/data-processing/"><span class="nav-icon">数</span>数据处理</a><a class="" href="/education-learning/"><span class="nav-icon">学</span>教育与学习</a>
+          </nav>
+        </div>
+        <div class="sidebar-card">
+          <h2>本类页面</h2>
+          <nav class="sidebar-subnav">
+            <a class="" href="/ipv4-subnet-toolkit/">IPv4 与 CIDR 常用工具</a><a class="" href="/api-debug-checklist/">API 联调检查清单</a><a class="" href="/dns-http-status-check/">域名解析与 HTTP 状态检查</a><a class="is-current" href="/curl-request-builder/">curl 请求排查顺序</a><a class="" href="/webhook-debug-notes/">Webhook 调试记录怎么留</a>
+          </nav>
+        </div>
+        <div class="sidebar-card">
+          <h2>页面信息</h2>
+          <div class="detail-side-meta">
+            <span>指南页</span>
+            <span>网络与开发工具</span>
+            <span>实操</span>
+          </div>
+          <a class="sidebar-cta" href="/curl-request-builder/">查看当前分类</a>
+        </div>
+      </aside>
+
+      <div class="detail-content">
+        <section class="detail-hero">
+          <div class="detail-hero-top">
+            <div class="detail-mark">c</div>
+            <div>
+              <p class="section-kicker">CURL REQUEST DEBUG</p>
+              <h1>curl 请求排查顺序</h1>
+            </div>
+          </div>
+          <p class="detail-summary">把 Header、Method、Body 和响应结果拆成更容易检查的顺序，适合排查接口请求差异。</p>
+          <div class="detail-metrics">
+            <div class="metric-card"><span>适合对象</span><strong>开发 / 测试 / 运维</strong></div><div class="metric-card"><span>关键点</span><strong>Header / Method / Body</strong></div><div class="metric-card"><span>页面形式</span><strong>步骤清单</strong></div>
+          </div>
+          <div class="detail-actions">
+            <a class="button button-primary" href="/curl-request-builder/">查看当前分类</a>
+            <a class="button button-secondary" href="/net-tools/">返回分类</a>
+          </div>
+        </section>
+
+        <section class="detail-panel">
+    <div class="detail-columns">
+      <article class="mini-card"><span class="mini-index">01</span><h3>先确认请求方法</h3><p>GET、POST、PUT 和 DELETE 的差异会直接影响接口返回，不要默认复制旧命令。</p></article><article class="mini-card"><span class="mini-index">02</span><h3>再核对请求头</h3><p>Authorization、Content-Type 和 Cookie 是最常见的差异点。</p></article><article class="mini-card"><span class="mini-index">03</span><h3>最后保存可复现命令</h3><p>保留一条最小可复现的 curl 示例，便于前后端快速对齐。</p></article>
+    </div>
+    <div class="takeaway-box"><h2>建议核对清单</h2><ul class="bullet-list"><li>先用最短命令确认域名和状态码可达，再补 header 和 body。</li><li>如果和前端结果不一致，先比对 header、token 和 cookie。</li><li>把失败请求和成功请求各留一条，便于后续对照。</li></ul></div>
+  </section>
+
+        <section class="detail-related">
+          <div class="detail-panel">
+            <h2>常见问题</h2>
+            <div class="faq-list">
+              <article class="faq-item"><h3>为什么 curl 成功但页面请求失败？</h3><p>通常是 cookie、跨域、浏览器环境或 header 不同。</p></article><article class="faq-item"><h3>curl 命令要不要保留敏感信息？</h3><p>不要，建议用占位符替换 token 和私密参数。</p></article>
+            </div>
+          </div>
+          <aside class="detail-panel related-panel">
+            <h2>继续查看</h2>
+            <ul class="related-list">
+              <li><a href="/api-debug-checklist/">API 联调检查清单</a></li><li><a href="/python-api-guide/">Python API 开发指南</a></li><li><a href="/json-format-compare/">JSON 格式化与结构对比</a></li>
+            </ul>
+          </aside>
+        </section>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer" id="contact">
+    <div class="shell footer-grid">
+      <div>
+        <p class="footer-title">fybot 网站导航</p>
+        <p class="footer-text">按分类浏览，按卡片进入，服务器相关入口统一导向 1bgp，其它页面优先承接真实搜索意图。</p>
+      </div>
+      <div class="footer-links">
+        <a href="/#directory">网站目录</a>
+        <a href="/zh-ai-tools/">AI 专题</a>
+        <a href="/server-idc/">服务器与 IDC</a>
+        <a href="https://www.1bgp.com/">1bgp</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

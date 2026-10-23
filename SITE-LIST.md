@@ -4,7 +4,7 @@
 
 | 站点名称 | 类型 | 仓库地址 | 访问地址 | 说明 |
 | --- | --- | --- | --- | --- |
-| 根域关键词目录站 | 导航站 | https://github.com/fyrghdyrgh-dot/fyrghdyrgh-dot.github.io | https://fyrghdyrgh-dot.github.io/ | 目录首页，现已扩展为 11 个分类与 25 个专题页 |
+| 根域关键词目录站 | 导航站 | https://github.com/fyrghdyrgh-dot/fyrghdyrgh-dot.github.io | https://fyrghdyrgh-dot.github.io/ | 目录首页，现已扩展为 11 个分类与 55 个专题页 |
 | VPS 上线清单 | 服务器引流站 | https://github.com/fyrghdyrgh-dot/vps-launch-checklist | https://fyrghdyrgh-dot.github.io/vps-launch-checklist/ | 面向部署、上线、监控和回滚场景 |
 | 服务器节点建议器 | 服务器引流站 | https://github.com/fyrghdyrgh-dot/server-location-advisor | https://fyrghdyrgh-dot.github.io/server-location-advisor/ | 面向节点筛选和服务器选型场景 |
 | 比例计算小工具 | 普通流量站 | https://github.com/fyrghdyrgh-dot/ratio-kit-mobile | https://fyrghdyrgh-dot.github.io/ratio-kit-mobile/ | 面向移动端图片比例与尺寸换算 |
@@ -13,7 +13,7 @@
 
 - 服务器引流站允许在主题相关场景自然推荐 `https://www.1bgp.com/`
 - 普通流量站以工具和内容本身为主，暂不强制加入推广内容
-- 根域导航站现在同时承担目录页与专题页入口，专题页统一围绕服务器选型、线路和购买场景展开
+- 根域导航站现在同时承担目录页与专题页入口，当前每个分类已补足到至少 5 个页面
 
 ## 根域分类页
 
@@ -50,3 +50,4 @@
 
 - 根站模板文档：`ROOT-SITE-TEMPLATE.md`
 - 本地路径：file:///workspace/ROOT-SITE-TEMPLATE.md
+- 当前模板状态：已完成，可继续按分类批量扩展到更多页面

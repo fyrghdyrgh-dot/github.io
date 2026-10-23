@@ -610,14 +610,14 @@ function renderSiteCard(page, category) {
     <div class="card-top">
       <div class="card-brand">
         <div class="card-mark">${escapeHtml(pageMark(page))}</div>
-        <div>
+        <div class="card-copy">
           <h3><a href="/${page.slug}/">${escapeHtml(page.title)}</a></h3>
+          <div class="card-tags">
+            <span>${escapeHtml(typeLabel(page.type))}</span>
+            <span>${escapeHtml(metricTag(page))}</span>
+          </div>
           <p class="card-subtitle">${escapeHtml(category.name)}</p>
         </div>
-      </div>
-      <div class="card-tags">
-        <span>${escapeHtml(typeLabel(page.type))}</span>
-        <span>${escapeHtml(metricTag(page))}</span>
       </div>
     </div>
     <p class="card-summary">${escapeHtml(page.summary)}</p>
@@ -1077,8 +1077,22 @@ textarea::placeholder {
 .card-brand {
   display: flex;
   gap: 12px;
-  align-items: center;
+  align-items: flex-start;
   min-width: 0;
+}
+.card-copy {
+  min-width: 0;
+  flex: 1;
+}
+.card-copy h3 {
+  font-size: 17px;
+  line-height: 1.45;
+}
+.card-copy h3 a {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
 }
 .card-mark,
 .detail-mark {
@@ -1094,7 +1108,7 @@ textarea::placeholder {
   font-weight: 800;
 }
 .card-subtitle {
-  margin-top: 2px;
+  margin-top: 8px;
   color: #6b7280;
   font-size: 13px;
 }
@@ -1102,6 +1116,7 @@ textarea::placeholder {
   display: flex;
   gap: 8px;
   flex-wrap: wrap;
+  margin-top: 8px;
 }
 .card-tags span,
 .mini-type,
@@ -1120,11 +1135,21 @@ textarea::placeholder {
   margin-top: 12px;
   color: #6b7280;
   font-size: 14px;
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  min-height: 69px;
 }
 .card-meta {
   margin-top: 10px;
   color: #94a3b8;
   font-size: 13px;
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  min-height: 40px;
 }
 .card-actions {
   display: flex;
@@ -1380,6 +1405,10 @@ function renderHomeCss() {
   .hero-metrics {
     display: grid;
     grid-template-columns: 1fr;
+  }
+  .card-summary,
+  .card-meta {
+    min-height: auto;
   }
 }`;
 }
