@@ -1,0 +1,223 @@
+[
+  {
+    "type": "home",
+    "title": "关键词导航与专题目录",
+    "url": "https://fyrghdyrgh-dot.github.io/"
+  },
+  {
+    "type": "category",
+    "title": "网络与开发工具",
+    "category": "net-tools",
+    "url": "https://fyrghdyrgh-dot.github.io/net-tools/"
+  },
+  {
+    "type": "category",
+    "title": "中文 AI 工具专题",
+    "category": "zh-ai-tools",
+    "url": "https://fyrghdyrgh-dot.github.io/zh-ai-tools/"
+  },
+  {
+    "type": "category",
+    "title": "越南语 AI 专题",
+    "category": "vi-ai-tools",
+    "url": "https://fyrghdyrgh-dot.github.io/vi-ai-tools/"
+  },
+  {
+    "type": "category",
+    "title": "服务器与 IDC",
+    "category": "server-idc",
+    "url": "https://fyrghdyrgh-dot.github.io/server-idc/"
+  },
+  {
+    "type": "category",
+    "title": "开发与编程",
+    "category": "development",
+    "url": "https://fyrghdyrgh-dot.github.io/development/"
+  },
+  {
+    "type": "category",
+    "title": "知识与文档",
+    "category": "knowledge-docs",
+    "url": "https://fyrghdyrgh-dot.github.io/knowledge-docs/"
+  },
+  {
+    "type": "category",
+    "title": "客服与用户运营",
+    "category": "customer-growth",
+    "url": "https://fyrghdyrgh-dot.github.io/customer-growth/"
+  },
+  {
+    "type": "category",
+    "title": "电商与产品内容",
+    "category": "ecommerce-content",
+    "url": "https://fyrghdyrgh-dot.github.io/ecommerce-content/"
+  },
+  {
+    "type": "category",
+    "title": "翻译与语言处理",
+    "category": "translation-language",
+    "url": "https://fyrghdyrgh-dot.github.io/translation-language/"
+  },
+  {
+    "type": "category",
+    "title": "数据处理",
+    "category": "data-processing",
+    "url": "https://fyrghdyrgh-dot.github.io/data-processing/"
+  },
+  {
+    "type": "category",
+    "title": "教育与学习",
+    "category": "education-learning",
+    "url": "https://fyrghdyrgh-dot.github.io/education-learning/"
+  },
+  {
+    "type": "tool",
+    "title": "IPv4 与 CIDR 常用工具",
+    "category": "net-tools",
+    "url": "https://fyrghdyrgh-dot.github.io/ipv4-subnet-toolkit/"
+  },
+  {
+    "type": "guide",
+    "title": "API 联调检查清单",
+    "category": "net-tools",
+    "url": "https://fyrghdyrgh-dot.github.io/api-debug-checklist/"
+  },
+  {
+    "type": "guide",
+    "title": "中文 AI 写作助手怎么用更稳",
+    "category": "zh-ai-tools",
+    "url": "https://fyrghdyrgh-dot.github.io/zh-ai-writing-assistant/"
+  },
+  {
+    "type": "guide",
+    "title": "中文 AI 客服回复的写法",
+    "category": "zh-ai-tools",
+    "url": "https://fyrghdyrgh-dot.github.io/zh-ai-customer-reply/"
+  },
+  {
+    "type": "guide",
+    "title": "越南语商品文案怎么用 AI 起草",
+    "category": "vi-ai-tools",
+    "url": "https://fyrghdyrgh-dot.github.io/vi-ai-product-copy/"
+  },
+  {
+    "type": "article",
+    "title": "中文到越南语本地化检查清单",
+    "category": "vi-ai-tools",
+    "url": "https://fyrghdyrgh-dot.github.io/zh-vi-localization-checklist/"
+  },
+  {
+    "type": "service",
+    "title": "香港服务器租用与业务匹配",
+    "category": "server-idc",
+    "url": "https://fyrghdyrgh-dot.github.io/hongkong-server/"
+  },
+  {
+    "type": "service",
+    "title": "CN2 线路服务器怎么选",
+    "category": "server-idc",
+    "url": "https://fyrghdyrgh-dot.github.io/cn2-server/"
+  },
+  {
+    "type": "service",
+    "title": "Windows VPS 购买前要看什么",
+    "category": "server-idc",
+    "url": "https://fyrghdyrgh-dot.github.io/windows-vps/"
+  },
+  {
+    "type": "service",
+    "title": "WordPress VPS 不一定要高配",
+    "category": "server-idc",
+    "url": "https://fyrghdyrgh-dot.github.io/wordpress-vps/"
+  },
+  {
+    "type": "guide",
+    "title": "新手第一次买 VPS 的判断顺序",
+    "category": "server-idc",
+    "url": "https://fyrghdyrgh-dot.github.io/starter-vps-guide/"
+  },
+  {
+    "type": "guide",
+    "title": "Python API 开发指南从接口设计开始",
+    "category": "development",
+    "url": "https://fyrghdyrgh-dot.github.io/python-api-guide/"
+  },
+  {
+    "type": "guide",
+    "title": "前端性能检查清单",
+    "category": "development",
+    "url": "https://fyrghdyrgh-dot.github.io/frontend-performance-checklist/"
+  },
+  {
+    "type": "article",
+    "title": "知识文档结构模板怎么搭",
+    "category": "knowledge-docs",
+    "url": "https://fyrghdyrgh-dot.github.io/docs-structure-template/"
+  },
+  {
+    "type": "article",
+    "title": "产品规格文档应该怎么写更好协作",
+    "category": "knowledge-docs",
+    "url": "https://fyrghdyrgh-dot.github.io/product-spec-workflow/"
+  },
+  {
+    "type": "guide",
+    "title": "客服回复 SOP 怎么整理",
+    "category": "customer-growth",
+    "url": "https://fyrghdyrgh-dot.github.io/customer-service-reply-playbook/"
+  },
+  {
+    "type": "article",
+    "title": "私域 FAQ 知识库应该怎么搭",
+    "category": "customer-growth",
+    "url": "https://fyrghdyrgh-dot.github.io/private-domain-faq-library/"
+  },
+  {
+    "type": "guide",
+    "title": "商品详情页文案结构怎么排更顺",
+    "category": "ecommerce-content",
+    "url": "https://fyrghdyrgh-dot.github.io/product-detail-copy/"
+  },
+  {
+    "type": "article",
+    "title": "落地页结构模板怎么搭更像真实页面",
+    "category": "ecommerce-content",
+    "url": "https://fyrghdyrgh-dot.github.io/landing-page-structure/"
+  },
+  {
+    "type": "guide",
+    "title": "中文与越南语本地化协作怎么分工",
+    "category": "translation-language",
+    "url": "https://fyrghdyrgh-dot.github.io/zh-vi-localization/"
+  },
+  {
+    "type": "tool",
+    "title": "多语文案校对流程与检查点",
+    "category": "translation-language",
+    "url": "https://fyrghdyrgh-dot.github.io/multilingual-copy-review/"
+  },
+  {
+    "type": "tool",
+    "title": "CSV 清洗与整理工作流",
+    "category": "data-processing",
+    "url": "https://fyrghdyrgh-dot.github.io/csv-cleanup-workflow/"
+  },
+  {
+    "type": "tool",
+    "title": "JSON 格式化与结构对比",
+    "category": "data-processing",
+    "url": "https://fyrghdyrgh-dot.github.io/json-format-compare/"
+  },
+  {
+    "type": "article",
+    "title": "自学路线图应该怎么排更容易坚持",
+    "category": "education-learning",
+    "url": "https://fyrghdyrgh-dot.github.io/self-study-roadmap/"
+  },
+  {
+    "type": "guide",
+    "title": "学习笔记方法怎样更容易复用",
+    "category": "education-learning",
+    "url": "https://fyrghdyrgh-dot.github.io/study-notes-method/"
+  }
+]

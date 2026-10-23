@@ -1,0 +1,88 @@
+.hub-hero, .hub-card {
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  background: var(--panel);
+  box-shadow: var(--shadow);
+}
+.hub-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(220px, 0.8fr);
+  gap: 18px;
+  padding: 28px;
+  margin: 18px 0;
+}
+.hub-text { color: var(--muted); font-size: 15px; max-width: 760px; }
+.hub-side {
+  display: grid;
+  gap: 14px;
+  align-content: start;
+}
+.hub-pill {
+  display: inline-flex;
+  align-items: center;
+  min-height: 34px;
+  padding: 0 12px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--accent-soft) 58%, white);
+  color: var(--accent);
+  font-size: 13px;
+  font-weight: 700;
+}
+.hub-layout {
+  display: grid;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+.hub-grid .hub-layout,
+.hub-showcase .hub-layout {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.hub-card {
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+}
+.hub-card::after {
+  content: "";
+  position: absolute;
+  inset: auto -20px -40px auto;
+  width: 120px;
+  height: 120px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--accent) 9%, transparent);
+}
+.card-kicker {
+  font-size: 12px;
+  color: var(--muted);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.hub-card h2 { margin: 8px 0; }
+.hub-card p { color: var(--muted); font-size: 14px; }
+.hub-links {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 14px;
+  position: relative;
+  z-index: 1;
+}
+.hub-links a { color: var(--accent); font-weight: 700; }
+.hub-editorial .hub-layout { grid-template-columns: 1.15fr 0.85fr; }
+.hub-editorial .hub-card-1 { min-height: 260px; }
+.hub-library .hub-layout,
+.hub-ledger .hub-layout,
+.hub-matrix .hub-layout,
+.hub-notebook .hub-layout { grid-template-columns: 1fr; }
+.hub-library .hub-card,
+.hub-ledger .hub-card,
+.hub-notebook .hub-card { border-left: 6px solid var(--accent); }
+.hub-flow .hub-card,
+.hub-signal .hub-card { background: linear-gradient(180deg, color-mix(in srgb, var(--accent-soft) 40%, white), var(--panel)); }
+.hub-magazine .hub-layout { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.hub-lab .hub-layout { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+@media (max-width: 900px) {
+  .hub-hero, .hub-layout, .hub-grid .hub-layout, .hub-showcase .hub-layout, .hub-editorial .hub-layout, .hub-magazine .hub-layout, .hub-lab .hub-layout {
+    grid-template-columns: 1fr;
+  }
+}

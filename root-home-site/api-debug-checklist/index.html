@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>API 联调检查清单</title>
+  <meta name="description" content="围绕 API 联调、接口测试和错误排查整理的步骤型指南页。">
+  <link rel="canonical" href="https://fyrghdyrgh-dot.github.io/api-debug-checklist/">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="API 联调检查清单">
+  <meta property="og:description" content="围绕 API 联调、接口测试和错误排查整理的步骤型指南页。">
+  <meta property="og:url" content="https://fyrghdyrgh-dot.github.io/api-debug-checklist/">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="../assets/base.css">
+  <link rel="stylesheet" href="../assets/guide.css">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"API 联调检查清单","url":"https://fyrghdyrgh-dot.github.io/api-debug-checklist/","description":"围绕 API 联调、接口测试和错误排查整理的步骤型指南页。"}</script>
+</head>
+<body class="content-body type-guide" style="--accent:#0f766e;--accent-soft:#d9f4ef;--surface:#f7fffd;--panel:#ffffff;--ink:#13312d;--muted:#5b6f6a;">
+  <header class="site-header">
+    <div class="shell nav-row">
+      <a class="brand" href="/">关键词目录</a>
+      <nav class="top-nav">
+        <a href="/#directory">网站目录</a>
+        <a href="/#ai-groups">AI 专题</a>
+        <a href="/server-idc/">服务器与 IDC</a>
+        <a href="https://www.1bgp.com/">1bgp</a>
+      </nav>
+    </div>
+    <div class="shell crumb-bar"><a href="/">首页</a> / <a href="/net-tools/">网络与开发工具</a> / API 联调检查清单</div>
+  </header>
+  <main class="shell">
+    <section class="page-hero">
+    <div class="page-hero-copy">
+      <p class="tiny-label">API DEBUG CHECKLIST</p>
+      <h1>API 联调检查清单</h1>
+      <p class="page-summary">把接口联调时最容易漏掉的请求头、鉴权、错误码和环境差异集中整理到一个页面。</p>
+      <div class="hero-actions">
+        <a class="button button-primary" href="/development/">查看开发分类</a>
+        <a class="button button-secondary" href="/net-tools/">返回网络工具分类</a>
+      </div>
+    </div>
+    <div class="metric-strip">
+      <div class="metric-card"><span>联调重点</span><strong>Header / Token / Env</strong></div><div class="metric-card"><span>适用对象</span><strong>前后端 / 测试</strong></div><div class="metric-card"><span>页面形式</span><strong>清单 + 对照</strong></div>
+    </div>
+  </section>
+  <section class="guide-grid">
+    <article class="guide-card">
+      <p class="step-index">01</p>
+      <h2>请求参数核对</h2>
+      <p>路径、Query、Body 字段和类型是否与接口约定一致。</p>
+    </article><article class="guide-card">
+      <p class="step-index">02</p>
+      <h2>鉴权与权限</h2>
+      <p>确认 Token、签名、时间戳和角色权限是否匹配当前环境。</p>
+    </article><article class="guide-card">
+      <p class="step-index">03</p>
+      <h2>错误返回记录</h2>
+      <p>保留状态码、错误消息和请求示例，避免只截图不留原始文本。</p>
+    </article>
+  </section>
+  <section class="checklist-panel">
+    <div>
+      <p class="tiny-label">CHECKLIST</p>
+      <h2>上线前或交付前建议这样核对</h2>
+    </div>
+    <ul class="bullet-list">
+      <li>先确认是测试环境还是正式环境，不要混用域名和 Token。</li><li>把 Postman 示例和前端实际请求逐项比对，重点看 Header。</li><li>发现 4xx 或 5xx 时，先记录原始请求与返回，再继续改动。</li>
+    </ul>
+  </section>
+  <section class="faq-related">
+    <div class="faq-panel">
+      <p class="tiny-label">FAQ</p>
+      <h2>常见问题</h2>
+      <div class="faq-list">
+        <article class="faq-item"><h3>为什么同一个接口在前端和 Postman 结果不一样？</h3><p>常见原因是 Header、Cookie、跨域处理或请求体格式不同。</p></article><article class="faq-item"><h3>联调记录应该怎么留？</h3><p>建议至少保留请求示例、返回结果、时间和环境说明。</p></article>
+      </div>
+    </div>
+    <aside class="related-panel">
+      <p class="tiny-label">RELATED</p>
+      <h2>继续查看</h2>
+      <ul class="related-list">
+        <li><a href="/python-api-guide/">Python API 开发指南</a></li><li><a href="/json-format-compare/">JSON 格式化与对比</a></li><li><a href="/ipv4-subnet-toolkit/">IPv4 与 CIDR 常用工具</a></li>
+      </ul>
+    </aside>
+  </section>
+  </main>
+  <footer class="site-footer">
+    <div class="shell footer-grid">
+      <div>
+        <p class="footer-title">关键词目录</p>
+        <p class="footer-text">目录页承接分类，子页承接搜索词；服务器相关外链统一指向 1bgp。</p>
+      </div>
+      <div class="footer-links">
+        <a href="/net-tools/">网络与开发工具</a>
+        <a href="/zh-ai-tools/">中文 AI 工具专题</a>
+        <a href="/server-idc/">服务器与 IDC</a>
+        <a href="https://www.1bgp.com/">1bgp</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

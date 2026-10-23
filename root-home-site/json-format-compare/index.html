@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>JSON 格式化与结构对比</title>
+  <meta name="description" content="围绕 JSON 格式化、结构比对和联调辅助的工具型页面。">
+  <link rel="canonical" href="https://fyrghdyrgh-dot.github.io/json-format-compare/">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="JSON 格式化与结构对比">
+  <meta property="og:description" content="围绕 JSON 格式化、结构比对和联调辅助的工具型页面。">
+  <meta property="og:url" content="https://fyrghdyrgh-dot.github.io/json-format-compare/">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="../assets/base.css">
+  <link rel="stylesheet" href="../assets/tool.css">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"JSON 格式化与结构对比","url":"https://fyrghdyrgh-dot.github.io/json-format-compare/","description":"围绕 JSON 格式化、结构比对和联调辅助的工具型页面。"}</script>
+</head>
+<body class="content-body type-tool" style="--accent:#0891b2;--accent-soft:#dff7ff;--surface:#f6fcff;--panel:#ffffff;--ink:#123544;--muted:#5e7883;">
+  <header class="site-header">
+    <div class="shell nav-row">
+      <a class="brand" href="/">关键词目录</a>
+      <nav class="top-nav">
+        <a href="/#directory">网站目录</a>
+        <a href="/#ai-groups">AI 专题</a>
+        <a href="/server-idc/">服务器与 IDC</a>
+        <a href="https://www.1bgp.com/">1bgp</a>
+      </nav>
+    </div>
+    <div class="shell crumb-bar"><a href="/">首页</a> / <a href="/data-processing/">数据处理</a> / JSON 格式化与结构对比</div>
+  </header>
+  <main class="shell">
+    <section class="page-hero">
+    <div class="page-hero-copy">
+      <p class="tiny-label">JSON FORMAT &amp; DIFF</p>
+      <h1>JSON 格式化与结构对比</h1>
+      <p class="page-summary">适合接口调试、结构核对和前后端联调时快速检查 JSON 是否完整、嵌套是否一致。</p>
+      <div class="hero-actions">
+        <a class="button button-primary" href="/data-processing/">查看数据处理分类</a>
+        <a class="button button-secondary" href="/data-processing/">查看 API 指南</a>
+      </div>
+    </div>
+    <div class="metric-strip">
+      <div class="metric-card"><span>适合场景</span><strong>接口联调</strong></div><div class="metric-card"><span>重点</span><strong>格式 / 层级 / 字段</strong></div><div class="metric-card"><span>对象</span><strong>前后端 / 测试</strong></div>
+    </div>
+  </section>
+  <section class="tool-layout">
+    <article class="tool-panel">
+      <p class="tiny-label">INPUT</p>
+      <h2>JSON 输入</h2>
+      <textarea rows="7" readonly>{ "code": 0, "data": { "name": "demo" } }</textarea>
+      <div class="tool-actions">
+        <button class="button button-primary" type="button">运行示例</button>
+        <button class="button button-secondary" type="button">清空</button>
+      </div>
+    </article>
+    <article class="tool-panel">
+      <p class="tiny-label">OUTPUT</p>
+      <h2>结果示例</h2>
+      <pre>{
+  &quot;code&quot;: 0,
+  &quot;data&quot;: {
+    &quot;name&quot;: &quot;demo&quot;
+  }
+}</pre>
+    </article>
+  </section>
+  <section class="step-columns">
+    <article class="step-card">
+      <p class="step-index">01</p>
+      <h3>先校验格式</h3>
+      <p>确认引号、逗号和括号层级是否正确，避免结构错误影响联调。</p>
+    </article><article class="step-card">
+      <p class="step-index">02</p>
+      <h3>再看字段差异</h3>
+      <p>重点看是否少字段、字段名不同或嵌套层级改变。 </p>
+    </article><article class="step-card">
+      <p class="step-index">03</p>
+      <h3>最后保存示例</h3>
+      <p>把成功和失败示例都留存，方便后续定位问题。 </p>
+    </article>
+  </section>
+  <section class="note-panel">
+    <p class="tiny-label">NOTE</p>
+    <h2>适用范围与说明</h2>
+    <ul class="bullet-list">
+      <li>JSON 工具页适合配合接口文档一起使用，让开发和测试看到同一套结构。</li><li>如果返回值经常变化，建议同步更新示例，而不是只在聊天里口头说明。</li>
+    </ul>
+  </section>
+  <section class="faq-related">
+    <div class="faq-panel">
+      <p class="tiny-label">FAQ</p>
+      <h2>常见问题</h2>
+      <div class="faq-list">
+        <article class="faq-item"><h3>为什么格式正确仍然联调失败？</h3><p>可能是字段语义、类型或层级不匹配，而不只是语法问题。</p></article><article class="faq-item"><h3>适合给非技术同事看吗？</h3><p>适合，只要配清楚字段说明和成功示例。</p></article>
+      </div>
+    </div>
+    <aside class="related-panel">
+      <p class="tiny-label">RELATED</p>
+      <h2>继续查看</h2>
+      <ul class="related-list">
+        <li><a href="/python-api-guide/">Python API 开发指南</a></li><li><a href="/api-debug-checklist/">API 联调检查清单</a></li><li><a href="/csv-cleanup-workflow/">CSV 清洗与整理</a></li>
+      </ul>
+    </aside>
+  </section>
+  </main>
+  <footer class="site-footer">
+    <div class="shell footer-grid">
+      <div>
+        <p class="footer-title">关键词目录</p>
+        <p class="footer-text">目录页承接分类，子页承接搜索词；服务器相关外链统一指向 1bgp。</p>
+      </div>
+      <div class="footer-links">
+        <a href="/net-tools/">网络与开发工具</a>
+        <a href="/zh-ai-tools/">中文 AI 工具专题</a>
+        <a href="/server-idc/">服务器与 IDC</a>
+        <a href="https://www.1bgp.com/">1bgp</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

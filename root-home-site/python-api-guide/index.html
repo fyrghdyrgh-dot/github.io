@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Python API 开发指南从接口设计开始</title>
+  <meta name="description" content="面向 Python API、接口设计和联调流程的指南页。">
+  <link rel="canonical" href="https://fyrghdyrgh-dot.github.io/python-api-guide/">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Python API 开发指南从接口设计开始">
+  <meta property="og:description" content="面向 Python API、接口设计和联调流程的指南页。">
+  <meta property="og:url" content="https://fyrghdyrgh-dot.github.io/python-api-guide/">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="../assets/base.css">
+  <link rel="stylesheet" href="../assets/guide.css">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Python API 开发指南从接口设计开始","url":"https://fyrghdyrgh-dot.github.io/python-api-guide/","description":"面向 Python API、接口设计和联调流程的指南页。"}</script>
+</head>
+<body class="content-body type-guide" style="--accent:#4f46e5;--accent-soft:#e7e5ff;--surface:#fafaff;--panel:#ffffff;--ink:#24204c;--muted:#6b6893;">
+  <header class="site-header">
+    <div class="shell nav-row">
+      <a class="brand" href="/">关键词目录</a>
+      <nav class="top-nav">
+        <a href="/#directory">网站目录</a>
+        <a href="/#ai-groups">AI 专题</a>
+        <a href="/server-idc/">服务器与 IDC</a>
+        <a href="https://www.1bgp.com/">1bgp</a>
+      </nav>
+    </div>
+    <div class="shell crumb-bar"><a href="/">首页</a> / <a href="/development/">开发与编程</a> / Python API 开发指南从接口设计开始</div>
+  </header>
+  <main class="shell">
+    <section class="page-hero">
+    <div class="page-hero-copy">
+      <p class="tiny-label">PYTHON API GUIDE</p>
+      <h1>Python API 开发指南从接口设计开始</h1>
+      <p class="page-summary">适合接口开发、参数约定和错误返回设计场景，重点是让前后端和测试都能看懂。</p>
+      <div class="hero-actions">
+        <a class="button button-primary" href="/development/">查看开发与编程分类</a>
+        <a class="button button-secondary" href="/development/">查看 API 联调清单</a>
+      </div>
+    </div>
+    <div class="metric-strip">
+      <div class="metric-card"><span>适合阶段</span><strong>设计 / 联调 / 交付</strong></div><div class="metric-card"><span>重点</span><strong>参数与错误码</strong></div><div class="metric-card"><span>对象</span><strong>后端 / 前端 / 测试</strong></div>
+    </div>
+  </section>
+  <section class="guide-grid">
+    <article class="guide-card">
+      <p class="step-index">01</p>
+      <h2>接口约定先写清楚</h2>
+      <p>路径、参数、字段类型和错误码越早统一，后面返工越少。</p>
+    </article><article class="guide-card">
+      <p class="step-index">02</p>
+      <h2>日志与错误信息要可追踪</h2>
+      <p>方便联调，也方便上线后排查。</p>
+    </article><article class="guide-card">
+      <p class="step-index">03</p>
+      <h2>示例请求比口头说明更有效</h2>
+      <p>至少准备一组成功和一组失败示例。 </p>
+    </article>
+  </section>
+  <section class="checklist-panel">
+    <div>
+      <p class="tiny-label">CHECKLIST</p>
+      <h2>上线前或交付前建议这样核对</h2>
+    </div>
+    <ul class="bullet-list">
+      <li>统一字段命名风格，不要中途切换大小写规则。</li><li>把错误返回与权限问题分开说明，减少误判。</li><li>上线前保留最小可复现请求样例。</li>
+    </ul>
+  </section>
+  <section class="faq-related">
+    <div class="faq-panel">
+      <p class="tiny-label">FAQ</p>
+      <h2>常见问题</h2>
+      <div class="faq-list">
+        <article class="faq-item"><h3>接口文档应该什么时候补？</h3><p>最好在联调前就写出最小版本，不要等上线后补。</p></article><article class="faq-item"><h3>示例返回值有必要写吗？</h3><p>有，尤其是嵌套字段和错误返回。</p></article>
+      </div>
+    </div>
+    <aside class="related-panel">
+      <p class="tiny-label">RELATED</p>
+      <h2>继续查看</h2>
+      <ul class="related-list">
+        <li><a href="/api-debug-checklist/">API 联调检查清单</a></li><li><a href="/json-format-compare/">JSON 格式化与对比</a></li><li><a href="/product-spec-workflow/">产品规格文档流程</a></li>
+      </ul>
+    </aside>
+  </section>
+  </main>
+  <footer class="site-footer">
+    <div class="shell footer-grid">
+      <div>
+        <p class="footer-title">关键词目录</p>
+        <p class="footer-text">目录页承接分类，子页承接搜索词；服务器相关外链统一指向 1bgp。</p>
+      </div>
+      <div class="footer-links">
+        <a href="/net-tools/">网络与开发工具</a>
+        <a href="/zh-ai-tools/">中文 AI 工具专题</a>
+        <a href="/server-idc/">服务器与 IDC</a>
+        <a href="https://www.1bgp.com/">1bgp</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
