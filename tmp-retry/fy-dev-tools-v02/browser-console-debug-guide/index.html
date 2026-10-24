@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>浏览器控制台排错顺序 - fy 开发工具导航</title>
+  <meta name="description" content="面向浏览器控制台排错、前端异常定位和脚本问题处理的指南页。">
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
+  <meta name="googlebot" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
+  <meta name="baiduspider" content="index,follow">
+  <meta name="theme-color" content="#6a5cff">
+  <link rel="canonical" href="https://fyrghdyrgh-dot.github.io/fy-dev-tools-v02/browser-console-debug-guide/">
+  <meta property="og:site_name" content="fy 开发工具导航">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="浏览器控制台排错顺序 - fy 开发工具导航">
+  <meta property="og:description" content="面向浏览器控制台排错、前端异常定位和脚本问题处理的指南页。">
+  <meta property="og:url" content="https://fyrghdyrgh-dot.github.io/fy-dev-tools-v02/browser-console-debug-guide/">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="浏览器控制台排错顺序 - fy 开发工具导航">
+  <meta name="twitter:description" content="面向浏览器控制台排错、前端异常定位和脚本问题处理的指南页。">
+  <link rel="stylesheet" href="../assets/base.css">
+  <link rel="stylesheet" href="../assets/detail.css">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"浏览器控制台排错顺序","url":"https://fyrghdyrgh-dot.github.io/fy-dev-tools-v02/browser-console-debug-guide/","description":"面向浏览器控制台排错、前端异常定位和脚本问题处理的指南页。","inLanguage":"zh-CN","dateModified":"2026-10-24","isPartOf":{"@type":"CollectionPage","name":"开发与编程","url":"https://fyrghdyrgh-dot.github.io/fy-dev-tools-v02/development/"}}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首页","item":"https://fyrghdyrgh-dot.github.io/fy-dev-tools-v02/"},{"@type":"ListItem","position":2,"name":"开发与编程","item":"https://fyrghdyrgh-dot.github.io/fy-dev-tools-v02/development/"},{"@type":"ListItem","position":3,"name":"浏览器控制台排错顺序","item":"https://fyrghdyrgh-dot.github.io/fy-dev-tools-v02/browser-console-debug-guide/"}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"控制台没报错就说明前端没问题吗？","acceptedAnswer":{"@type":"Answer","text":"不一定，很多问题会出现在 network 或页面逻辑层。"}},{"@type":"Question","name":"需要把全部日志都发给团队吗？","acceptedAnswer":{"@type":"Answer","text":"建议先提炼关键报错和复现步骤。"}}]}</script>
+</head>
+<body class="detail-body" style="--accent:#4f46e5;--accent-soft:#e7e5ff;--surface:#fafaff;--panel:#ffffff;--ink:#24204c;--muted:#6b6893;">
+  <header class="site-header">
+    <div class="shell topbar">
+      <div class="brand-wrap">
+        <a class="brand-chip" href="/fy-dev-tools/">fydev</a>
+        <a class="brand-title" href="/fy-dev-tools/">fy 开发工具导航</a>
+      </div>
+      <nav class="top-nav">
+        <a class="" href="/fy-dev-tools/">首页</a><a class="" href="/fy-dev-tools/#featured">最新上架</a><a class="is-active" href="/fy-dev-tools/#directory">最受欢迎</a><a class="" href="/fy-dev-tools/knowledge-docs/">免费教程</a><a class="" href="/fy-dev-tools/#submit">收录申请</a><a class="" href="/fy-dev-tools/#contact">联系我们</a>
+      </nav>
+      <div class="top-actions">
+        <a class="ghost-link" href="/fy-dev-tools/#contact">登录</a>
+        <a class="submit-link" href="/fy-dev-tools/#submit">提交工具</a>
+      </div>
+    </div>
+    <div class="shell crumb-bar"><a href="/fy-dev-tools/">首页</a> / <a href="/fy-dev-tools/development/">开发与编程</a> / 浏览器控制台排错顺序</div>
+  </header>
+  <main class="shell">
+    <section class="detail-layout">
+      <aside class="detail-sidebar">
+        <div class="sidebar-card">
+          <h2>当前分类</h2>
+          <nav class="sidebar-nav">
+            <a class="" href="/fy-dev-tools/net-tools/"><span class="nav-icon">网</span>网络与开发工具</a><a class="is-active" href="/fy-dev-tools/development/"><span class="nav-icon">开</span>开发与编程</a><a class="" href="/fy-dev-tools/knowledge-docs/"><span class="nav-icon">知</span>知识与文档</a><a class="" href="/fy-dev-tools/data-processing/"><span class="nav-icon">数</span>数据处理</a>
+          </nav>
+        </div>
+        <div class="sidebar-card">
+          <h2>本类页面</h2>
+          <nav class="sidebar-subnav">
+            <a class="" href="/fy-dev-tools/python-api-guide/">Python API 开发指南从接口设计开始</a><a class="" href="/fy-dev-tools/frontend-performance-checklist/">前端性能检查清单</a><a class="" href="/fy-dev-tools/ai-code-review-checklist/">代码评审前的 AI 辅助检查清单</a><a class="" href="/fy-dev-tools/release-notes-template/">版本发布说明模板怎么写</a><a class="is-current" href="/fy-dev-tools/browser-console-debug-guide/">浏览器控制台排错顺序</a>
+          </nav>
+        </div>
+        <div class="sidebar-card">
+          <h2>页面信息</h2>
+          <div class="detail-side-meta">
+            <span>指南页</span>
+            <span>开发与编程</span>
+            <span>实操</span>
+          </div>
+          <a class="sidebar-cta" href="/fy-dev-tools/browser-console-debug-guide/">查看当前分类</a>
+        </div>
+      </aside>
+
+      <div class="detail-content">
+        <section class="detail-hero">
+          <div class="detail-hero-top">
+            <div class="detail-mark">浏</div>
+            <div>
+              <p class="section-kicker">CONSOLE DEBUG</p>
+              <h1>浏览器控制台排错顺序</h1>
+            </div>
+          </div>
+          <p class="detail-summary">适合前端页面异常、接口报错和脚本失效场景，重点是先定位范围再深挖原因。</p>
+          <div class="detail-metrics">
+            <div class="metric-card"><span>适合页面</span><strong>站点 / 工具页 / 后台</strong></div><div class="metric-card"><span>重点</span><strong>报错 / 网络 / 脚本</strong></div><div class="metric-card"><span>对象</span><strong>前端 / 测试</strong></div>
+          </div>
+          <div class="detail-actions">
+            <a class="button button-primary" href="/fy-dev-tools/browser-console-debug-guide/">查看当前分类</a>
+            <a class="button button-secondary" href="/fy-dev-tools/development/">返回分类</a>
+          </div>
+        </section>
+
+        <section class="detail-panel">
+    <div class="detail-columns">
+      <article class="mini-card"><span class="mini-index">01</span><h3>先看报错类型</h3><p>区分是资源加载失败、脚本报错还是接口返回异常。</p></article><article class="mini-card"><span class="mini-index">02</span><h3>再看 Network 请求</h3><p>把报错页面和请求结果对应起来，避免只盯控制台文字。</p></article><article class="mini-card"><span class="mini-index">03</span><h3>最后做最小复现</h3><p>只保留一条关键路径，能更快看清问题真正位置。</p></article>
+    </div>
+    <div class="takeaway-box"><h2>建议核对清单</h2><ul class="bullet-list"><li>先刷新并保留 console、network 两边的关键记录。</li><li>发现报错时记录浏览器、系统和复现步骤。</li><li>排查跨域或缓存问题时，记得说明环境差异。</li></ul></div>
+  </section>
+
+        <section class="detail-related">
+          <div class="detail-panel">
+            <h2>常见问题</h2>
+            <div class="faq-list">
+              <article class="faq-item"><h3>控制台没报错就说明前端没问题吗？</h3><p>不一定，很多问题会出现在 network 或页面逻辑层。</p></article><article class="faq-item"><h3>需要把全部日志都发给团队吗？</h3><p>建议先提炼关键报错和复现步骤。</p></article>
+            </div>
+          </div>
+          <aside class="detail-panel related-panel">
+            <h2>继续查看</h2>
+            <ul class="related-list">
+              <li><a href="/fy-dev-tools/frontend-performance-checklist/">前端性能检查清单</a></li><li><a href="/fy-dev-tools/json-format-compare/">JSON 格式化与结构对比</a></li><li><a href="/fy-dev-tools/curl-request-builder/">curl 请求排查顺序</a></li>
+            </ul>
+          </aside>
+        </section>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer" id="contact">
+    <div class="shell footer-grid">
+      <div>
+        <p class="footer-title">fy 开发工具导航</p>
+        <p class="footer-text">按分类浏览，按卡片进入，服务器相关入口统一导向 1bgp，其它页面优先承接真实搜索意图。</p>
+      </div>
+      <div class="footer-links">
+        <a href="/fy-dev-tools/#directory">网站目录</a>
+        <a href="/fy-dev-tools/net-tools/">网络与开发工具</a>
+        <a href="/fy-dev-tools/data-processing/">数据处理</a>
+        <a href="https://www.1bgp.com/">1bgp</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

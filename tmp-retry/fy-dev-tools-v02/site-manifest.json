@@ -1,0 +1,151 @@
+[
+  {
+    "type": "home",
+    "title": "fy 开发工具导航",
+    "url": "https://fyrghdyrgh-dot.github.io/fy-dev-tools-v02/"
+  },
+  {
+    "type": "category",
+    "title": "网络与开发工具",
+    "category": "net-tools",
+    "url": "https://fyrghdyrgh-dot.github.io/fy-dev-tools-v02/net-tools/"
+  },
+  {
+    "type": "category",
+    "title": "开发与编程",
+    "category": "development",
+    "url": "https://fyrghdyrgh-dot.github.io/fy-dev-tools-v02/development/"
+  },
+  {
+    "type": "category",
+    "title": "知识与文档",
+    "category": "knowledge-docs",
+    "url": "https://fyrghdyrgh-dot.github.io/fy-dev-tools-v02/knowledge-docs/"
+  },
+  {
+    "type": "category",
+    "title": "数据处理",
+    "category": "data-processing",
+    "url": "https://fyrghdyrgh-dot.github.io/fy-dev-tools-v02/data-processing/"
+  },
+  {
+    "type": "tool",
+    "title": "IPv4 与 CIDR 常用工具",
+    "category": "net-tools",
+    "url": "https://fyrghdyrgh-dot.github.io/fy-dev-tools-v02/ipv4-subnet-toolkit/"
+  },
+  {
+    "type": "guide",
+    "title": "API 联调检查清单",
+    "category": "net-tools",
+    "url": "https://fyrghdyrgh-dot.github.io/fy-dev-tools-v02/api-debug-checklist/"
+  },
+  {
+    "type": "guide",
+    "title": "Python API 开发指南从接口设计开始",
+    "category": "development",
+    "url": "https://fyrghdyrgh-dot.github.io/fy-dev-tools-v02/python-api-guide/"
+  },
+  {
+    "type": "guide",
+    "title": "前端性能检查清单",
+    "category": "development",
+    "url": "https://fyrghdyrgh-dot.github.io/fy-dev-tools-v02/frontend-performance-checklist/"
+  },
+  {
+    "type": "article",
+    "title": "知识文档结构模板怎么搭",
+    "category": "knowledge-docs",
+    "url": "https://fyrghdyrgh-dot.github.io/fy-dev-tools-v02/docs-structure-template/"
+  },
+  {
+    "type": "article",
+    "title": "产品规格文档应该怎么写更好协作",
+    "category": "knowledge-docs",
+    "url": "https://fyrghdyrgh-dot.github.io/fy-dev-tools-v02/product-spec-workflow/"
+  },
+  {
+    "type": "tool",
+    "title": "CSV 清洗与整理工作流",
+    "category": "data-processing",
+    "url": "https://fyrghdyrgh-dot.github.io/fy-dev-tools-v02/csv-cleanup-workflow/"
+  },
+  {
+    "type": "tool",
+    "title": "JSON 格式化与结构对比",
+    "category": "data-processing",
+    "url": "https://fyrghdyrgh-dot.github.io/fy-dev-tools-v02/json-format-compare/"
+  },
+  {
+    "type": "tool",
+    "title": "域名解析与 HTTP 状态检查",
+    "category": "net-tools",
+    "url": "https://fyrghdyrgh-dot.github.io/fy-dev-tools-v02/dns-http-status-check/"
+  },
+  {
+    "type": "guide",
+    "title": "curl 请求排查顺序",
+    "category": "net-tools",
+    "url": "https://fyrghdyrgh-dot.github.io/fy-dev-tools-v02/curl-request-builder/"
+  },
+  {
+    "type": "guide",
+    "title": "Webhook 调试记录怎么留",
+    "category": "net-tools",
+    "url": "https://fyrghdyrgh-dot.github.io/fy-dev-tools-v02/webhook-debug-notes/"
+  },
+  {
+    "type": "guide",
+    "title": "代码评审前的 AI 辅助检查清单",
+    "category": "development",
+    "url": "https://fyrghdyrgh-dot.github.io/fy-dev-tools-v02/ai-code-review-checklist/"
+  },
+  {
+    "type": "article",
+    "title": "版本发布说明模板怎么写",
+    "category": "development",
+    "url": "https://fyrghdyrgh-dot.github.io/fy-dev-tools-v02/release-notes-template/"
+  },
+  {
+    "type": "guide",
+    "title": "浏览器控制台排错顺序",
+    "category": "development",
+    "url": "https://fyrghdyrgh-dot.github.io/fy-dev-tools-v02/browser-console-debug-guide/"
+  },
+  {
+    "type": "article",
+    "title": "运维 Runbook 模板怎么写",
+    "category": "knowledge-docs",
+    "url": "https://fyrghdyrgh-dot.github.io/fy-dev-tools-v02/ops-runbook-template/"
+  },
+  {
+    "type": "guide",
+    "title": "会议纪要模板怎么写更有用",
+    "category": "knowledge-docs",
+    "url": "https://fyrghdyrgh-dot.github.io/fy-dev-tools-v02/meeting-summary-template/"
+  },
+  {
+    "type": "article",
+    "title": "团队 Wiki 目录该怎么规划",
+    "category": "knowledge-docs",
+    "url": "https://fyrghdyrgh-dot.github.io/fy-dev-tools-v02/wiki-directory-planning/"
+  },
+  {
+    "type": "tool",
+    "title": "Markdown 表格清理步骤",
+    "category": "data-processing",
+    "url": "https://fyrghdyrgh-dot.github.io/fy-dev-tools-v02/markdown-table-cleaner/"
+  },
+  {
+    "type": "guide",
+    "title": "文本去重前先确认什么",
+    "category": "data-processing",
+    "url": "https://fyrghdyrgh-dot.github.io/fy-dev-tools-v02/text-dedup-checklist/"
+  },
+  {
+    "type": "article",
+    "title": "列映射模板怎么整理",
+    "category": "data-processing",
+    "url": "https://fyrghdyrgh-dot.github.io/fy-dev-tools-v02/column-mapping-template/"
+  }
+]
