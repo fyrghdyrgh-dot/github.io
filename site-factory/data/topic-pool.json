@@ -1,0 +1,73 @@
+{
+  "topics": [
+    {
+      "id": "global-ops-tools",
+      "title": "出海运营工具导航",
+      "industry": "出海运营",
+      "keywords": ["越南语本地化", "跨境电商文案", "客服 SOP", "多语文案校对"],
+      "preferred_families": ["family-nav"],
+      "preset_file": "templates/family-nav/presets/fy-global-tools.config.mjs",
+      "repo_slug": "fy-global-tools",
+      "site_title": "fy 出海工具导航",
+      "enabled": true,
+      "allow_server_target": false,
+      "priority": 9
+    },
+    {
+      "id": "dev-stack-checks",
+      "title": "开发与调试工具导航",
+      "industry": "开发工具",
+      "keywords": ["API 联调", "JSON 对比", "curl 调试", "控制台排错"],
+      "preferred_families": ["family-nav"],
+      "preset_file": "templates/family-nav/presets/fy-dev-tools.config.mjs",
+      "repo_slug": "fy-dev-tools",
+      "site_title": "fy 开发工具导航",
+      "enabled": true,
+      "allow_server_target": false,
+      "priority": 8
+    },
+    {
+      "id": "server-choice-brief",
+      "title": "服务器选型与线路专题",
+      "industry": "服务器与 IDC",
+      "keywords": ["香港服务器", "CN2 线路", "Windows VPS", "WordPress VPS"],
+      "preferred_families": ["family-nav"],
+      "preset_file": "templates/family-nav/presets/fy-server-brief.config.mjs",
+      "repo_slug": "fy-server-brief",
+      "site_title": "fy 服务器专题导航",
+      "enabled": true,
+      "allow_server_target": true,
+      "priority": 10
+    },
+    {
+      "id": "ai-tool-roundup",
+      "title": "AI 工具专题导航",
+      "industry": "AI 工具",
+      "keywords": ["中文 AI 写作", "AI 提纲生成", "AI 客服回复", "标题润色"],
+      "preferred_families": ["family-nav", "family-analysis"],
+      "enabled": false,
+      "allow_server_target": false,
+      "priority": 8
+    },
+    {
+      "id": "saas-compare-guides",
+      "title": "SaaS 选型与对比专题",
+      "industry": "SaaS",
+      "keywords": ["价格页", "功能对比", "适合团队", "部署成本"],
+      "preferred_families": ["family-lead", "family-analysis"],
+      "enabled": false,
+      "allow_server_target": false,
+      "priority": 7
+    },
+    {
+      "id": "data-clean-workflow",
+      "title": "数据清洗与结构化处理",
+      "industry": "数据处理",
+      "keywords": ["CSV 清洗", "文本去重", "字段映射", "Markdown 表格"],
+      "preferred_families": ["family-tool", "family-nav"],
+      "enabled": false,
+      "allow_server_target": false,
+      "priority": 7
+    }
+  ]
+}
