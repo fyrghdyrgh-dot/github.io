@@ -1,0 +1,32 @@
+{
+  "generated_at": "2026-10-24T00:00:00Z",
+  "sites": [
+    {
+      "site_id": "fybot-root-home",
+      "title": "fybot 网站导航",
+      "family": "family-nav",
+      "topic_id": "ai-tool-roundup",
+      "repo": "fyrghdyrgh-dot/fyrghdyrgh-dot.github.io",
+      "url": "https://fyrghdyrgh-dot.github.io/",
+      "published_at": "2026-10-24T02:10:00Z",
+      "keywords": ["AI 工具", "服务器与 IDC", "开发工具"],
+      "server_target_used": true
+    },
+    {
+      "site_id": "fy-global-tools-nav",
+      "title": "fy 出海工具导航",
+      "family": "family-nav",
+      "topic_id": "global-ops-tools",
+      "repo": "fyrghdyrgh-dot/fy-global-tools",
+      "url": "https://fyrghdyrgh-dot.github.io/fy-global-tools/",
+      "published_at": "2026-10-24T03:40:00Z",
+      "keywords": ["越南语本地化", "跨境电商文案", "客服 SOP"],
+      "server_target_used": false
+    }
+  ],
+  "recent_usage": {
+    "families": ["family-nav", "family-nav"],
+    "topics": ["ai-tool-roundup", "global-ops-tools"],
+    "repo_names": ["fyrghdyrgh-dot.github.io", "fy-global-tools"]
+  }
+}

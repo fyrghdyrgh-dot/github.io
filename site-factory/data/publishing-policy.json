@@ -1,0 +1,35 @@
+{
+  "automation_name": "site-factory-auto-publish",
+  "schedule_recommendation": "0 */3 * * *",
+  "timezone": "Asia/Shanghai",
+  "max_sites_per_run": 1,
+  "naming": {
+    "repo_prefix": "fy-",
+    "repo_format": "fy-{topic-slug}-{family-short}",
+    "title_format": "{topic-title}"
+  },
+  "repeat_controls": {
+    "family_cooldown_runs": 3,
+    "topic_cooldown_runs": 5,
+    "title_pattern_cooldown_runs": 10,
+    "max_same_family_per_7_days": 2
+  },
+  "quality_gates": {
+    "min_categories": 4,
+    "min_pages_per_category": 5,
+    "required_files": ["index.html", "robots.txt", "sitemap.xml"],
+    "must_have_seo": true,
+    "must_have_internal_links": true,
+    "must_have_mobile_layout": true
+  },
+  "publishing": {
+    "provider": "github-pages",
+    "owner": "fyrghdyrgh-dot",
+    "visibility": "public",
+    "verify_after_publish": true
+  },
+  "lead_rules": {
+    "primary_target_domain": "https://www.1bgp.com/",
+    "server_only_can_use_primary_target": true
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "name": "site-factory",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Automation control project for generating and publishing differentiated GitHub Pages sites.",
+  "scripts": {
+    "select": "node scripts/select-next-job.mjs",
+    "cycle": "node scripts/run-factory-cycle.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

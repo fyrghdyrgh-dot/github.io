@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Python API 开发指南从接口设计开始 - fy 开发工具导航</title>
+  <meta name="description" content="面向 Python API、接口设计和联调流程的指南页。">
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
+  <meta name="googlebot" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
+  <meta name="baiduspider" content="index,follow">
+  <meta name="theme-color" content="#6a5cff">
+  <link rel="canonical" href="https://fyrghdyrgh-dot.github.io/fy-dev-tools-v02/python-api-guide/">
+  <meta property="og:site_name" content="fy 开发工具导航">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Python API 开发指南从接口设计开始 - fy 开发工具导航">
+  <meta property="og:description" content="面向 Python API、接口设计和联调流程的指南页。">
+  <meta property="og:url" content="https://fyrghdyrgh-dot.github.io/fy-dev-tools-v02/python-api-guide/">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Python API 开发指南从接口设计开始 - fy 开发工具导航">
+  <meta name="twitter:description" content="面向 Python API、接口设计和联调流程的指南页。">
+  <link rel="stylesheet" href="../assets/base.css">
+  <link rel="stylesheet" href="../assets/detail.css">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Python API 开发指南从接口设计开始","url":"https://fyrghdyrgh-dot.github.io/fy-dev-tools-v02/python-api-guide/","description":"面向 Python API、接口设计和联调流程的指南页。","inLanguage":"zh-CN","dateModified":"2026-10-24","isPartOf":{"@type":"CollectionPage","name":"开发与编程","url":"https://fyrghdyrgh-dot.github.io/fy-dev-tools-v02/development/"}}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"首页","item":"https://fyrghdyrgh-dot.github.io/fy-dev-tools-v02/"},{"@type":"ListItem","position":2,"name":"开发与编程","item":"https://fyrghdyrgh-dot.github.io/fy-dev-tools-v02/development/"},{"@type":"ListItem","position":3,"name":"Python API 开发指南从接口设计开始","item":"https://fyrghdyrgh-dot.github.io/fy-dev-tools-v02/python-api-guide/"}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"接口文档应该什么时候补？","acceptedAnswer":{"@type":"Answer","text":"最好在联调前就写出最小版本，不要等上线后补。"}},{"@type":"Question","name":"示例返回值有必要写吗？","acceptedAnswer":{"@type":"Answer","text":"有，尤其是嵌套字段和错误返回。"}}]}</script>
+</head>
+<body class="detail-body" style="--accent:#4f46e5;--accent-soft:#e7e5ff;--surface:#fafaff;--panel:#ffffff;--ink:#24204c;--muted:#6b6893;">
+  <header class="site-header">
+    <div class="shell topbar">
+      <div class="brand-wrap">
+        <a class="brand-chip" href="/fy-dev-tools/">fydev</a>
+        <a class="brand-title" href="/fy-dev-tools/">fy 开发工具导航</a>
+      </div>
+      <nav class="top-nav">
+        <a class="" href="/fy-dev-tools/">首页</a><a class="" href="/fy-dev-tools/#featured">最新上架</a><a class="is-active" href="/fy-dev-tools/#directory">最受欢迎</a><a class="" href="/fy-dev-tools/knowledge-docs/">免费教程</a><a class="" href="/fy-dev-tools/#submit">收录申请</a><a class="" href="/fy-dev-tools/#contact">联系我们</a>
+      </nav>
+      <div class="top-actions">
+        <a class="ghost-link" href="/fy-dev-tools/#contact">登录</a>
+        <a class="submit-link" href="/fy-dev-tools/#submit">提交工具</a>
+      </div>
+    </div>
+    <div class="shell crumb-bar"><a href="/fy-dev-tools/">首页</a> / <a href="/fy-dev-tools/development/">开发与编程</a> / Python API 开发指南从接口设计开始</div>
+  </header>
+  <main class="shell">
+    <section class="detail-layout">
+      <aside class="detail-sidebar">
+        <div class="sidebar-card">
+          <h2>当前分类</h2>
+          <nav class="sidebar-nav">
+            <a class="" href="/fy-dev-tools/net-tools/"><span class="nav-icon">网</span>网络与开发工具</a><a class="is-active" href="/fy-dev-tools/development/"><span class="nav-icon">开</span>开发与编程</a><a class="" href="/fy-dev-tools/knowledge-docs/"><span class="nav-icon">知</span>知识与文档</a><a class="" href="/fy-dev-tools/data-processing/"><span class="nav-icon">数</span>数据处理</a>
+          </nav>
+        </div>
+        <div class="sidebar-card">
+          <h2>本类页面</h2>
+          <nav class="sidebar-subnav">
+            <a class="is-current" href="/fy-dev-tools/python-api-guide/">Python API 开发指南从接口设计开始</a><a class="" href="/fy-dev-tools/frontend-performance-checklist/">前端性能检查清单</a><a class="" href="/fy-dev-tools/ai-code-review-checklist/">代码评审前的 AI 辅助检查清单</a><a class="" href="/fy-dev-tools/release-notes-template/">版本发布说明模板怎么写</a><a class="" href="/fy-dev-tools/browser-console-debug-guide/">浏览器控制台排错顺序</a>
+          </nav>
+        </div>
+        <div class="sidebar-card">
+          <h2>页面信息</h2>
+          <div class="detail-side-meta">
+            <span>指南页</span>
+            <span>开发与编程</span>
+            <span>实操</span>
+          </div>
+          <a class="sidebar-cta" href="/fy-dev-tools/python-api-guide/">查看开发与编程分类</a>
+        </div>
+      </aside>
+
+      <div class="detail-content">
+        <section class="detail-hero">
+          <div class="detail-hero-top">
+            <div class="detail-mark">P</div>
+            <div>
+              <p class="section-kicker">PYTHON API GUIDE</p>
+              <h1>Python API 开发指南从接口设计开始</h1>
+            </div>
+          </div>
+          <p class="detail-summary">适合接口开发、参数约定和错误返回设计场景，重点是让前后端和测试都能看懂。</p>
+          <div class="detail-metrics">
+            <div class="metric-card"><span>适合阶段</span><strong>设计 / 联调 / 交付</strong></div><div class="metric-card"><span>重点</span><strong>参数与错误码</strong></div><div class="metric-card"><span>对象</span><strong>后端 / 前端 / 测试</strong></div>
+          </div>
+          <div class="detail-actions">
+            <a class="button button-primary" href="/fy-dev-tools/python-api-guide/">查看开发与编程分类</a>
+            <a class="button button-secondary" href="/fy-dev-tools/development/">查看 API 联调清单</a>
+          </div>
+        </section>
+
+        <section class="detail-panel">
+    <div class="detail-columns">
+      <article class="mini-card"><span class="mini-index">01</span><h3>接口约定先写清楚</h3><p>路径、参数、字段类型和错误码越早统一，后面返工越少。</p></article><article class="mini-card"><span class="mini-index">02</span><h3>日志与错误信息要可追踪</h3><p>方便联调，也方便上线后排查。</p></article><article class="mini-card"><span class="mini-index">03</span><h3>示例请求比口头说明更有效</h3><p>至少准备一组成功和一组失败示例。 </p></article>
+    </div>
+    <div class="takeaway-box"><h2>建议核对清单</h2><ul class="bullet-list"><li>统一字段命名风格，不要中途切换大小写规则。</li><li>把错误返回与权限问题分开说明，减少误判。</li><li>上线前保留最小可复现请求样例。</li></ul></div>
+  </section>
+
+        <section class="detail-related">
+          <div class="detail-panel">
+            <h2>常见问题</h2>
+            <div class="faq-list">
+              <article class="faq-item"><h3>接口文档应该什么时候补？</h3><p>最好在联调前就写出最小版本，不要等上线后补。</p></article><article class="faq-item"><h3>示例返回值有必要写吗？</h3><p>有，尤其是嵌套字段和错误返回。</p></article>
+            </div>
+          </div>
+          <aside class="detail-panel related-panel">
+            <h2>继续查看</h2>
+            <ul class="related-list">
+              <li><a href="/fy-dev-tools/api-debug-checklist/">API 联调检查清单</a></li><li><a href="/fy-dev-tools/json-format-compare/">JSON 格式化与对比</a></li><li><a href="/fy-dev-tools/product-spec-workflow/">产品规格文档流程</a></li>
+            </ul>
+          </aside>
+        </section>
+      </div>
+    </section>
+  </main>
+  <footer class="site-footer" id="contact">
+    <div class="shell footer-grid">
+      <div>
+        <p class="footer-title">fy 开发工具导航</p>
+        <p class="footer-text">按分类浏览，按卡片进入，服务器相关入口统一导向 1bgp，其它页面优先承接真实搜索意图。</p>
+      </div>
+      <div class="footer-links">
+        <a href="/fy-dev-tools/#directory">网站目录</a>
+        <a href="/fy-dev-tools/net-tools/">网络与开发工具</a>
+        <a href="/fy-dev-tools/data-processing/">数据处理</a>
+        <a href="https://www.1bgp.com/">1bgp</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

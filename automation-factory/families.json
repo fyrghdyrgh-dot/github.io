@@ -1,0 +1,64 @@
+{
+  "families": [
+    {
+      "id": "family-nav",
+      "label": "导航站",
+      "enabled": true,
+      "generator": "build-root-site.mjs",
+      "source_repo": "fyrghdyrgh-dot/github.io",
+      "layout_signatures": [
+        "left-sidebar-card-grid",
+        "dense-directory",
+        "category-hub"
+      ],
+      "allowed_page_types": ["guide", "tool", "article", "service"],
+      "visual_variants": ["soft-tech", "portal-light", "dense-minimal"],
+      "repeat_cooldown_runs": 3
+    },
+    {
+      "id": "family-tool",
+      "label": "工具站",
+      "enabled": false,
+      "generator": "build-tool-site.mjs",
+      "source_repo": "future/site-factory",
+      "layout_signatures": [
+        "tool-home",
+        "single-tool-focus",
+        "faq-tool-layout"
+      ],
+      "allowed_page_types": ["tool", "guide"],
+      "visual_variants": ["app-clean", "console-dark", "mobile-utility"],
+      "repeat_cooldown_runs": 3
+    },
+    {
+      "id": "family-lead",
+      "label": "引流站",
+      "enabled": false,
+      "generator": "build-lead-site.mjs",
+      "source_repo": "future/site-factory",
+      "layout_signatures": [
+        "topic-landing",
+        "compare-page",
+        "conversion-sidebar"
+      ],
+      "allowed_page_types": ["service", "article", "guide"],
+      "visual_variants": ["trust-clean", "sales-brief", "comparison-light"],
+      "repeat_cooldown_runs": 4
+    },
+    {
+      "id": "family-analysis",
+      "label": "技术分析站",
+      "enabled": false,
+      "generator": "build-analysis-site.mjs",
+      "source_repo": "future/site-factory",
+      "layout_signatures": [
+        "editorial-longform",
+        "briefing-layout",
+        "report-summary"
+      ],
+      "allowed_page_types": ["article", "guide"],
+      "visual_variants": ["editorial", "report-clean", "insight-dark"],
+      "repeat_cooldown_runs": 4
+    }
+  ]
+}
