@@ -1,0 +1,223 @@
+[
+  {
+    "type": "home",
+    "title": "fy 出海工具导航",
+    "url": "https://fyrghdyrgh-dot.github.io/fy-global-tools/"
+  },
+  {
+    "type": "category",
+    "title": "中文 AI 工具专题",
+    "category": "zh-ai-tools",
+    "url": "https://fyrghdyrgh-dot.github.io/fy-global-tools/zh-ai-tools/"
+  },
+  {
+    "type": "category",
+    "title": "越南语 AI 专题",
+    "category": "vi-ai-tools",
+    "url": "https://fyrghdyrgh-dot.github.io/fy-global-tools/vi-ai-tools/"
+  },
+  {
+    "type": "category",
+    "title": "客服与用户运营",
+    "category": "customer-growth",
+    "url": "https://fyrghdyrgh-dot.github.io/fy-global-tools/customer-growth/"
+  },
+  {
+    "type": "category",
+    "title": "电商与产品内容",
+    "category": "ecommerce-content",
+    "url": "https://fyrghdyrgh-dot.github.io/fy-global-tools/ecommerce-content/"
+  },
+  {
+    "type": "category",
+    "title": "翻译与语言处理",
+    "category": "translation-language",
+    "url": "https://fyrghdyrgh-dot.github.io/fy-global-tools/translation-language/"
+  },
+  {
+    "type": "category",
+    "title": "数据处理",
+    "category": "data-processing",
+    "url": "https://fyrghdyrgh-dot.github.io/fy-global-tools/data-processing/"
+  },
+  {
+    "type": "guide",
+    "title": "中文 AI 写作助手怎么用更稳",
+    "category": "zh-ai-tools",
+    "url": "https://fyrghdyrgh-dot.github.io/fy-global-tools/zh-ai-writing-assistant/"
+  },
+  {
+    "type": "guide",
+    "title": "中文 AI 客服回复的写法",
+    "category": "zh-ai-tools",
+    "url": "https://fyrghdyrgh-dot.github.io/fy-global-tools/zh-ai-customer-reply/"
+  },
+  {
+    "type": "guide",
+    "title": "越南语商品文案怎么用 AI 起草",
+    "category": "vi-ai-tools",
+    "url": "https://fyrghdyrgh-dot.github.io/fy-global-tools/vi-ai-product-copy/"
+  },
+  {
+    "type": "article",
+    "title": "中文到越南语本地化检查清单",
+    "category": "vi-ai-tools",
+    "url": "https://fyrghdyrgh-dot.github.io/fy-global-tools/zh-vi-localization-checklist/"
+  },
+  {
+    "type": "guide",
+    "title": "客服回复 SOP 怎么整理",
+    "category": "customer-growth",
+    "url": "https://fyrghdyrgh-dot.github.io/fy-global-tools/customer-service-reply-playbook/"
+  },
+  {
+    "type": "article",
+    "title": "私域 FAQ 知识库应该怎么搭",
+    "category": "customer-growth",
+    "url": "https://fyrghdyrgh-dot.github.io/fy-global-tools/private-domain-faq-library/"
+  },
+  {
+    "type": "guide",
+    "title": "商品详情页文案结构怎么排更顺",
+    "category": "ecommerce-content",
+    "url": "https://fyrghdyrgh-dot.github.io/fy-global-tools/product-detail-copy/"
+  },
+  {
+    "type": "article",
+    "title": "落地页结构模板怎么搭更像真实页面",
+    "category": "ecommerce-content",
+    "url": "https://fyrghdyrgh-dot.github.io/fy-global-tools/landing-page-structure/"
+  },
+  {
+    "type": "guide",
+    "title": "中文与越南语本地化协作怎么分工",
+    "category": "translation-language",
+    "url": "https://fyrghdyrgh-dot.github.io/fy-global-tools/zh-vi-localization/"
+  },
+  {
+    "type": "tool",
+    "title": "多语文案校对流程与检查点",
+    "category": "translation-language",
+    "url": "https://fyrghdyrgh-dot.github.io/fy-global-tools/multilingual-copy-review/"
+  },
+  {
+    "type": "tool",
+    "title": "CSV 清洗与整理工作流",
+    "category": "data-processing",
+    "url": "https://fyrghdyrgh-dot.github.io/fy-global-tools/csv-cleanup-workflow/"
+  },
+  {
+    "type": "tool",
+    "title": "JSON 格式化与结构对比",
+    "category": "data-processing",
+    "url": "https://fyrghdyrgh-dot.github.io/fy-global-tools/json-format-compare/"
+  },
+  {
+    "type": "guide",
+    "title": "中文 AI 提纲生成流程",
+    "category": "zh-ai-tools",
+    "url": "https://fyrghdyrgh-dot.github.io/fy-global-tools/zh-ai-outline-workflow/"
+  },
+  {
+    "type": "guide",
+    "title": "中文文章改写时怎么减少套话",
+    "category": "zh-ai-tools",
+    "url": "https://fyrghdyrgh-dot.github.io/fy-global-tools/zh-ai-article-rewrite/"
+  },
+  {
+    "type": "article",
+    "title": "中文标题润色时该保留什么",
+    "category": "zh-ai-tools",
+    "url": "https://fyrghdyrgh-dot.github.io/fy-global-tools/zh-ai-title-polish/"
+  },
+  {
+    "type": "guide",
+    "title": "越南语客服对话初稿怎么写",
+    "category": "vi-ai-tools",
+    "url": "https://fyrghdyrgh-dot.github.io/fy-global-tools/vi-ai-customer-chat/"
+  },
+  {
+    "type": "article",
+    "title": "越南语广告文案上线前检查点",
+    "category": "vi-ai-tools",
+    "url": "https://fyrghdyrgh-dot.github.io/fy-global-tools/vietnamese-ad-copy-checklist/"
+  },
+  {
+    "type": "guide",
+    "title": "越南语市场关键词整理方法",
+    "category": "vi-ai-tools",
+    "url": "https://fyrghdyrgh-dot.github.io/fy-global-tools/vi-market-keyword-notes/"
+  },
+  {
+    "type": "guide",
+    "title": "新用户欢迎语怎么写更自然",
+    "category": "customer-growth",
+    "url": "https://fyrghdyrgh-dot.github.io/fy-global-tools/onboarding-message-template/"
+  },
+  {
+    "type": "article",
+    "title": "退款 FAQ 结构怎么写更清楚",
+    "category": "customer-growth",
+    "url": "https://fyrghdyrgh-dot.github.io/fy-global-tools/refund-faq-structure/"
+  },
+  {
+    "type": "guide",
+    "title": "线索初筛时要先问什么",
+    "category": "customer-growth",
+    "url": "https://fyrghdyrgh-dot.github.io/fy-global-tools/lead-qualification-checklist/"
+  },
+  {
+    "type": "article",
+    "title": "价格页文案结构怎么排更清楚",
+    "category": "ecommerce-content",
+    "url": "https://fyrghdyrgh-dot.github.io/fy-global-tools/pricing-page-copy-structure/"
+  },
+  {
+    "type": "guide",
+    "title": "SKU 卖点矩阵怎么整理",
+    "category": "ecommerce-content",
+    "url": "https://fyrghdyrgh-dot.github.io/fy-global-tools/sku-selling-points-matrix/"
+  },
+  {
+    "type": "guide",
+    "title": "活动落地页上线前检查清单",
+    "category": "ecommerce-content",
+    "url": "https://fyrghdyrgh-dot.github.io/fy-global-tools/promotion-landing-checklist/"
+  },
+  {
+    "type": "article",
+    "title": "中英术语表怎么建更省事",
+    "category": "translation-language",
+    "url": "https://fyrghdyrgh-dot.github.io/fy-global-tools/english-chinese-term-base/"
+  },
+  {
+    "type": "guide",
+    "title": "应用界面文案本地化要先看什么",
+    "category": "translation-language",
+    "url": "https://fyrghdyrgh-dot.github.io/fy-global-tools/app-ui-copy-localization/"
+  },
+  {
+    "type": "tool",
+    "title": "字幕长度检查与换行建议",
+    "category": "translation-language",
+    "url": "https://fyrghdyrgh-dot.github.io/fy-global-tools/subtitle-length-checker/"
+  },
+  {
+    "type": "tool",
+    "title": "Markdown 表格清理步骤",
+    "category": "data-processing",
+    "url": "https://fyrghdyrgh-dot.github.io/fy-global-tools/markdown-table-cleaner/"
+  },
+  {
+    "type": "guide",
+    "title": "文本去重前先确认什么",
+    "category": "data-processing",
+    "url": "https://fyrghdyrgh-dot.github.io/fy-global-tools/text-dedup-checklist/"
+  },
+  {
+    "type": "article",
+    "title": "列映射模板怎么整理",
+    "category": "data-processing",
+    "url": "https://fyrghdyrgh-dot.github.io/fy-global-tools/column-mapping-template/"
+  }
+]

@@ -1,13 +1,19 @@
 import { mkdirSync, rmSync, writeFileSync } from "node:fs";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
+import { fileURLToPath, pathToFileURL } from "node:url";
 
-import config from "../root-site.config.mjs";
+const configModulePath = process.env.ROOT_SITE_CONFIG
+  ? pathToFileURL(path.resolve(process.env.ROOT_SITE_CONFIG)).href
+  : new URL("../root-site.config.mjs", import.meta.url).href;
+const { default: config } = await import(configModulePath);
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const rootDir = path.resolve(__dirname, "..");
-const outputDir = path.join(rootDir, "root-home-site");
+const outputDir = process.env.ROOT_SITE_OUTPUT_DIR
+  ? path.resolve(process.env.ROOT_SITE_OUTPUT_DIR)
+  : path.join(rootDir, "root-home-site");
 const buildDate = new Date().toISOString().slice(0, 10);
+const basePath = new URL(config.site.baseUrl).pathname.replace(/\/$/, "");
 
 const categoryMap = new Map(config.categories.map((category) => [category.slug, category]));
 const pagesByCategory = new Map(
@@ -86,13 +92,22 @@ function escapeHtml(value) {
 
 function safeHref(href) {
   if (!href) {
-    return "/";
+    return `${basePath || ""}/`;
   }
   if (/^https?:\/\//.test(href)) {
     return href;
   }
+  if (href.startsWith("#")) {
+    return `${basePath || ""}/${href}`;
+  }
   const clean = href.replace(/^\/+/, "");
-  return `/${clean.replace(/\/?$/, "/")}`;
+  if (clean.startsWith("#")) {
+    return `${basePath || ""}/${clean}`;
+  }
+  if (!clean) {
+    return `${basePath || ""}/`;
+  }
+  return `${basePath}/${clean.replace(/\/?$/, "/")}` || `/${clean.replace(/\/?$/, "/")}`;
 }
 
 function bodyVars(theme) {
@@ -222,11 +237,12 @@ function pageKeywords(page, category) {
 }
 
 function renderSiteHeader(activeKey = "home", currentLabel = "") {
+  const tutorialCategory = config.categories.find((item) => item.slug === "knowledge-docs") || config.categories[0];
   const navs = [
     { key: "home", label: "首页", href: "/" },
     { key: "latest", label: "最新上架", href: "/#featured" },
     { key: "popular", label: "最受欢迎", href: "/#directory" },
-    { key: "tutorial", label: "免费教程", href: "/knowledge-docs/" },
+    { key: "tutorial", label: "免费教程", href: `/${tutorialCategory.slug}/` },
     { key: "submit", label: "收录申请", href: "/#submit" },
     { key: "contact", label: "联系我们", href: "/#contact" }
   ];
@@ -234,15 +250,15 @@ function renderSiteHeader(activeKey = "home", currentLabel = "") {
   return `<header class="site-header">
     <div class="shell topbar">
       <div class="brand-wrap">
-        <a class="brand-chip" href="/">${escapeHtml(config.site.navBrandShort)}</a>
-        <a class="brand-title" href="/">${escapeHtml(config.site.brand)}</a>
+        <a class="brand-chip" href="${safeHref("/")}">${escapeHtml(config.site.navBrandShort)}</a>
+        <a class="brand-title" href="${safeHref("/")}">${escapeHtml(config.site.brand)}</a>
       </div>
       <nav class="top-nav">
-        ${navs.map((item) => `<a class="${item.key === activeKey ? "is-active" : ""}" href="${item.href}">${item.label}</a>`).join("")}
+        ${navs.map((item) => `<a class="${item.key === activeKey ? "is-active" : ""}" href="${safeHref(item.href)}">${item.label}</a>`).join("")}
       </nav>
       <div class="top-actions">
-        <a class="ghost-link" href="/#contact">登录</a>
-        <a class="submit-link" href="/#submit">提交工具</a>
+        <a class="ghost-link" href="${safeHref("/#contact")}">登录</a>
+        <a class="submit-link" href="${safeHref("/#submit")}">提交工具</a>
       </div>
     </div>
     ${currentLabel ? `<div class="shell crumb-bar">${currentLabel}</div>` : ""}
@@ -285,7 +301,7 @@ function renderHomePage() {
     {
       "@context": "https://schema.org",
       "@type": "ItemList",
-      name: "fybot 网站导航热门推荐",
+      name: `${config.site.title}热门推荐`,
       itemListElement: featuredPages.slice(0, 6).map((page, index) => ({
         "@type": "ListItem",
         position: index + 1,
@@ -352,7 +368,7 @@ ${renderMeta({
         <div class="sidebar-card">
           <h2>分类导航</h2>
           <nav class="sidebar-nav">
-            <a class="is-active" href="/#directory">全部工具</a>
+            <a class="is-active" href="${safeHref("/#directory")}">全部工具</a>
             ${config.categories.map((category, index) => {
               const pages = pagesByCategory.get(category.slug) || [];
               return `<a href="#group-${index}"><span class="nav-icon">${categoryIcon(category.slug)}</span>${escapeHtml(category.name)}<em>${pages.length}</em></a>`;
@@ -388,7 +404,7 @@ function renderCategorySection(category, index) {
           <span>${escapeHtml(sectionCountSummary(pages))}</span>
         </div>
       </div>
-      <a class="section-link" href="/${category.slug}/">查看分类页</a>
+      <a class="section-link" href="${safeHref(`/${category.slug}/`)}">查看分类页</a>
     </div>
     <div class="card-grid">
       ${pages.map((page) => renderSiteCard(page, category)).join("")}
@@ -399,10 +415,10 @@ function renderCategorySection(category, index) {
 function renderCategoryIndexCard(category) {
   const pages = pagesByCategory.get(category.slug) || [];
   return `<article class="index-card" style="${bodyVars(category.theme)}">
-    <h3><a href="/${category.slug}/">${escapeHtml(category.name)}</a></h3>
+    <h3><a href="${safeHref(`/${category.slug}/`)}">${escapeHtml(category.name)}</a></h3>
     <p>${escapeHtml(category.intro)}</p>
     <div class="index-links">
-      ${pages.slice(0, 3).map((page) => `<a href="/${page.slug}/">${escapeHtml(page.title)}</a>`).join("")}
+      ${pages.slice(0, 3).map((page) => `<a href="${safeHref(`/${page.slug}/`)}">${escapeHtml(page.title)}</a>`).join("")}
     </div>
   </article>`;
 }
@@ -447,7 +463,7 @@ function renderCategoryPage(category) {
 <html lang="zh-CN">
 <head>
 ${renderMeta({
-  title: `${category.name} - fybot 网站导航`,
+  title: `${category.name} - ${config.site.title}`,
   description: category.summary,
   canonical,
   cssFiles: ["../assets/base.css", "../assets/hub.css"],
@@ -455,7 +471,7 @@ ${renderMeta({
 })}
 </head>
 <body class="hub-body" style="${bodyVars(category.theme)}">
-  ${renderSiteHeader("popular", `<a href="/">首页</a> / ${escapeHtml(category.name)}`)}
+  ${renderSiteHeader("popular", `<a href="${safeHref("/")}">首页</a> / ${escapeHtml(category.name)}`)}
   <main class="shell">
     ${renderSearchPanel(`在 ${category.name} 中搜索关键词，比如：${sampleKeywords(category)}`)}
     <section class="hub-layout">
@@ -463,7 +479,7 @@ ${renderMeta({
         <div class="sidebar-card">
           <h2>分类导航</h2>
           <nav class="sidebar-nav">
-            ${config.categories.map((item) => `<a class="${item.slug === category.slug ? "is-active" : ""}" href="/${item.slug}/"><span class="nav-icon">${categoryIcon(item.slug)}</span>${escapeHtml(item.name)}</a>`).join("")}
+            ${config.categories.map((item) => `<a class="${item.slug === category.slug ? "is-active" : ""}" href="${safeHref(`/${item.slug}/`)}"><span class="nav-icon">${categoryIcon(item.slug)}</span>${escapeHtml(item.name)}</a>`).join("")}
           </nav>
         </div>
         <div class="sidebar-card">
@@ -478,7 +494,7 @@ ${renderMeta({
         <div class="sidebar-card">
           <h2>${escapeHtml(category.name)}</h2>
           <nav class="sidebar-subnav compact-subnav">
-            ${pages.map((page) => `<a href="/${page.slug}/">${escapeHtml(page.title)}</a>`).join("")}
+            ${pages.map((page) => `<a href="${safeHref(`/${page.slug}/`)}">${escapeHtml(page.title)}</a>`).join("")}
           </nav>
         </div>
       </aside>
@@ -542,7 +558,7 @@ function renderContentPage(page) {
 <html lang="zh-CN">
 <head>
 ${renderMeta({
-  title: `${page.title} - fybot 网站导航`,
+  title: `${page.title} - ${config.site.title}`,
   description: page.description,
   canonical,
   cssFiles: ["../assets/base.css", "../assets/detail.css"],
@@ -551,20 +567,20 @@ ${renderMeta({
 })}
 </head>
 <body class="detail-body" style="${bodyVars(category.theme)}">
-  ${renderSiteHeader("popular", `<a href="/">首页</a> / <a href="/${category.slug}/">${escapeHtml(category.name)}</a> / ${escapeHtml(page.title)}`)}
+  ${renderSiteHeader("popular", `<a href="${safeHref("/")}">首页</a> / <a href="${safeHref(`/${category.slug}/`)}">${escapeHtml(category.name)}</a> / ${escapeHtml(page.title)}`)}
   <main class="shell">
     <section class="detail-layout">
       <aside class="detail-sidebar">
         <div class="sidebar-card">
           <h2>当前分类</h2>
           <nav class="sidebar-nav">
-            ${config.categories.map((item) => `<a class="${item.slug === category.slug ? "is-active" : ""}" href="/${item.slug}/"><span class="nav-icon">${categoryIcon(item.slug)}</span>${escapeHtml(item.name)}</a>`).join("")}
+            ${config.categories.map((item) => `<a class="${item.slug === category.slug ? "is-active" : ""}" href="${safeHref(`/${item.slug}/`)}"><span class="nav-icon">${categoryIcon(item.slug)}</span>${escapeHtml(item.name)}</a>`).join("")}
           </nav>
         </div>
         <div class="sidebar-card">
           <h2>本类页面</h2>
           <nav class="sidebar-subnav">
-            ${categoryPages.map((item) => `<a class="${item.slug === page.slug ? "is-current" : ""}" href="/${item.slug}/">${escapeHtml(item.title)}</a>`).join("")}
+            ${categoryPages.map((item) => `<a class="${item.slug === page.slug ? "is-current" : ""}" href="${safeHref(`/${item.slug}/`)}">${escapeHtml(item.title)}</a>`).join("")}
           </nav>
         </div>
         <div class="sidebar-card">
@@ -593,7 +609,7 @@ ${renderMeta({
           </div>
           <div class="detail-actions">
             <a class="button button-primary" href="${safeHref(directHref(page))}">${escapeHtml(page.ctaLabel || "直达链接")}</a>
-            <a class="button button-secondary" href="/${category.slug}/">${escapeHtml(page.secondaryLabel || "返回分类")}</a>
+            <a class="button button-secondary" href="${safeHref(`/${category.slug}/`)}">${escapeHtml(page.secondaryLabel || "返回分类")}</a>
           </div>
         </section>
 
@@ -730,7 +746,7 @@ function renderSiteCard(page, category) {
       <div class="card-brand">
         <div class="card-mark">${escapeHtml(pageMark(page))}</div>
         <div class="card-copy">
-          <h3><a href="/${page.slug}/">${escapeHtml(page.title)}</a></h3>
+          <h3><a href="${safeHref(`/${page.slug}/`)}">${escapeHtml(page.title)}</a></h3>
           <div class="card-tags">
             <span>${escapeHtml(typeLabel(page.type))}</span>
             <span>${escapeHtml(metricTag(page))}</span>
@@ -755,9 +771,9 @@ function renderMiniCard(page) {
       <span class="mini-type">${escapeHtml(typeLabel(page.type))}</span>
       <span class="mini-category">${escapeHtml(category.name)}</span>
     </div>
-    <h3><a href="/${page.slug}/">${escapeHtml(page.title)}</a></h3>
+    <h3><a href="${safeHref(`/${page.slug}/`)}">${escapeHtml(page.title)}</a></h3>
     <p>${escapeHtml(page.summary)}</p>
-    <a class="mini-link" href="/${page.slug}/">查看详情</a>
+    <a class="mini-link" href="${safeHref(`/${page.slug}/`)}">查看详情</a>
   </article>`;
 }
 
@@ -774,6 +790,14 @@ function sampleKeywords(category) {
 }
 
 function renderFooter() {
+  const aiCategory =
+    config.categories.find((item) => item.slug === "zh-ai-tools") ||
+    config.categories.find((item) => item.slug === "vi-ai-tools") ||
+    config.categories[0];
+  const serviceCategory =
+    config.categories.find((item) => item.slug === "server-idc") ||
+    config.categories.find((item) => item.slug === "customer-growth") ||
+    config.categories.at(-1);
   return `<footer class="site-footer" id="contact">
     <div class="shell footer-grid">
       <div>
@@ -781,9 +805,9 @@ function renderFooter() {
         <p class="footer-text">按分类浏览，按卡片进入，服务器相关入口统一导向 1bgp，其它页面优先承接真实搜索意图。</p>
       </div>
       <div class="footer-links">
-        <a href="/#directory">网站目录</a>
-        <a href="/zh-ai-tools/">AI 专题</a>
-        <a href="/server-idc/">服务器与 IDC</a>
+        <a href="${safeHref("/#directory")}">网站目录</a>
+        <a href="${safeHref(`/${aiCategory.slug}/`)}">${escapeHtml(aiCategory.name)}</a>
+        <a href="${safeHref(`/${serviceCategory.slug}/`)}">${escapeHtml(serviceCategory.name)}</a>
         <a href="${config.site.serverTarget}">1bgp</a>
       </div>
     </div>
@@ -795,21 +819,21 @@ function renderNotFoundPage() {
 <html lang="zh-CN">
 <head>
 ${renderMeta({
-  title: "页面未找到 - fybot 网站导航",
-  description: "返回 fybot 网站导航首页，继续查看分类和工具入口。",
+  title: `页面未找到 - ${config.site.title}`,
+  description: `返回 ${config.site.title}首页，继续查看分类和工具入口。`,
   canonical: absoluteUrl("404.html"),
   cssFiles: ["./assets/base.css", "./assets/detail.css"]
 })}
 </head>
 <body class="detail-body" style="${bodyVars(config.categories[0].theme)}">
-  ${renderSiteHeader("home", `<a href="/">首页</a> / 404`)}
+  ${renderSiteHeader("home", `<a href="${safeHref("/")}">首页</a> / 404`)}
   <main class="shell">
     <section class="detail-panel detail-empty">
       <h1>这个页面不存在</h1>
-      <p>你可以返回 fybot 网站导航首页，继续查看左侧分类和站点卡片。</p>
+      <p>你可以返回 ${escapeHtml(config.site.title)}首页，继续查看左侧分类和站点卡片。</p>
       <div class="detail-actions">
-        <a class="button button-primary" href="/">返回首页</a>
-        <a class="button button-secondary" href="/server-idc/">查看服务器与 IDC</a>
+        <a class="button button-primary" href="${safeHref("/")}">返回首页</a>
+        <a class="button button-secondary" href="${safeHref(`/${config.categories[0].slug}/`)}">查看站点分类</a>
       </div>
     </section>
   </main>

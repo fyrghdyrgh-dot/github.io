@@ -1,0 +1,64 @@
+.hub-layout {
+  display: grid;
+  grid-template-columns: 240px minmax(0, 1fr);
+  gap: 20px;
+  align-items: start;
+}
+.hub-sidebar {
+  position: sticky;
+  top: 92px;
+  display: grid;
+  gap: 16px;
+}
+.hub-content {
+  display: grid;
+  gap: 18px;
+}
+.hub-hero {
+  padding: 24px;
+}
+.hub-intro {
+  margin-top: 12px;
+  color: var(--muted);
+  font-size: 15px;
+}
+.hub-meta {
+  margin-top: 16px;
+}
+.hub-copy {
+  display: grid;
+  gap: 10px;
+  margin-top: 16px;
+}
+.hub-copy p {
+  color: var(--muted);
+  font-size: 14px;
+}
+.hub-section {
+  padding: 22px;
+  border-radius: 20px;
+  background: white;
+  border: 1px solid color-mix(in srgb, var(--accent) 10%, #d9dde8);
+  box-shadow: 0 14px 30px rgba(15, 23, 42, 0.04);
+}
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+@media (max-width: 1024px) {
+  .hub-layout {
+    grid-template-columns: 1fr;
+  }
+  .hub-sidebar {
+    position: static;
+  }
+  .card-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 640px) {
+  .card-grid {
+    grid-template-columns: 1fr;
+  }
+}
